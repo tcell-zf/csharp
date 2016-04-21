@@ -45,6 +45,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TcpClientCommander.cs" />
     <Compile Include="UdpClientCommander.cs" />
+    <Compile Include="UdpServerCommander.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TCell.Abstraction\TCell.Abstraction.csproj">
