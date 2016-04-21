@@ -40,7 +40,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstraction.cs" />
+    <Compile Include="Configuratons.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UdpClientCommander.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TCell.Abstraction\TCell.Abstraction.csproj">
+      <Project>{408281ba-340b-4175-bec4-e51757c27a63}</Project>
+      <Name>TCell.Abstraction</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TCell.Entities\TCell.Entities.csproj">
+      <Project>{bc4624ab-56e1-42f7-ad7a-7e9cad8ad669}</Project>
+      <Name>TCell.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -52,6 +52,14 @@ namespace TCell.Configuration.IPEndPoint
             set { base[WriteTimeoutAttribute] = value; }
         }
 
+        private const string BufferLengthAttribute = "BufferLength";
+        [ConfigurationProperty(BufferLengthAttribute, IsRequired = false)]
+        public string BufferLength
+        {
+            get { return (string)this[BufferLengthAttribute]; }
+            set { base[BufferLengthAttribute] = value; }
+        }
+
         new public string ToString()
         {
             return $"IPEndPointConfigItem: {nameof(Id)}={Id},{nameof(Protocol)}={Protocol},{nameof(IP)}={IP},{nameof(Port)}={Port},{nameof(ReadTimeout)}={ReadTimeout},{nameof(WriteTimeout)}={WriteTimeout}";

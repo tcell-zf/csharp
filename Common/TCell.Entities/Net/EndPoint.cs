@@ -36,5 +36,7 @@ namespace TCell.Entities.Net
 
         public uint? ReadTimeout { get; set; }
         public uint? WriteTimeout { get; set; }
+
+        public uint? BufferLength { get; set; }
     }
 }
