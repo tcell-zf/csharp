@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Collections.Generic;
 
-using TCell.Helpers;
+using TCell.Abstraction;
 using ENTITIES = TCell.Entities.Net;
 using TCell.Configuration.IPEndPoint;
 
@@ -45,15 +45,24 @@ namespace TCell.Mapping
                     writeTimeout = timeout;
             }
 
-            return new ENTITIES.EndPoint()
+            ENTITIES.EndPoint endPoint = null;
+            try
             {
-                Id = configItem.Id,
-                Protocol = protocol,
-                IP = ip,
-                Port = port,
-                ReadTimeout = readTimeout,
-                WriteTimeout = writeTimeout
-            };
+                endPoint = new ENTITIES.EndPoint()
+                {
+                    Id = configItem.Id,
+                    Protocol = protocol,
+                    IP = ip,
+                    Port = port,
+                    ReadTimeout = readTimeout,
+                    WriteTimeout = writeTimeout
+                };
+            }
+            catch (Exception ex)
+            {
+                LogException($"Failed to map [{configItem}] to {nameof(ENTITIES.EndPoint)}.", ex);
+            }
+            return endPoint;
         }
 
         static public List<ENTITIES.EndPoint> MapNetEndpoints(List<IPEndPointConfigItem> configItems)
@@ -71,7 +80,7 @@ namespace TCell.Mapping
                 }
                 catch (Exception ex)
                 {
-                    LogException($"Failed to map [{configItem}] to {nameof(ENTITIES.EndPoint)}.", ex);
+                    LogException($"Failed to map [{configItem}] to {nameof(ENTITIES.EndPoint)} in endpoint list.", ex);
                 }
 
                 if (endPoint != null)

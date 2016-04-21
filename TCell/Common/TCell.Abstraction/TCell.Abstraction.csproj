@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C9BBAA09-5AA3-4271-A214-AA214E494D4F}</ProjectGuid>
+    <ProjectGuid>{408281BA-340B-4175-BEC4-E51757C27A63}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TCell.Mapping</RootNamespace>
-    <AssemblyName>TCell.Mapping</AssemblyName>
+    <RootNamespace>TCell.Abstraction</RootNamespace>
+    <AssemblyName>TCell.Abstraction</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,23 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigItemToEntity.cs" />
+    <Compile Include="Loggable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
-    <ProjectReference Include="..\TCell.Abstraction\TCell.Abstraction.csproj">
-      <Project>{408281ba-340b-4175-bec4-e51757c27a63}</Project>
-      <Name>TCell.Abstraction</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TCell.Configuration\TCell.Configuration.csproj">
-      <Project>{27e630e7-fb52-47a7-b902-7eb0e0b12795}</Project>
-      <Name>TCell.Configuration</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TCell.Entities\TCell.Entities.csproj">
-      <Project>{bc4624ab-56e1-42f7-ad7a-7e9cad8ad669}</Project>
-      <Name>TCell.Entities</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
