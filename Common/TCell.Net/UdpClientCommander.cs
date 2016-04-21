@@ -40,7 +40,7 @@ namespace TCell.Net
             {
                 using (UdpClient udpClient = (EndPoints.LocalEndPoint == null) ? new UdpClient() : new UdpClient((int)EndPoints.LocalEndPoint.Port))
                 {
-                    udpClient.Connect(EndPoints.RemoteEndPoint.IP, (int)EndPoints.RemoteEndPoint.Port);
+                    udpClient.Connect(EndPoints.GetRemoteNetEndPoint());
                     sent = udpClient.Send(dgram, dgram.Length);
                     udpClient.Close();
                 }

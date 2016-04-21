@@ -43,6 +43,7 @@
     <Compile Include="Abstraction.cs" />
     <Compile Include="Configuratons.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TcpClientCommander.cs" />
     <Compile Include="UdpClientCommander.cs" />
   </ItemGroup>
   <ItemGroup>
