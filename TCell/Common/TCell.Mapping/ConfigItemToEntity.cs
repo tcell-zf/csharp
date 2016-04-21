@@ -30,19 +30,26 @@ namespace TCell.Mapping
             if (!uint.TryParse(configItem.Port, out port))
                 throw new ArgumentException($"{configItem.Port} cannot be parsed as uint.", nameof(configItem.Port));
 
-            uint timeout;
+            uint uintVal;
             uint? readTimeout = null;
             if (!string.IsNullOrEmpty(configItem.ReadTimeout))
             {
-                if (uint.TryParse(configItem.ReadTimeout, out timeout))
-                    readTimeout = timeout;
+                if (uint.TryParse(configItem.ReadTimeout, out uintVal))
+                    readTimeout = uintVal;
             }
 
             uint? writeTimeout = null;
             if (!string.IsNullOrEmpty(configItem.WriteTimeout))
             {
-                if (uint.TryParse(configItem.WriteTimeout, out timeout))
-                    writeTimeout = timeout;
+                if (uint.TryParse(configItem.WriteTimeout, out uintVal))
+                    writeTimeout = uintVal;
+            }
+
+            uint? bufferLength = null;
+            if (!string.IsNullOrEmpty(configItem.BufferLength))
+            {
+                if (uint.TryParse(configItem.BufferLength, out uintVal))
+                    bufferLength = uintVal;
             }
 
             ENTITIES.EndPoint endPoint = null;
@@ -55,7 +62,8 @@ namespace TCell.Mapping
                     IP = ip,
                     Port = port,
                     ReadTimeout = readTimeout,
-                    WriteTimeout = writeTimeout
+                    WriteTimeout = writeTimeout,
+                    BufferLength = bufferLength
                 };
             }
             catch (Exception ex)
