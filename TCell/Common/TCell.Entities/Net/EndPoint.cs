@@ -21,7 +21,7 @@ namespace TCell.Entities.Net
 
         public IPAddress IP { get; set; }
 
-        private uint port;
+        private uint port = 10000;
         public uint Port
         {
             get { return port; }
