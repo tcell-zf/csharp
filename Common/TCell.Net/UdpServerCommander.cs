@@ -25,7 +25,7 @@ namespace TCell.Net
                 }
                 catch { return; }
 
-                while (!IsCancellationRequested)
+                while (!IsListeningCancellationRequested)
                 {
                     try
                     {
