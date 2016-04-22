@@ -17,6 +17,23 @@ namespace TCell.Net
 
         private Dictionary<TcpClient, TaskFacility> tcpClientWorkers = null;
 
+        public override bool Stop()
+        {
+            if (tcpClientWorkers != null && tcpClientWorkers.Count > 0)
+            {
+                foreach (KeyValuePair<TcpClient, TaskFacility> kv in tcpClientWorkers)
+                {
+                    kv.Value.CancelTask();
+                    kv.Key.Close();
+                }
+
+                tcpClientWorkers.Clear();
+                tcpClientWorkers = null;
+            }
+
+            return base.Stop();
+        }
+
         private void DoListeningWork()
         {
             TcpListener tcpListener = new TcpListener(EndPoints.GetLocalNetEndPoint());
