@@ -1,6 +1,8 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Net.Sockets;
+using System.Net.NetworkInformation;
 using System.Collections.Generic;
 
 using TCell.Entities.Threading;
@@ -17,9 +19,36 @@ namespace TCell.Net
 
         private Dictionary<TcpClient, TaskFacility> tcpClientWorkers = null;
 
+        protected override bool IsLocalPortInUse
+        {
+            get
+            {
+                bool isInUse = false;
+
+                IPGlobalProperties ipProperties = IPGlobalProperties.GetIPGlobalProperties();
+                System.Net.IPEndPoint[] ipEndPoints = ipProperties.GetActiveTcpListeners();
+
+                foreach (System.Net.IPEndPoint endPoint in ipEndPoints)
+                {
+                    if (endPoint.Port == EndPoints.LocalEndPoint.Port)
+                    {
+                        isInUse = true;
+                        break;
+                    }
+                }
+
+                if (isInUse)
+                    TcpServerCommander.LogException($"TCP listener port {EndPoints.LocalEndPoint.Port} is in use.", null);
+
+                return isInUse;
+            }
+        }
+
         public override bool Start()
         {
-            ListeningHandler += DoListeningWork;
+            if (IsLocalPortInUse)
+                return false;
+
             return base.Start();
         }
 
@@ -44,20 +73,27 @@ namespace TCell.Net
 
         private void DoListeningWork()
         {
-            TcpListener tcpListener = new TcpListener(EndPoints.GetLocalNetEndPoint());
-            tcpListener.Start();
-
-            while (!IsListeningCancellationRequested)
+            try
             {
-                TcpClient tcpClient = tcpListener.AcceptTcpClient();
-                if (EndPoints.LocalEndPoint.ReadTimeout != null)
-                    tcpClient.ReceiveTimeout = (int)EndPoints.LocalEndPoint.ReadTimeout;
-                if (EndPoints.LocalEndPoint.WriteTimeout != null)
-                    tcpClient.SendTimeout = (int)EndPoints.LocalEndPoint.WriteTimeout;
-                if (EndPoints.LocalEndPoint.BufferLength != null)
-                    tcpClient.ReceiveBufferSize = tcpClient.SendBufferSize = (int)EndPoints.LocalEndPoint.BufferLength;
+                TcpListener tcpListener = new TcpListener(EndPoints.GetLocalNetEndPoint());
+                tcpListener.Start();
 
-                DoTcpClientWork(tcpClient);
+                while (!IsListeningCancellationRequested)
+                {
+                    TcpClient tcpClient = tcpListener.AcceptTcpClient();
+                    if (EndPoints.LocalEndPoint.ReadTimeout != null)
+                        tcpClient.ReceiveTimeout = (int)EndPoints.LocalEndPoint.ReadTimeout;
+                    if (EndPoints.LocalEndPoint.WriteTimeout != null)
+                        tcpClient.SendTimeout = (int)EndPoints.LocalEndPoint.WriteTimeout;
+                    if (EndPoints.LocalEndPoint.BufferLength != null)
+                        tcpClient.ReceiveBufferSize = tcpClient.SendBufferSize = (int)EndPoints.LocalEndPoint.BufferLength;
+
+                    DoTcpClientWork(tcpClient);
+                }
+            }
+            catch (Exception ex)
+            {
+                TcpServerCommander.LogException($"Start TCP listener failed: {ex.Message}", ex);
             }
         }
 
@@ -76,16 +112,23 @@ namespace TCell.Net
                     if (!client.Connected)
                         continue;
 
-                    NetworkStream stream = client.GetStream();
-                    int readLength;
-                    byte[] rawData = EndPoints.LocalEndPoint.BufferLength == null ? new byte[512] : new byte[(int)EndPoints.LocalEndPoint.BufferLength];
-                    while ((readLength = stream.Read(rawData, 0, rawData.Length)) != 0)
+                    try
                     {
-                        byte[] receivedDgram = new byte[readLength];
-                        for (int i = 0; i < readLength; i++)
-                            receivedDgram[i] = rawData[i];
+                        NetworkStream stream = client.GetStream();
+                        int readLength;
+                        byte[] rawData = EndPoints.LocalEndPoint.BufferLength == null ? new byte[512] : new byte[(int)EndPoints.LocalEndPoint.BufferLength];
+                        while ((readLength = stream.Read(rawData, 0, rawData.Length)) != 0)
+                        {
+                            byte[] receivedDgram = new byte[readLength];
+                            for (int i = 0; i < readLength; i++)
+                                receivedDgram[i] = rawData[i];
 
-                        HandleDatagramReceived?.Invoke(receivedDgram);
+                            HandleDatagramReceived?.Invoke(receivedDgram);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        TcpServerCommander.LogException($"Read TCP datagram failed: {ex.Message}", ex);
                     }
                 }
             }, tcpClient);

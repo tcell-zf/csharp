@@ -28,6 +28,9 @@ namespace TcpUdpServer
             udpEp = ConfigItemToEntity.MapNetEndpoint(ConfigurationHelper.GetIPEndPointsConfiguration("UdpServer"));
 
             ChangePortValue();
+            groupBoxProtocol.Enabled = true;
+            buttonStart.Enabled = true;
+            buttonStop.Enabled = false;
 
             Loggable.SetLogHandler(Log);
         }
@@ -63,12 +66,30 @@ namespace TcpUdpServer
                     LocalEndPoint = udpEp
                 });
             }
-            server.Start();
+            server.SetDatagramReceivedHandler(HandleDatagramReceived);
+            if (server.Start())
+            {
+                groupBoxProtocol.Enabled = false;
+                buttonStart.Enabled = false;
+                buttonStop.Enabled = true;
+                textBoxResults.Text = $"{DateTime.Now.ToString("hh:mm:ss")}: Server started.{Environment.NewLine}{textBoxResults.Text}";
+            }
+            else
+            {
+                groupBoxProtocol.Enabled = true;
+                buttonStart.Enabled = true;
+                buttonStop.Enabled = false;
+                textBoxResults.Text = $"{DateTime.Now.ToString("hh:mm:ss")}: Cannot started server!{Environment.NewLine}{textBoxResults.Text}";
+            }
         }
 
         private void buttonStop_Click(object sender, EventArgs e)
         {
             Stop();
+            groupBoxProtocol.Enabled = true;
+            buttonStart.Enabled = true;
+            buttonStop.Enabled = false;
+            textBoxResults.Text = $"{DateTime.Now.ToString("hh:mm:ss")}: Server stopped.{Environment.NewLine}{textBoxResults.Text}";
         }
 
         private void ChangePortValue()
@@ -97,6 +118,11 @@ namespace TcpUdpServer
         private void Log(string msg, Exception ex)
         {
             Logger.LoggerInstance.Log(msg, ex);
+        }
+
+        private void HandleDatagramReceived(byte[] dgram)
+        {
+
         }
     }
 }
