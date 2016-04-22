@@ -8,21 +8,19 @@ using TCell.Entities.Threading;
 
 namespace TCell.Net
 {
-    public interface INetCommander
+    public interface INetClient
     {
         bool Start();
         bool Stop();
-    }
 
-    public interface INetClient
-    {
         bool IsConnected { get; }
         bool Send(byte[] dgram);
     }
 
     public interface INetServer
     {
-
+        bool Start();
+        bool Stop();
     }
 
     abstract public class NetCommander : Loggable
@@ -38,7 +36,7 @@ namespace TCell.Net
         protected EndpointPair EndPoints { get; set; }
     }
 
-    abstract public class NetServerCommander : NetCommander
+    abstract public class NetServerCommander : NetCommander, INetServer
     {
         public Action<byte[]> HandleDatagramReceived = null;
 
@@ -77,12 +75,11 @@ namespace TCell.Net
 
         virtual public bool Start()
         {
-            task = new TaskFacility();
-            task.CancellationToken = new CancellationTokenSource();
-
             if (task != null)
                 Stop();
 
+            task = new TaskFacility();
+            task.CancellationToken = new CancellationTokenSource();
             task.TaskInstance = Task.Factory.StartNew(ListeningHandler);
             return (task.TaskInstance != null);
         }

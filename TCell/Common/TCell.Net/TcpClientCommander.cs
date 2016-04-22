@@ -3,7 +3,7 @@ using System.Net.Sockets;
 
 namespace TCell.Net
 {
-    public class TcpClientCommander : NetCommander, INetCommander, INetClient
+    public class TcpClientCommander : NetCommander, INetClient
     {
         public Action<byte[]> HandleDatagramReceived = null;
 

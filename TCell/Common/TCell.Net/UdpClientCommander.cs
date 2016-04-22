@@ -3,7 +3,7 @@ using System.Net.Sockets;
 
 namespace TCell.Net
 {
-    public class UdpClientCommander : NetCommander, INetCommander, INetClient
+    public class UdpClientCommander : NetCommander, INetClient
     {
         public UdpClientCommander(EndpointPair endpoints)
             : base(endpoints) { }
