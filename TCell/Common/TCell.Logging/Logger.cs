@@ -55,10 +55,13 @@ namespace TCell.Logging
 
         public void Log(string msg, Exception ex)
         {
+            string errMsg = msg;
+            if (ex != null)
+                errMsg = $"{msg}{Environment.NewLine}{ex.Source}{Environment.NewLine}{ex.StackTrace}";
             EntLib.LogEntry entry = new EntLib.LogEntry()
             {
                 Severity = TraceEventType.Error,
-                Message = string.Format("{0}{1}{2}", msg, Environment.NewLine, ex.StackTrace),
+                Message = errMsg,
                 TimeStamp = DateTime.Now
             };
             EntLib.Logger.Write(entry);

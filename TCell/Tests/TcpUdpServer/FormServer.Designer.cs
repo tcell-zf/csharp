@@ -28,29 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBoxProtocol = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.numericUpDownPort = new System.Windows.Forms.NumericUpDown();
             this.radioButtonUdp = new System.Windows.Forms.RadioButton();
             this.radioButtonTcp = new System.Windows.Forms.RadioButton();
             this.buttonStart = new System.Windows.Forms.Button();
             this.buttonStop = new System.Windows.Forms.Button();
-            this.groupBox1.SuspendLayout();
+            this.textBoxResults = new System.Windows.Forms.TextBox();
+            this.groupBoxProtocol.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPort)).BeginInit();
             this.SuspendLayout();
             // 
-            // groupBox1
+            // groupBoxProtocol
             // 
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.numericUpDownPort);
-            this.groupBox1.Controls.Add(this.radioButtonUdp);
-            this.groupBox1.Controls.Add(this.radioButtonTcp);
-            this.groupBox1.Location = new System.Drawing.Point(10, 9);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(412, 80);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Protocol";
+            this.groupBoxProtocol.Controls.Add(this.label1);
+            this.groupBoxProtocol.Controls.Add(this.numericUpDownPort);
+            this.groupBoxProtocol.Controls.Add(this.radioButtonUdp);
+            this.groupBoxProtocol.Controls.Add(this.radioButtonTcp);
+            this.groupBoxProtocol.Location = new System.Drawing.Point(10, 9);
+            this.groupBoxProtocol.Name = "groupBoxProtocol";
+            this.groupBoxProtocol.Size = new System.Drawing.Size(412, 80);
+            this.groupBoxProtocol.TabIndex = 1;
+            this.groupBoxProtocol.TabStop = false;
+            this.groupBoxProtocol.Text = "Protocol";
             // 
             // label1
             // 
@@ -127,35 +128,51 @@
             this.buttonStop.UseVisualStyleBackColor = true;
             this.buttonStop.Click += new System.EventHandler(this.buttonStop_Click);
             // 
+            // textBoxResults
+            // 
+            this.textBoxResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxResults.Location = new System.Drawing.Point(10, 96);
+            this.textBoxResults.Multiline = true;
+            this.textBoxResults.Name = "textBoxResults";
+            this.textBoxResults.ReadOnly = true;
+            this.textBoxResults.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBoxResults.Size = new System.Drawing.Size(949, 545);
+            this.textBoxResults.TabIndex = 4;
+            // 
             // FormServer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 29F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(966, 653);
+            this.Controls.Add(this.textBoxResults);
             this.Controls.Add(this.buttonStop);
             this.Controls.Add(this.buttonStart);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBoxProtocol);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "FormServer";
             this.Text = "TCP/UDP Server";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormServer_FormClosed);
             this.Load += new System.EventHandler(this.FormServer_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.groupBoxProtocol.ResumeLayout(false);
+            this.groupBoxProtocol.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPort)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBoxProtocol;
         private System.Windows.Forms.RadioButton radioButtonUdp;
         private System.Windows.Forms.RadioButton radioButtonTcp;
         private System.Windows.Forms.NumericUpDown numericUpDownPort;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonStart;
         private System.Windows.Forms.Button buttonStop;
+        private System.Windows.Forms.TextBox textBoxResults;
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Net.NetworkInformation;
 
 using TCell.Abstraction;
 using TCell.Entities.Threading;
@@ -19,6 +18,7 @@ namespace TCell.Net
 
     public interface INetServer
     {
+        void SetDatagramReceivedHandler(Action<byte[]> handler);
         bool Start();
         bool Stop();
     }
@@ -38,7 +38,7 @@ namespace TCell.Net
 
     abstract public class NetServerCommander : NetCommander, INetServer
     {
-        public Action<byte[]> HandleDatagramReceived = null;
+        protected Action<byte[]> HandleDatagramReceived = null;
 
         public NetServerCommander(EndpointPair endpoints)
             : base(endpoints) { }
@@ -47,30 +47,21 @@ namespace TCell.Net
 
         private TaskFacility task = null;
 
-        protected bool IsLocalPortInUse
+        abstract protected bool IsLocalPortInUse
         {
-            get
-            {
-                bool isInUse = false;
-
-                IPGlobalProperties ipProperties = IPGlobalProperties.GetIPGlobalProperties();
-                System.Net.IPEndPoint[] ipEndPoints = ipProperties.GetActiveTcpListeners();
-
-                foreach (System.Net.IPEndPoint endPoint in ipEndPoints)
-                {
-                    if (endPoint.Port == EndPoints.LocalEndPoint.Port)
-                    {
-                        isInUse = true;
-                        break;
-                    }
-                }
-
-                return isInUse;
-            }
+            get;
         }
         protected bool IsListeningCancellationRequested
         {
             get { return (task == null) ? true : task.IsCancellationRequested; }
+        }
+
+        public void SetDatagramReceivedHandler(Action<byte[]> handler)
+        {
+            if (handler == null)
+                HandleDatagramReceived = null;
+            else
+                HandleDatagramReceived += handler;
         }
 
         virtual public bool Start()

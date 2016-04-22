@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Sockets;
+using System.Net.NetworkInformation;
 
 namespace TCell.Net
 {
@@ -9,6 +10,39 @@ namespace TCell.Net
             : base(endpoints)
         {
             ListeningHandler += DoListeningWork;
+        }
+
+        protected override bool IsLocalPortInUse
+        {
+            get
+            {
+                bool isInUse = false;
+
+                IPGlobalProperties ipProperties = IPGlobalProperties.GetIPGlobalProperties();
+                System.Net.IPEndPoint[] ipEndPoints = ipProperties.GetActiveUdpListeners();
+
+                foreach (System.Net.IPEndPoint endPoint in ipEndPoints)
+                {
+                    if (endPoint.Port == EndPoints.LocalEndPoint.Port)
+                    {
+                        isInUse = true;
+                        break;
+                    }
+                }
+
+                if (isInUse)
+                    TcpServerCommander.LogException($"UDP listener port {EndPoints.LocalEndPoint.Port} is in use.", null);
+
+                return isInUse;
+            }
+        }
+
+        public override bool Start()
+        {
+            if (IsLocalPortInUse)
+                return false;
+
+            return base.Start();
         }
 
         private void DoListeningWork()
