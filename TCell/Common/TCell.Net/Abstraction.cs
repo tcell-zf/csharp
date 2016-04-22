@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Net.NetworkInformation;
 
 using TCell.Abstraction;
+using TCell.Entities.Threading;
 
 namespace TCell.Net
 {
@@ -45,13 +46,8 @@ namespace TCell.Net
             : base(endpoints) { }
 
         protected Action ListeningHandler = null;
-        private Task task = null;
 
-        private CancellationTokenSource cancelToken = null;
-        protected bool IsCancellationRequested
-        {
-            get { return (cancelToken == null) ? true : cancelToken.IsCancellationRequested; }
-        }
+        private TaskFacility task = null;
 
         protected bool IsLocalPortInUse
         {
@@ -74,22 +70,30 @@ namespace TCell.Net
                 return isInUse;
             }
         }
-
-        public bool Start()
+        protected bool IsListeningCancellationRequested
         {
-            cancelToken = new CancellationTokenSource();
+            get { return (task == null) ? true : task.IsCancellationRequested; }
+        }
+
+        virtual public bool Start()
+        {
+            task = new TaskFacility();
+            task.CancellationToken = new CancellationTokenSource();
 
             if (task != null)
                 Stop();
 
-            task = Task.Factory.StartNew(ListeningHandler);
-            return (task != null);
+            task.TaskInstance = Task.Factory.StartNew(ListeningHandler);
+            return (task.TaskInstance != null);
         }
 
-        public bool Stop()
+        virtual public bool Stop()
         {
-            cancelToken.Cancel();
-            task = null;
+            if (task != null)
+            {
+                task.CancelTask();
+                task = null;
+            }
             return true;
         }
     }
