@@ -40,16 +40,34 @@ namespace TCell.Net
         {
             TaskFacility tf = new TaskFacility();
             tf.CancellationToken = new CancellationTokenSource();
-            tf.TaskInstance = Task.Factory.StartNew(HandleTcpClient, tcpClient, tf.CancellationToken.Token);
+            tf.TaskInstance = Task.Factory.StartNew((c) =>
+            {
+                TcpClient client = c as TcpClient;
+                if (client == null)
+                    return;
+
+                while (!tf.IsCancellationRequested)
+                {
+                    if (!client.Connected)
+                        continue;
+
+                    NetworkStream stream = client.GetStream();
+                    int readLength;
+                    byte[] rawData = EndPoints.LocalEndPoint.BufferLength == null ? new byte[512] : new byte[(int)EndPoints.LocalEndPoint.BufferLength];
+                    while ((readLength = stream.Read(rawData, 0, rawData.Length)) != 0)
+                    {
+                        byte[] receivedDgram = new byte[readLength];
+                        for (int i = 0; i < readLength; i++)
+                            receivedDgram[i] = rawData[i];
+
+                        HandleDatagramReceived?.Invoke(receivedDgram);
+                    }
+                }
+            }, tcpClient);
 
             if (tcpClientWorkers == null)
                 tcpClientWorkers = new Dictionary<TcpClient, TaskFacility>();
             tcpClientWorkers.Add(tcpClient, tf);
-        }
-
-        private void HandleTcpClient(object state)
-        {
-
         }
     }
 }
