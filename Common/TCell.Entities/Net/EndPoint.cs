@@ -27,7 +27,7 @@ namespace TCell.Entities.Net
             get { return port; }
             set
             {
-                if (10000 < value || value > 65535)
+                if (value < 10000 || value > 65535)
                     throw new IndexOutOfRangeException("Support valid port number from 10000 to 65535.");
 
                 port = value;

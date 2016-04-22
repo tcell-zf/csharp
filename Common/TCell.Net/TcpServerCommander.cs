@@ -7,7 +7,7 @@ using TCell.Entities.Threading;
 
 namespace TCell.Net
 {
-    public class TcpServerCommander : NetServerCommander, INetCommander, INetServer
+    public class TcpServerCommander : NetServerCommander
     {
         public TcpServerCommander(EndpointPair endpoints)
             : base(endpoints)
@@ -17,8 +17,16 @@ namespace TCell.Net
 
         private Dictionary<TcpClient, TaskFacility> tcpClientWorkers = null;
 
+        public override bool Start()
+        {
+            ListeningHandler += DoListeningWork;
+            return base.Start();
+        }
+
         public override bool Stop()
         {
+            ListeningHandler = null;
+
             if (tcpClientWorkers != null && tcpClientWorkers.Count > 0)
             {
                 foreach (KeyValuePair<TcpClient, TaskFacility> kv in tcpClientWorkers)

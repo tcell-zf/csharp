@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCell.Logging", "Common\TCe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCell.Abstraction", "Common\TCell.Abstraction\TCell.Abstraction.csproj", "{408281BA-340B-4175-BEC4-E51757C27A63}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C22A6F2D-50A1-4969-8B1F-5010EFBD3DEA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TcpUdpServer", "Tests\TcpUdpServer\TcpUdpServer.csproj", "{C87C7820-9CB6-46E8-A872-C5F8A2424669}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -49,8 +53,15 @@ Global
 		{408281BA-340B-4175-BEC4-E51757C27A63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{408281BA-340B-4175-BEC4-E51757C27A63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{408281BA-340B-4175-BEC4-E51757C27A63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C87C7820-9CB6-46E8-A872-C5F8A2424669}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C87C7820-9CB6-46E8-A872-C5F8A2424669}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C87C7820-9CB6-46E8-A872-C5F8A2424669}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C87C7820-9CB6-46E8-A872-C5F8A2424669}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C87C7820-9CB6-46E8-A872-C5F8A2424669} = {C22A6F2D-50A1-4969-8B1F-5010EFBD3DEA}
 	EndGlobalSection
 EndGlobal
