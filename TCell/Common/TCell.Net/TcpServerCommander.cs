@@ -17,6 +17,7 @@ namespace TCell.Net
             ListeningHandler += DoListeningWork;
         }
 
+        private TcpListener tcpListener = null;
         private Dictionary<TcpClient, TaskFacility> tcpClientWorkers = null;
 
         protected override bool IsLocalPortInUse
@@ -49,6 +50,7 @@ namespace TCell.Net
             if (IsLocalPortInUse)
                 return false;
 
+            tcpListener = new TcpListener(EndPoints.GetLocalNetEndPoint());
             return base.Start();
         }
 
@@ -68,6 +70,9 @@ namespace TCell.Net
                 tcpClientWorkers = null;
             }
 
+            if (tcpListener != null)
+                tcpListener.Stop();
+
             return base.Stop();
         }
 
@@ -75,7 +80,6 @@ namespace TCell.Net
         {
             try
             {
-                TcpListener tcpListener = new TcpListener(EndPoints.GetLocalNetEndPoint());
                 tcpListener.Start();
 
                 while (!IsListeningCancellationRequested)

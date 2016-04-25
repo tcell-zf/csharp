@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Text;
 using System.Windows.Forms;
 
 using TCell.Net;
+using TCell.Text;
 using TCell.Mapping;
 using TCell.Logging;
 using TCell.Abstraction;
@@ -12,6 +14,8 @@ namespace TcpUdpServer
 {
     public partial class FormServer : Form
     {
+        private delegate void InvokeDelegate(string str);
+
         public FormServer()
         {
             InitializeComponent();
@@ -122,7 +126,15 @@ namespace TcpUdpServer
 
         private void HandleDatagramReceived(byte[] dgram)
         {
+            if (dgram == null || dgram.Length == 0)
+                return;
 
+            textBoxResults.Invoke(new InvokeDelegate(ShowResult), new object[] { Encoding.UTF8.GetString(dgram) });
+        }
+
+        private void ShowResult(string result)
+        {
+            textBoxResults.Text = $"{DateTime.Now.ToString("hh:mm:ss")}: Datagram received, {result}";
         }
     }
 }

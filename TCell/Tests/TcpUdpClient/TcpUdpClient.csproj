@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C87C7820-9CB6-46E8-A872-C5F8A2424669}</ProjectGuid>
+    <ProjectGuid>{1A984CC4-41EF-48DC-AEC0-DA2B7F946907}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TcpUdpServer</RootNamespace>
-    <AssemblyName>TcpUdpServer</AssemblyName>
+    <RootNamespace>TcpUdpClient</RootNamespace>
+    <AssemblyName>TcpUdpClient</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -46,16 +46,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FormServer.cs">
+    <Compile Include="FormClient.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormServer.Designer.cs">
-      <DependentUpon>FormServer.cs</DependentUpon>
+    <Compile Include="FormClient.Designer.cs">
+      <DependentUpon>FormClient.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FormServer.resx">
-      <DependentUpon>FormServer.cs</DependentUpon>
+    <EmbeddedResource Include="FormClient.resx">
+      <DependentUpon>FormClient.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -101,11 +101,11 @@
       <Name>TCell.Mapping</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Common\TCell.Net\TCell.Net.csproj">
-      <Project>{D4AC8543-312C-4FDA-84BC-093ABE33E3CB}</Project>
+      <Project>{d4ac8543-312c-4fda-84bc-093abe33e3cb}</Project>
       <Name>TCell.Net</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Common\TCell.Text\TCell.Text.csproj">
-      <Project>{A3DC3E73-E300-40AC-9D37-58CD7FEE8DC4}</Project>
+      <Project>{a3dc3e73-e300-40ac-9d37-58cd7fee8dc4}</Project>
       <Name>TCell.Text</Name>
     </ProjectReference>
   </ItemGroup>
