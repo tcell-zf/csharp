@@ -71,19 +71,26 @@ namespace TcpUdpServer
                 });
             }
             server.SetDatagramReceivedHandler(HandleDatagramReceived);
-            if (server.Start())
+            try
             {
-                groupBoxProtocol.Enabled = false;
-                buttonStart.Enabled = false;
-                buttonStop.Enabled = true;
-                textBoxResults.Text = $"{DateTime.Now.ToString("hh:mm:ss")}: Server started.{Environment.NewLine}{textBoxResults.Text}";
+                if (server.Start())
+                {
+                    groupBoxProtocol.Enabled = false;
+                    buttonStart.Enabled = false;
+                    buttonStop.Enabled = true;
+                    textBoxResults.Text = $"{DateTime.Now.ToString("hh:mm:ss")}: Server started.{Environment.NewLine}{textBoxResults.Text}";
+                }
+                else
+                {
+                    groupBoxProtocol.Enabled = true;
+                    buttonStart.Enabled = true;
+                    buttonStop.Enabled = false;
+                    textBoxResults.Text = $"{DateTime.Now.ToString("hh:mm:ss")}: Cannot started server!{Environment.NewLine}{textBoxResults.Text}";
+                }
             }
-            else
+            catch (Exception ex)
             {
-                groupBoxProtocol.Enabled = true;
-                buttonStart.Enabled = true;
-                buttonStop.Enabled = false;
-                textBoxResults.Text = $"{DateTime.Now.ToString("hh:mm:ss")}: Cannot started server!{Environment.NewLine}{textBoxResults.Text}";
+                textBoxResults.Text = $"{DateTime.Now.ToString("hh:mm:ss")}: Start server exception {ex.Message}. {Environment.NewLine}{textBoxResults.Text}";
             }
         }
 
@@ -134,7 +141,7 @@ namespace TcpUdpServer
 
         private void ShowResult(string result)
         {
-            textBoxResults.Text = $"{DateTime.Now.ToString("hh:mm:ss")}: Datagram received, {result}";
+            textBoxResults.Text = $"{DateTime.Now.ToString("hh:mm:ss")}: Datagram received, {result}.{Environment.NewLine}{textBoxResults.Text}";
         }
     }
 }

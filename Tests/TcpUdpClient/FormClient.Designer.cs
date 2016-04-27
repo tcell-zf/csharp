@@ -37,8 +37,13 @@
             this.radioButtonTcp = new System.Windows.Forms.RadioButton();
             this.buttonStop = new System.Windows.Forms.Button();
             this.buttonStart = new System.Windows.Forms.Button();
+            this.textBoxResults = new System.Windows.Forms.TextBox();
+            this.textBoxMessage = new System.Windows.Forms.TextBox();
+            this.buttonSend = new System.Windows.Forms.Button();
+            this.groupBoxMessage = new System.Windows.Forms.GroupBox();
             this.groupBoxProtocol.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPort)).BeginInit();
+            this.groupBoxMessage.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxProtocol
@@ -51,7 +56,7 @@
             this.groupBoxProtocol.Controls.Add(this.radioButtonTcp);
             this.groupBoxProtocol.Location = new System.Drawing.Point(10, 9);
             this.groupBoxProtocol.Name = "groupBoxProtocol";
-            this.groupBoxProtocol.Size = new System.Drawing.Size(813, 84);
+            this.groupBoxProtocol.Size = new System.Drawing.Size(813, 96);
             this.groupBoxProtocol.TabIndex = 0;
             this.groupBoxProtocol.TabStop = false;
             this.groupBoxProtocol.Text = "Protocol";
@@ -135,6 +140,7 @@
             this.buttonStop.TabIndex = 9;
             this.buttonStop.Text = "Stop";
             this.buttonStop.UseVisualStyleBackColor = true;
+            this.buttonStop.Click += new System.EventHandler(this.buttonStop_Click);
             // 
             // buttonStart
             // 
@@ -144,12 +150,57 @@
             this.buttonStart.TabIndex = 8;
             this.buttonStart.Text = "Start";
             this.buttonStart.UseVisualStyleBackColor = true;
+            this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
+            // 
+            // textBoxResults
+            // 
+            this.textBoxResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxResults.Location = new System.Drawing.Point(12, 217);
+            this.textBoxResults.Multiline = true;
+            this.textBoxResults.Name = "textBoxResults";
+            this.textBoxResults.ReadOnly = true;
+            this.textBoxResults.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBoxResults.Size = new System.Drawing.Size(1079, 427);
+            this.textBoxResults.TabIndex = 10;
+            this.textBoxResults.WordWrap = false;
+            // 
+            // textBoxMessage
+            // 
+            this.textBoxMessage.Location = new System.Drawing.Point(2, 40);
+            this.textBoxMessage.Name = "textBoxMessage";
+            this.textBoxMessage.Size = new System.Drawing.Size(638, 35);
+            this.textBoxMessage.TabIndex = 9;
+            // 
+            // buttonSend
+            // 
+            this.buttonSend.Location = new System.Drawing.Point(646, 20);
+            this.buttonSend.Name = "buttonSend";
+            this.buttonSend.Size = new System.Drawing.Size(140, 74);
+            this.buttonSend.TabIndex = 10;
+            this.buttonSend.Text = "Send";
+            this.buttonSend.UseVisualStyleBackColor = true;
+            this.buttonSend.Click += new System.EventHandler(this.buttonSend_Click);
+            // 
+            // groupBoxMessage
+            // 
+            this.groupBoxMessage.Controls.Add(this.buttonSend);
+            this.groupBoxMessage.Controls.Add(this.textBoxMessage);
+            this.groupBoxMessage.Location = new System.Drawing.Point(10, 111);
+            this.groupBoxMessage.Name = "groupBoxMessage";
+            this.groupBoxMessage.Size = new System.Drawing.Size(813, 100);
+            this.groupBoxMessage.TabIndex = 11;
+            this.groupBoxMessage.TabStop = false;
+            this.groupBoxMessage.Text = "Message";
             // 
             // FormClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 29F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1103, 653);
+            this.Controls.Add(this.groupBoxMessage);
+            this.Controls.Add(this.textBoxResults);
             this.Controls.Add(this.buttonStop);
             this.Controls.Add(this.groupBoxProtocol);
             this.Controls.Add(this.buttonStart);
@@ -160,7 +211,10 @@
             this.groupBoxProtocol.ResumeLayout(false);
             this.groupBoxProtocol.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPort)).EndInit();
+            this.groupBoxMessage.ResumeLayout(false);
+            this.groupBoxMessage.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -175,5 +229,9 @@
         private System.Windows.Forms.NumericUpDown numericUpDownPort;
         private System.Windows.Forms.Button buttonStop;
         private System.Windows.Forms.Button buttonStart;
+        private System.Windows.Forms.TextBox textBoxResults;
+        private System.Windows.Forms.Button buttonSend;
+        private System.Windows.Forms.TextBox textBoxMessage;
+        private System.Windows.Forms.GroupBox groupBoxMessage;
     }
 }

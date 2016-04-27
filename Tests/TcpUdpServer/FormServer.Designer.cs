@@ -140,6 +140,7 @@
             this.textBoxResults.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBoxResults.Size = new System.Drawing.Size(949, 545);
             this.textBoxResults.TabIndex = 4;
+            this.textBoxResults.WordWrap = false;
             // 
             // FormServer
             // 
