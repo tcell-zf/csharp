@@ -1,4 +1,4 @@
-﻿using TCell.Entities.Net;
+﻿using TCell.Entities.Communication;
 
 namespace TCell.Net
 {
