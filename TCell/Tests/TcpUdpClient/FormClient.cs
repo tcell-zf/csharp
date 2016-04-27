@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Windows.Forms;
 
 using TCell.Net;
@@ -29,6 +30,7 @@ namespace TcpUdpClient
 
             ChangePortValue();
             groupBoxProtocol.Enabled = true;
+            groupBoxMessage.Enabled = false;
             buttonStart.Enabled = true;
             buttonStop.Enabled = false;
 
@@ -45,18 +47,103 @@ namespace TcpUdpClient
             ChangePortValue();
         }
 
-        private void Stop()
+        private void buttonStart_Click(object sender, EventArgs e)
         {
             if (client != null)
-            {
                 client.Stop();
-                client = null;
+
+            System.Net.IPAddress ip = null;
+            if (!System.Net.IPAddress.TryParse(textBoxIp.Text, out ip))
+                ip = null;
+
+            if (radioButtonTcp.Checked)
+            {
+                if (ip != null)
+                    tcpEp.IP = ip;
+                tcpEp.Port = (uint)numericUpDownPort.Value;
+                client = new TcpClientCommander(new EndpointPair()
+                {
+                    RemoteEndPoint = tcpEp
+                });
+            }
+            else
+            {
+                if (ip != null)
+                    udpEp.IP = ip;
+                udpEp.Port = (uint)numericUpDownPort.Value;
+                client = new UdpClientCommander(new EndpointPair()
+                {
+                    RemoteEndPoint = udpEp
+                });
+            }
+
+            try
+            {
+                if (client.Start())
+                {
+                    groupBoxProtocol.Enabled = false;
+                    groupBoxMessage.Enabled = true;
+                    buttonStart.Enabled = false;
+                    buttonStop.Enabled = true;
+                    textBoxResults.Text = $"{DateTime.Now.ToString("hh:mm:ss")}: Client started.{Environment.NewLine}{textBoxResults.Text}";
+                }
+                else
+                {
+                    groupBoxProtocol.Enabled = true;
+                    groupBoxMessage.Enabled = false;
+                    buttonStart.Enabled = true;
+                    buttonStop.Enabled = false;
+                    textBoxResults.Text = $"{DateTime.Now.ToString("hh:mm:ss")}: Cannot started client!{Environment.NewLine}{textBoxResults.Text}";
+                }
+            }
+            catch (Exception ex)
+            {
+                textBoxResults.Text = $"{DateTime.Now.ToString("hh:mm:ss")}: Start client exception {ex.Message}.{Environment.NewLine}{textBoxResults.Text}";
             }
         }
 
-        private void Log(string msg, Exception ex)
+        private void buttonStop_Click(object sender, EventArgs e)
         {
-            Logger.LoggerInstance.Log(msg, ex);
+            Stop();
+            groupBoxProtocol.Enabled = true;
+            groupBoxMessage.Enabled = false;
+            buttonStart.Enabled = true;
+            buttonStop.Enabled = false;
+            textBoxResults.Text = $"{DateTime.Now.ToString("hh:mm:ss")}: Server stopped.{Environment.NewLine}{textBoxResults.Text}";
+        }
+
+        private void buttonSend_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(textBoxMessage.Text))
+                return;
+            if (client == null)
+                return;
+            if (!client.IsConnected)
+            {
+                textBoxResults.Text = $"{DateTime.Now.ToString("hh:mm:ss")}: Connection lost!{Environment.NewLine}{textBoxResults.Text}";
+                try
+                {
+                    if (!client.Start())
+                        return;
+                }
+                catch (Exception ex)
+                {
+                    textBoxResults.Text = $"{DateTime.Now.ToString("hh:mm:ss")}: Reconnect server exception, {ex.Message}.{Environment.NewLine}{textBoxResults.Text}";
+                    return;
+                }
+            }
+
+            try
+            {
+                if (client.Send(Encoding.UTF8.GetBytes(textBoxMessage.Text)))
+                    textBoxResults.Text = $"{DateTime.Now.ToString("hh:mm:ss")}: Datagram sent.{Environment.NewLine}{textBoxResults.Text}";
+                else
+                    textBoxResults.Text = $"{DateTime.Now.ToString("hh:mm:ss")}: Datagram sent failed!{Environment.NewLine}{textBoxResults.Text}";
+            }
+            catch (Exception ex)
+            {
+                textBoxResults.Text = $"{DateTime.Now.ToString("hh:mm:ss")}: Send datagram exception {ex.Message}.{Environment.NewLine}{textBoxResults.Text}";
+            }
         }
 
         private void ChangePortValue()
@@ -77,6 +164,25 @@ namespace TcpUdpClient
                     numericUpDownPort.Value = udpEp.Port;
                 }
             }
+        }
+
+        private void Stop()
+        {
+            if (client != null)
+            {
+                client.Stop();
+                client = null;
+            }
+        }
+
+        private void Log(string msg, Exception ex)
+        {
+            Logger.LoggerInstance.Log(msg, ex);
+        }
+
+        private void ShowResult(string result)
+        {
+            textBoxResults.Text = $"{DateTime.Now.ToString("hh:mm:ss")}: Datagram received, {result}.{Environment.NewLine}{textBoxResults.Text}";
         }
     }
 }
