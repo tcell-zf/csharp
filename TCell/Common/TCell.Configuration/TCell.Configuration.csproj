@@ -45,6 +45,10 @@
     <Compile Include="IPEndPoint\IPEndPointCollection.cs" />
     <Compile Include="IPEndPoint\IPEndPointConfigItem.cs" />
     <Compile Include="IPEndPoint\IPEndPointsSection.cs" />
+    <Compile Include="Mapping\ConfigurationHelper.cs" />
+    <Compile Include="Mapping\MappingCollection.cs" />
+    <Compile Include="Mapping\MappingConfigItem.cs" />
+    <Compile Include="Mapping\MappingSection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
