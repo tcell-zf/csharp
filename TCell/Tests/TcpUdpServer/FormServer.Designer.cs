@@ -36,8 +36,12 @@
             this.buttonStart = new System.Windows.Forms.Button();
             this.buttonStop = new System.Windows.Forms.Button();
             this.textBoxResults = new System.Windows.Forms.TextBox();
+            this.groupBoxMessage = new System.Windows.Forms.GroupBox();
+            this.buttonSend = new System.Windows.Forms.Button();
+            this.textBoxMessage = new System.Windows.Forms.TextBox();
             this.groupBoxProtocol.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPort)).BeginInit();
+            this.groupBoxMessage.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxProtocol
@@ -133,20 +137,49 @@
             this.textBoxResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxResults.Location = new System.Drawing.Point(10, 96);
+            this.textBoxResults.Location = new System.Drawing.Point(10, 202);
             this.textBoxResults.Multiline = true;
             this.textBoxResults.Name = "textBoxResults";
             this.textBoxResults.ReadOnly = true;
             this.textBoxResults.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxResults.Size = new System.Drawing.Size(949, 545);
+            this.textBoxResults.Size = new System.Drawing.Size(949, 439);
             this.textBoxResults.TabIndex = 4;
             this.textBoxResults.WordWrap = false;
+            // 
+            // groupBoxMessage
+            // 
+            this.groupBoxMessage.Controls.Add(this.buttonSend);
+            this.groupBoxMessage.Controls.Add(this.textBoxMessage);
+            this.groupBoxMessage.Location = new System.Drawing.Point(10, 96);
+            this.groupBoxMessage.Name = "groupBoxMessage";
+            this.groupBoxMessage.Size = new System.Drawing.Size(949, 100);
+            this.groupBoxMessage.TabIndex = 12;
+            this.groupBoxMessage.TabStop = false;
+            this.groupBoxMessage.Text = "Message";
+            // 
+            // buttonSend
+            // 
+            this.buttonSend.Location = new System.Drawing.Point(793, 20);
+            this.buttonSend.Name = "buttonSend";
+            this.buttonSend.Size = new System.Drawing.Size(140, 74);
+            this.buttonSend.TabIndex = 10;
+            this.buttonSend.Text = "Send";
+            this.buttonSend.UseVisualStyleBackColor = true;
+            this.buttonSend.Click += new System.EventHandler(this.buttonSend_Click);
+            // 
+            // textBoxMessage
+            // 
+            this.textBoxMessage.Location = new System.Drawing.Point(2, 40);
+            this.textBoxMessage.Name = "textBoxMessage";
+            this.textBoxMessage.Size = new System.Drawing.Size(785, 35);
+            this.textBoxMessage.TabIndex = 9;
             // 
             // FormServer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 29F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(966, 653);
+            this.Controls.Add(this.groupBoxMessage);
             this.Controls.Add(this.textBoxResults);
             this.Controls.Add(this.buttonStop);
             this.Controls.Add(this.buttonStart);
@@ -160,6 +193,8 @@
             this.groupBoxProtocol.ResumeLayout(false);
             this.groupBoxProtocol.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPort)).EndInit();
+            this.groupBoxMessage.ResumeLayout(false);
+            this.groupBoxMessage.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -175,5 +210,8 @@
         private System.Windows.Forms.Button buttonStart;
         private System.Windows.Forms.Button buttonStop;
         private System.Windows.Forms.TextBox textBoxResults;
+        private System.Windows.Forms.GroupBox groupBoxMessage;
+        private System.Windows.Forms.Button buttonSend;
+        private System.Windows.Forms.TextBox textBoxMessage;
     }
 }

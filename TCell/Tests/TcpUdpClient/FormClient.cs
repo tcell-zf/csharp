@@ -13,6 +13,8 @@ namespace TcpUdpClient
 {
     public partial class FormClient : Form
     {
+        private delegate void InvokeDelegate(string str);
+
         public FormClient()
         {
             InitializeComponent();
@@ -65,6 +67,9 @@ namespace TcpUdpClient
                 {
                     RemoteEndPoint = tcpEp
                 });
+
+                TcpClientCommander clt = client as TcpClientCommander;
+                clt.HandleDatagramReceived = HandleDatagramReceived;
             }
             else
             {
@@ -178,6 +183,14 @@ namespace TcpUdpClient
         private void Log(string msg, Exception ex)
         {
             Logger.LoggerInstance.Log(msg, ex);
+        }
+
+        private void HandleDatagramReceived(byte[] dgram)
+        {
+            if (dgram == null || dgram.Length == 0)
+                return;
+
+            textBoxResults.Invoke(new InvokeDelegate(ShowResult), new object[] { Encoding.UTF8.GetString(dgram) });
         }
 
         private void ShowResult(string result)

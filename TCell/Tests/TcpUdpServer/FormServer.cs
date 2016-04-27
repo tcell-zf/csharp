@@ -33,6 +33,7 @@ namespace TcpUdpServer
 
             ChangePortValue();
             groupBoxProtocol.Enabled = true;
+            groupBoxMessage.Enabled = false;
             buttonStart.Enabled = true;
             buttonStop.Enabled = false;
 
@@ -76,6 +77,10 @@ namespace TcpUdpServer
                 if (server.Start())
                 {
                     groupBoxProtocol.Enabled = false;
+                    if (server is TcpServerCommander)
+                        groupBoxMessage.Enabled = true;
+                    else
+                        groupBoxMessage.Enabled = false;
                     buttonStart.Enabled = false;
                     buttonStop.Enabled = true;
                     textBoxResults.Text = $"{DateTime.Now.ToString("hh:mm:ss")}: Server started.{Environment.NewLine}{textBoxResults.Text}";
@@ -83,6 +88,7 @@ namespace TcpUdpServer
                 else
                 {
                     groupBoxProtocol.Enabled = true;
+                    groupBoxMessage.Enabled = false;
                     buttonStart.Enabled = true;
                     buttonStop.Enabled = false;
                     textBoxResults.Text = $"{DateTime.Now.ToString("hh:mm:ss")}: Cannot started server!{Environment.NewLine}{textBoxResults.Text}";
@@ -98,9 +104,33 @@ namespace TcpUdpServer
         {
             Stop();
             groupBoxProtocol.Enabled = true;
+            groupBoxMessage.Enabled = false;
             buttonStart.Enabled = true;
             buttonStop.Enabled = false;
             textBoxResults.Text = $"{DateTime.Now.ToString("hh:mm:ss")}: Server stopped.{Environment.NewLine}{textBoxResults.Text}";
+        }
+
+        private void buttonSend_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(textBoxMessage.Text))
+                return;
+            if (server == null)
+                return;
+            if (!(server is TcpServerCommander))
+                return;
+
+            TcpServerCommander svr = server as TcpServerCommander;
+            try
+            {
+                if (svr.Send(Encoding.UTF8.GetBytes(textBoxMessage.Text)))
+                    textBoxResults.Text = $"{DateTime.Now.ToString("hh:mm:ss")}: Datagram sent.{Environment.NewLine}{textBoxResults.Text}";
+                else
+                    textBoxResults.Text = $"{DateTime.Now.ToString("hh:mm:ss")}: Datagram sent failed!{Environment.NewLine}{textBoxResults.Text}";
+            }
+            catch (Exception ex)
+            {
+                textBoxResults.Text = $"{DateTime.Now.ToString("hh:mm:ss")}: Send datagram exception {ex.Message}.{Environment.NewLine}{textBoxResults.Text}";
+            }
         }
 
         private void ChangePortValue()

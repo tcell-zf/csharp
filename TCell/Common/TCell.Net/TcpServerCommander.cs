@@ -76,6 +76,49 @@ namespace TCell.Net
             return base.Stop();
         }
 
+        public bool Send(byte[] dgram)
+        {
+            if (tcpClientWorkers == null || tcpClientWorkers.Count == 0)
+                return true;
+
+            bool allDone = true;
+            foreach (TcpClient client in tcpClientWorkers.Keys)
+            {
+                if (client == null || !client.Connected)
+                    continue;
+
+                if (EndPoints.RemoteEndPoint != null)
+                {
+                    if (EndPoints.RemoteEndPoint.ReadTimeout != null)
+                        client.ReceiveTimeout = (int)EndPoints.RemoteEndPoint.ReadTimeout;
+                    if (EndPoints.RemoteEndPoint.WriteTimeout != null)
+                        client.SendTimeout = (int)EndPoints.RemoteEndPoint.WriteTimeout;
+
+                    if (EndPoints.RemoteEndPoint.BufferLength != null)
+                    {
+                        client.ReceiveBufferSize = (int)EndPoints.RemoteEndPoint.BufferLength;
+                        client.SendBufferSize = (int)EndPoints.RemoteEndPoint.BufferLength;
+                    }
+                }
+
+                NetworkStream stream = client.GetStream();
+                if (stream != null)
+                {
+                    try
+                    {
+                        stream.Write(dgram, 0, dgram.Length);
+                        stream.Flush();
+                    }
+                    catch (Exception ex)
+                    {
+                        allDone = false;
+                        TcpServerCommander.LogException($"TCP client {client.Client.LocalEndPoint.ToString()} send datagram exception: {ex.Message}", ex);
+                    }
+                }
+            }
+            return allDone;
+        }
+
         private void DoListeningWork()
         {
             try
