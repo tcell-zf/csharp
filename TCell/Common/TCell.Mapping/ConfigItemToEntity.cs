@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Net;
+using System.Text;
+using System.IO.Ports;
 using System.Net.Sockets;
 using System.Collections.Generic;
 
@@ -7,6 +9,7 @@ using TCell.Abstraction;
 using ENTITIES = TCell.Entities;
 using TCell.Configuration.Mapping;
 using TCell.Configuration.IPEndPoint;
+using TCell.Configuration.SerialPort;
 
 namespace TCell.Mapping
 {
@@ -119,6 +122,68 @@ namespace TCell.Mapping
                 mappings.Add(MapMapping(configItem));
             }
             return mappings;
+        }
+
+        static public ENTITIES.Communication.SerialPortParam MapSerialPortParam(SerialPortConfigItem configItem)
+        {
+            uint baudRate, dataBits;
+            if (!uint.TryParse(configItem.BaudRate, out baudRate))
+                baudRate = 9600;
+            if (!uint.TryParse(configItem.DataBits, out dataBits))
+                dataBits = 8;
+
+            Parity parity;
+            if (!Enum.TryParse<Parity>(configItem.Parity, true, out parity))
+                parity = Parity.None;
+
+            StopBits stopBits;
+            if (!Enum.TryParse<StopBits>(configItem.StopBits, true, out stopBits))
+                stopBits = StopBits.None;
+
+            Encoding encoding;
+            encoding = Encoding.Default;
+            switch (configItem.Encoding)
+            {
+                case "ASCII":
+                    encoding = Encoding.ASCII;
+                    break;
+                case "UTF8":
+                    encoding = Encoding.UTF8;
+                    break;
+                case "UTF7":
+                    encoding = Encoding.UTF7;
+                    break;
+                case "UTF32":
+                    encoding = Encoding.UTF32;
+                    break;
+                case "Unicode":
+                    encoding = Encoding.Unicode;
+                    break;
+                case "BigEndianUnicode":
+                    encoding = Encoding.BigEndianUnicode;
+                    break;
+                default:
+                    break;
+            }
+
+            uint readTimeout, writeTimeout;
+            if (!uint.TryParse(configItem.ReadTimeout, out readTimeout))
+                readTimeout = 0;
+            if (!uint.TryParse(configItem.WriteTimeout, out writeTimeout))
+                writeTimeout = 0;
+
+            return new ENTITIES.Communication.SerialPortParam()
+            {
+                Id = configItem.Id,
+                PortName = configItem.PortName,
+                BaudRate = baudRate,
+                DataBits = dataBits,
+                Parity = parity,
+                StopBits = stopBits,
+                Encoding = encoding,
+                ReadTimeout = readTimeout,
+                WriteTimeout = writeTimeout
+            };
         }
     }
 }
