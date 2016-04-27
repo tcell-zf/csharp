@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 using TCell.Configuration.Mapping;
 
-namespace Mexxum.Configuration
+namespace TCell.Configuration
 {
     public static partial class ConfigurationHelper
     {

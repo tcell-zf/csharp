@@ -12,7 +12,7 @@ namespace TCell.Mapping
 {
     public class ConfigItemToEntity : Loggable
     {
-        static public ENTITIES.Net.EndPoint MapNetEndpoint(IPEndPointConfigItem configItem)
+        static public ENTITIES.Communication.EndPoint MapNetEndpoint(IPEndPointConfigItem configItem)
         {
             ProtocolType protocol;
             if (!Enum.TryParse<ProtocolType>(configItem.Protocol, true, out protocol))
@@ -53,10 +53,10 @@ namespace TCell.Mapping
                     bufferLength = uintVal;
             }
 
-            ENTITIES.Net.EndPoint endPoint = null;
+            ENTITIES.Communication.EndPoint endPoint = null;
             try
             {
-                endPoint = new ENTITIES.Net.EndPoint()
+                endPoint = new ENTITIES.Communication.EndPoint()
                 {
                     Id = configItem.Id,
                     Protocol = protocol,
@@ -69,27 +69,27 @@ namespace TCell.Mapping
             }
             catch (Exception ex)
             {
-                LogException($"Failed to map [{configItem}] to {nameof(ENTITIES.Net.EndPoint)}.", ex);
+                LogException($"Failed to map [{configItem}] to {nameof(ENTITIES.Communication.EndPoint)}.", ex);
             }
             return endPoint;
         }
 
-        static public List<ENTITIES.Net.EndPoint> MapNetEndpoints(List<IPEndPointConfigItem> configItems)
+        static public List<ENTITIES.Communication.EndPoint> MapNetEndpoints(List<IPEndPointConfigItem> configItems)
         {
             if (configItems == null || configItems.Count == 0)
                 return null;
 
-            List<ENTITIES.Net.EndPoint> endPoints = new List<ENTITIES.Net.EndPoint>();
+            List<ENTITIES.Communication.EndPoint> endPoints = new List<ENTITIES.Communication.EndPoint>();
             foreach (IPEndPointConfigItem configItem in configItems)
             {
-                ENTITIES.Net.EndPoint endPoint = null;
+                ENTITIES.Communication.EndPoint endPoint = null;
                 try
                 {
                     endPoint = MapNetEndpoint(configItem);
                 }
                 catch (Exception ex)
                 {
-                    LogException($"Failed to map [{configItem}] to {nameof(ENTITIES.Net.EndPoint)} in endpoint list.", ex);
+                    LogException($"Failed to map [{configItem}] to {nameof(ENTITIES.Communication.EndPoint)} in endpoint list.", ex);
                 }
 
                 if (endPoint != null)

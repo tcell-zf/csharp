@@ -3,12 +3,11 @@ using System.Text;
 using System.Windows.Forms;
 
 using TCell.Net;
-using TCell.Text;
 using TCell.Mapping;
 using TCell.Logging;
 using TCell.Abstraction;
-using TCell.Entities.Net;
 using TCell.Configuration;
+using TCell.Entities.Communication;
 
 namespace TcpUdpServer
 {

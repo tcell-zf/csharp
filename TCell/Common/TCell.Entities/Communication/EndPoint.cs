@@ -2,7 +2,7 @@
 using System.Net;
 using System.Net.Sockets;
 
-namespace TCell.Entities.Net
+namespace TCell.Entities.Communication
 {
     public class EndPoint : EntityBase
     {

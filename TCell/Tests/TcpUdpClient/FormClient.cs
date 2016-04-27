@@ -6,8 +6,8 @@ using TCell.Net;
 using TCell.Mapping;
 using TCell.Logging;
 using TCell.Abstraction;
-using TCell.Entities.Net;
 using TCell.Configuration;
+using TCell.Entities.Communication;
 
 namespace TcpUdpClient
 {
