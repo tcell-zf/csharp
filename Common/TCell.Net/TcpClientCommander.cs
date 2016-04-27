@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Net.Sockets;
+using System.Threading;
+using System.Threading.Tasks;
+
+using TCell.Entities.Threading;
 
 namespace TCell.Net
 {
@@ -11,6 +15,7 @@ namespace TCell.Net
             : base(endpoints) { }
 
         private TcpClient tcpClient;
+        private TaskFacility tf;
 
         public bool IsConnected
         {
@@ -58,13 +63,65 @@ namespace TCell.Net
             if (EndPoints.LocalEndPoint != null && EndPoints.LocalEndPoint.Protocol != ProtocolType.Tcp)
                 return false;
 
-            return Connect();
+            if (Connect())
+            {
+                if (HandleDatagramReceived != null)
+                {
+                    tf = new TaskFacility()
+                    {
+                        CancellationToken = new CancellationTokenSource()
+                    };
+
+                    tf.TaskInstance = Task.Factory.StartNew((c) =>
+                    {
+                        TcpClient client = c as TcpClient;
+                        if (client == null)
+                            return;
+
+                        while (tf != null && !tf.IsCancellationRequested)
+                        {
+                            if (!client.Connected)
+                                continue;
+
+                            try
+                            {
+                                NetworkStream stream = client.GetStream();
+                                int readLength;
+                                byte[] rawData = EndPoints.RemoteEndPoint.BufferLength == null ? new byte[512] : new byte[(int)EndPoints.RemoteEndPoint.BufferLength];
+                                while ((readLength = stream.Read(rawData, 0, rawData.Length)) != 0)
+                                {
+                                    byte[] receivedDgram = new byte[readLength];
+                                    for (int i = 0; i < readLength; i++)
+                                        receivedDgram[i] = rawData[i];
+
+                                    HandleDatagramReceived?.Invoke(receivedDgram);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                TcpClientCommander.LogException($"Read TCP datagram failed: {ex.Message}", ex);
+                            }
+                        }
+                    }, tcpClient);
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public bool Stop()
         {
             if (IsConnected)
             {
+                if (tf != null && tf.CancellationToken != null)
+                {
+                    tf.CancellationToken.Cancel();
+                    tf = null;
+                }
+
                 tcpClient.Close();
                 tcpClient = null;
             }
@@ -116,7 +173,7 @@ namespace TCell.Net
                             }
                             stream.Flush();
 
-                            HandleDatagramReceived?.Invoke(receivedDgram);
+                            //HandleDatagramReceived?.Invoke(receivedDgram);
 
                             sent = true;
                         }
