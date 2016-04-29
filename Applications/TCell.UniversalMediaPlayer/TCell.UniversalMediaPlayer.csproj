@@ -107,6 +107,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\TCell.Abstraction\TCell.Abstraction.csproj">
+      <Project>{408281ba-340b-4175-bec4-e51757c27a63}</Project>
+      <Name>TCell.Abstraction</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
