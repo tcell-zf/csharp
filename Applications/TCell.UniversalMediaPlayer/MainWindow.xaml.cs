@@ -9,7 +9,7 @@ using TCell.Abstraction;
 
 namespace TCell.UniversalMediaPlayer
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IPlayerHost
     {
         #region constructors
         public MainWindow()
@@ -19,13 +19,14 @@ namespace TCell.UniversalMediaPlayer
         #endregion
 
         #region properties
-        private Dictionary<string, IPlayable> players = null;
+        private List<IPlayable> players = null;
         #endregion
 
         #region events
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             LoadConfigurations();
+            LoadPlayers();
         }
         #endregion
 
@@ -39,6 +40,11 @@ namespace TCell.UniversalMediaPlayer
             str = ConfigurationManager.AppSettings["backgroundImageUri"];
             if (!string.IsNullOrEmpty(str) && File.Exists(str))
                 backgroundImageBrush.ImageSource = BitmapFrame.Create(new Uri(str));
+        }
+
+        private bool LoadPlayers()
+        {
+            return true;
         }
         #endregion
     }
