@@ -5,6 +5,8 @@
         string Id { get; }
         string SourcePath { get; set; }
 
+        bool Start();
+        bool Stop();
         bool ExecuteCommand(string commandText);
     }
 

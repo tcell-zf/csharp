@@ -20,6 +20,16 @@ namespace TCell.MediaPlayerPlugins.ImagePlayer
         #endregion
 
         #region public functions
+        public bool Start()
+        {
+            return true;
+        }
+
+        public bool Stop()
+        {
+            return true;
+        }
+
         public bool ExecuteCommand(string commandText)
         {
             if (string.IsNullOrEmpty(commandText))
