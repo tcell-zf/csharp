@@ -24,16 +24,7 @@ namespace TCell.MediaPlayerPlugins.ImagePlayer
         #region public functions
         public bool Start()
         {
-            ImagePlayerConfigItem item = ConfigurationHelper.GetImagePlayerConfiguration();
-            if (item != null && !string.IsNullOrEmpty(item.Stretch))
-            {
-                Stretch stretch = Stretch.None;
-                if (!Enum.TryParse<Stretch>(item.Stretch, out stretch))
-                    stretch = Stretch.None;
-
-                this.Stretch = stretch;
-            }
-            return true;
+            return LoadConfiguration();
         }
 
         public bool Stop()
@@ -69,6 +60,20 @@ namespace TCell.MediaPlayerPlugins.ImagePlayer
         #endregion
 
         #region private functions
+        private bool LoadConfiguration()
+        {
+            ImagePlayerConfigItem item = ConfigurationHelper.GetImagePlayerConfiguration();
+            if (item != null && !string.IsNullOrEmpty(item.Stretch))
+            {
+                Stretch stretch = Stretch.None;
+                if (!Enum.TryParse<Stretch>(item.Stretch, out stretch))
+                    stretch = Stretch.None;
+
+                this.Stretch = stretch;
+            }
+            return true;
+        }
+
         private bool PlayMedia(string sourcePath)
         {
             SourcePath = sourcePath;
