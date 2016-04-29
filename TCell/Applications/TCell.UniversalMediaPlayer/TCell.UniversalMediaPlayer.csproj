@@ -97,7 +97,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="app.ico" />
@@ -111,6 +113,14 @@
     <ProjectReference Include="..\..\Common\TCell.Abstraction\TCell.Abstraction.csproj">
       <Project>{408281ba-340b-4175-bec4-e51757c27a63}</Project>
       <Name>TCell.Abstraction</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\TCell.Logging\TCell.Logging.csproj">
+      <Project>{4c99570a-b99a-4b2e-adf8-4cdd11bc4d88}</Project>
+      <Name>TCell.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\TCell.Text\TCell.Text.csproj">
+      <Project>{a3dc3e73-e300-40ac-9d37-58cd7fee8dc4}</Project>
+      <Name>TCell.Text</Name>
     </ProjectReference>
     <ProjectReference Include="..\TCell.MediaPlayerPlugins.ImagePlayer\TCell.MediaPlayerPlugins.ImagePlayer.csproj">
       <Project>{e9f0d7a5-7751-42c2-b6ee-4349d1cd644e}</Project>
