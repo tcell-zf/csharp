@@ -3,8 +3,8 @@
     public interface IPlayable
     {
         string Id { get; }
-        string Source { get; set; }
+        string SourcePath { get; set; }
 
-        bool ExecuteCommand(string cmmandText);
+        bool ExecuteCommand(string commandText);
     }
 }

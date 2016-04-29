@@ -27,6 +27,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{09F798D3-8
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCell.UniversalMediaPlayer", "Applications\TCell.UniversalMediaPlayer\TCell.UniversalMediaPlayer.csproj", "{9C5321FD-D442-43FE-984B-C431EC6154FD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCell.MediaPlayerPlugins.ImagePlayer", "Applications\TCell.MediaPlayerPlugins.ImagePlayer\TCell.MediaPlayerPlugins.ImagePlayer.csproj", "{E9F0D7A5-7751-42C2-B6EE-4349D1CD644E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCell.MediaPlayerPlugins.VideoPlayer", "Applications\TCell.MediaPlayerPlugins.VideoPlayer\TCell.MediaPlayerPlugins.VideoPlayer.csproj", "{29A81718-BDBD-40A7-A5F2-C958F4A6A1BF}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -77,6 +81,14 @@ Global
 		{9C5321FD-D442-43FE-984B-C431EC6154FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C5321FD-D442-43FE-984B-C431EC6154FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C5321FD-D442-43FE-984B-C431EC6154FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9F0D7A5-7751-42C2-B6EE-4349D1CD644E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9F0D7A5-7751-42C2-B6EE-4349D1CD644E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9F0D7A5-7751-42C2-B6EE-4349D1CD644E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9F0D7A5-7751-42C2-B6EE-4349D1CD644E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29A81718-BDBD-40A7-A5F2-C958F4A6A1BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29A81718-BDBD-40A7-A5F2-C958F4A6A1BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29A81718-BDBD-40A7-A5F2-C958F4A6A1BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29A81718-BDBD-40A7-A5F2-C958F4A6A1BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,5 +97,7 @@ Global
 		{C87C7820-9CB6-46E8-A872-C5F8A2424669} = {C22A6F2D-50A1-4969-8B1F-5010EFBD3DEA}
 		{1A984CC4-41EF-48DC-AEC0-DA2B7F946907} = {C22A6F2D-50A1-4969-8B1F-5010EFBD3DEA}
 		{9C5321FD-D442-43FE-984B-C431EC6154FD} = {09F798D3-8262-41DB-BA5B-3301F5BD2803}
+		{E9F0D7A5-7751-42C2-B6EE-4349D1CD644E} = {09F798D3-8262-41DB-BA5B-3301F5BD2803}
+		{29A81718-BDBD-40A7-A5F2-C958F4A6A1BF} = {09F798D3-8262-41DB-BA5B-3301F5BD2803}
 	EndGlobalSection
 EndGlobal
