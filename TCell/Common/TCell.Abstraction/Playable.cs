@@ -8,8 +8,6 @@ namespace TCell.Abstraction
         string Id { get; }
         string SourcePath { get; set; }
 
-        void SetLogHandler(Action<string, Exception> handler);
-        void SetLogHandler(Action<TraceEventType, string> handler);
         bool StartPlayer();
         bool StopPlayer();
         bool ExecuteCommand(string commandText);
@@ -17,5 +15,43 @@ namespace TCell.Abstraction
 
     public interface IPlayerHostable
     {
+    }
+
+    static public class PlayerHelper
+    {
+        static private Action<string, Exception> exceptionLogHandler = null;
+        static private Action<TraceEventType, string> eventLogHandler = null;
+
+        static public void SetLogHandler(Action<string, Exception> handler)
+        {
+            if (handler == null)
+                exceptionLogHandler = null;
+            else
+                exceptionLogHandler += handler;
+        }
+
+        static public void SetLogHandler(Action<TraceEventType, string> handler)
+        {
+            if (handler == null)
+                eventLogHandler = null;
+            else
+                eventLogHandler += handler;
+        }
+
+        static private void LogMessage(TraceEventType evt, string msg)
+        {
+            if (eventLogHandler != null)
+            {
+                eventLogHandler(evt, msg);
+            }
+        }
+
+        static private void LogException(string msg, Exception ex)
+        {
+            if (exceptionLogHandler != null)
+            {
+                exceptionLogHandler(msg, ex);
+            }
+        }
     }
 }

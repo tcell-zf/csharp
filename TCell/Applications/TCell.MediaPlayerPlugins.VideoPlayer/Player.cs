@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -11,9 +10,6 @@ namespace TCell.MediaPlayerPlugins.VideoPlayer
     public class Player : MediaElement, IPlayable
     {
         #region properties
-        private Action<string, Exception> exceptionLogHandler = null;
-        private Action<TraceEventType, string> eventLogHandler = null;
-
         public string Id
         {
             get { return "VideoPlayer"; }
@@ -23,22 +19,6 @@ namespace TCell.MediaPlayerPlugins.VideoPlayer
         #endregion
 
         #region public functions
-        public void SetLogHandler(Action<string, Exception> handler)
-        {
-            if (handler == null)
-                exceptionLogHandler = null;
-            else
-                exceptionLogHandler += handler;
-        }
-
-        public void SetLogHandler(Action<TraceEventType, string> handler)
-        {
-            if (handler == null)
-                eventLogHandler = null;
-            else
-                eventLogHandler += handler;
-        }
-
         public bool StartPlayer()
         {
             return true;
@@ -92,22 +72,6 @@ namespace TCell.MediaPlayerPlugins.VideoPlayer
                 this.Play();
             }
             return true;
-        }
-
-        private void LogMessage(TraceEventType evt, string msg)
-        {
-            if (eventLogHandler != null)
-            {
-                eventLogHandler(evt, msg);
-            }
-        }
-
-        private void LogException(string msg, Exception ex)
-        {
-            if (exceptionLogHandler != null)
-            {
-                exceptionLogHandler(msg, ex);
-            }
         }
         #endregion
     }
