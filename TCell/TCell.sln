@@ -23,6 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCell.Text", "Common\TCell.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TcpUdpClient", "Tests\TcpUdpClient\TcpUdpClient.csproj", "{1A984CC4-41EF-48DC-AEC0-DA2B7F946907}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{09F798D3-8262-41DB-BA5B-3301F5BD2803}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCell.UniversalMediaPlayer", "Applications\TCell.UniversalMediaPlayer\TCell.UniversalMediaPlayer.csproj", "{9C5321FD-D442-43FE-984B-C431EC6154FD}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -69,6 +73,10 @@ Global
 		{1A984CC4-41EF-48DC-AEC0-DA2B7F946907}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A984CC4-41EF-48DC-AEC0-DA2B7F946907}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A984CC4-41EF-48DC-AEC0-DA2B7F946907}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C5321FD-D442-43FE-984B-C431EC6154FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C5321FD-D442-43FE-984B-C431EC6154FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C5321FD-D442-43FE-984B-C431EC6154FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C5321FD-D442-43FE-984B-C431EC6154FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,5 +84,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{C87C7820-9CB6-46E8-A872-C5F8A2424669} = {C22A6F2D-50A1-4969-8B1F-5010EFBD3DEA}
 		{1A984CC4-41EF-48DC-AEC0-DA2B7F946907} = {C22A6F2D-50A1-4969-8B1F-5010EFBD3DEA}
+		{9C5321FD-D442-43FE-984B-C431EC6154FD} = {09F798D3-8262-41DB-BA5B-3301F5BD2803}
 	EndGlobalSection
 EndGlobal
