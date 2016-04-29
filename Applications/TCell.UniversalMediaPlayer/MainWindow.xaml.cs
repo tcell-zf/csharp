@@ -9,7 +9,7 @@ using TCell.Abstraction;
 
 namespace TCell.UniversalMediaPlayer
 {
-    public partial class MainWindow : Window, IPlayerHost
+    public partial class MainWindow : Window, IPlayerHostable
     {
         #region constructors
         public MainWindow()

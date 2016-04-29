@@ -8,7 +8,7 @@
         bool ExecuteCommand(string commandText);
     }
 
-    public interface IPlayerHost
+    public interface IPlayerHostable
     {
     }
 }
