@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows;
-using System.Windows.Media;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 
 using TCell.Text;
 using TCell.Abstraction;
-using TCell.MediaPlayerPlugins.ImagePlayer.Configuration;
 
-namespace TCell.MediaPlayerPlugins.ImagePlayer
+namespace TCell.MediaPlayerPlugins.VideoPlayer
 {
-    public class Player : Image, IPlayable
+    public class Player : MediaElement, IPlayable
     {
         #region properties
         private Action<string, Exception> exceptionLogHandler = null;
@@ -19,7 +16,7 @@ namespace TCell.MediaPlayerPlugins.ImagePlayer
 
         public string Id
         {
-            get { return "ImagePlayer"; }
+            get { return "VideoPlayer"; }
         }
 
         public string SourcePath { get; set; }
@@ -44,7 +41,7 @@ namespace TCell.MediaPlayerPlugins.ImagePlayer
 
         public bool StartPlayer()
         {
-            return LoadConfiguration();
+            return true;
         }
 
         public bool StopPlayer()
@@ -80,20 +77,6 @@ namespace TCell.MediaPlayerPlugins.ImagePlayer
         #endregion
 
         #region private functions
-        private bool LoadConfiguration()
-        {
-            ImagePlayerConfigItem item = ConfigurationHelper.GetImagePlayerConfiguration();
-            if (item != null && !string.IsNullOrEmpty(item.Stretch))
-            {
-                Stretch stretch = Stretch.None;
-                if (!Enum.TryParse<Stretch>(item.Stretch, out stretch))
-                    stretch = Stretch.None;
-
-                this.Stretch = stretch;
-            }
-            return true;
-        }
-
         private bool PlayMedia(string sourcePath)
         {
             SourcePath = sourcePath;
@@ -104,8 +87,9 @@ namespace TCell.MediaPlayerPlugins.ImagePlayer
             }
             else
             {
-                this.Source = BitmapFrame.Create(new Uri(sourcePath));
+                this.Source = new Uri(sourcePath);
                 this.Visibility = Visibility.Visible;
+                this.Play();
             }
             return true;
         }

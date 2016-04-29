@@ -10,8 +10,8 @@ namespace TCell.Abstraction
 
         void SetLogHandler(Action<string, Exception> handler);
         void SetLogHandler(Action<TraceEventType, string> handler);
-        bool Start();
-        bool Stop();
+        bool StartPlayer();
+        bool StopPlayer();
         bool ExecuteCommand(string commandText);
     }
 

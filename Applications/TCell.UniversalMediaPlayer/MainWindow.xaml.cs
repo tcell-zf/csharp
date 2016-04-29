@@ -59,7 +59,7 @@ namespace TCell.UniversalMediaPlayer
                     if (player == null)
                         continue;
 
-                    if (!player.Stop())
+                    if (!player.StopPlayer())
                         Logger.LoggerInstance.Log(TraceEventType.Stop, $"Stop {player.Id} return false!");
                 }
             }
@@ -111,7 +111,7 @@ namespace TCell.UniversalMediaPlayer
                             if (players == null)
                                 players = new List<IPlayable>();
 
-                            if (player.Start())
+                            if (player.StartPlayer())
                             {
                                 players.Add(player);
 
