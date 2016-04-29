@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Controls;
@@ -13,6 +14,9 @@ namespace TCell.MediaPlayerPlugins.ImagePlayer
     public class Player : Image, IPlayable
     {
         #region properties
+        private Action<string, Exception> exceptionLogHandler = null;
+        private Action<TraceEventType, string> eventLogHandler = null;
+
         public string Id
         {
             get { return "ImagePlayer"; }
@@ -22,6 +26,22 @@ namespace TCell.MediaPlayerPlugins.ImagePlayer
         #endregion
 
         #region public functions
+        public void SetLogHandler(Action<string, Exception> handler)
+        {
+            if (handler == null)
+                exceptionLogHandler = null;
+            else
+                exceptionLogHandler += handler;
+        }
+
+        public void SetLogHandler(Action<TraceEventType, string> handler)
+        {
+            if (handler == null)
+                eventLogHandler = null;
+            else
+                eventLogHandler += handler;
+        }
+
         public bool Start()
         {
             return LoadConfiguration();
@@ -88,6 +108,22 @@ namespace TCell.MediaPlayerPlugins.ImagePlayer
                 this.Visibility = Visibility.Visible;
             }
             return true;
+        }
+
+        private void LogMessage(TraceEventType evt, string msg)
+        {
+            if (eventLogHandler != null)
+            {
+                eventLogHandler(evt, msg);
+            }
+        }
+
+        private void LogException(string msg, Exception ex)
+        {
+            if (exceptionLogHandler != null)
+            {
+                exceptionLogHandler(msg, ex);
+            }
         }
         #endregion
     }
