@@ -112,6 +112,10 @@
       <Project>{408281ba-340b-4175-bec4-e51757c27a63}</Project>
       <Name>TCell.Abstraction</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TCell.MediaPlayerPlugins.ImagePlayer\TCell.MediaPlayerPlugins.ImagePlayer.csproj">
+      <Project>{e9f0d7a5-7751-42c2-b6ee-4349d1cd644e}</Project>
+      <Name>TCell.MediaPlayerPlugins.ImagePlayer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
