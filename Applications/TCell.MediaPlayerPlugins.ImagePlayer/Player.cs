@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
 using TCell.Text;
 using TCell.Abstraction;
+using TCell.MediaPlayerPlugins.ImagePlayer.Configuration;
 
 namespace TCell.MediaPlayerPlugins.ImagePlayer
 {
@@ -22,6 +24,15 @@ namespace TCell.MediaPlayerPlugins.ImagePlayer
         #region public functions
         public bool Start()
         {
+            ImagePlayerConfigItem item = ConfigurationHelper.GetImagePlayerConfiguration();
+            if (item != null && !string.IsNullOrEmpty(item.Stretch))
+            {
+                Stretch stretch = Stretch.None;
+                if (!Enum.TryParse<Stretch>(item.Stretch, out stretch))
+                    stretch = Stretch.None;
+
+                this.Stretch = stretch;
+            }
             return true;
         }
 
