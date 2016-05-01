@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Controls;
@@ -33,11 +34,21 @@ namespace TCell.MediaPlayerPlugins.ImagePlayer
         #region public functions
         public bool StartPlayer()
         {
-            return LoadConfiguration();
+            currStatus = PlayerStatusType.Idle;
+
+            bool execResult = LoadConfiguration();
+            if (execResult)
+                PlayerHelper.LogMessage(TraceEventType.Start, $"Start {Id} successfully.");
+            else
+                PlayerHelper.LogMessage(TraceEventType.Start, $"Start {Id} failed!");
+
+            return execResult;
         }
 
         public bool StopPlayer()
         {
+            currStatus = PlayerStatusType.Idle;
+            PlayerHelper.LogMessage(TraceEventType.Stop, $"Stop {Id} successfully.");
             return true;
         }
 

@@ -32,11 +32,11 @@ namespace TCell.UniversalMediaPlayer
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             LogMessage(TraceEventType.Start, "Universal media player starting...");
+            PlayerHelper.SetLogHandler(LogMessage);
+            PlayerHelper.SetLogHandler(LogException);
 
             LoadConfigurations();
             LoadPlayers();
-            PlayerHelper.SetLogHandler(LogMessage);
-            PlayerHelper.SetLogHandler(LogException);
 
             LogMessage(TraceEventType.Start, "Universal media player started.");
 
@@ -63,6 +63,8 @@ namespace TCell.UniversalMediaPlayer
 
         protected override void OnClosed(EventArgs e)
         {
+            LogMessage(TraceEventType.Stop, "Universal media player stopping...");
+
             if (players != null && players.Count > 0)
             {
                 foreach (IPlayable player in players)
@@ -76,6 +78,8 @@ namespace TCell.UniversalMediaPlayer
             }
 
             base.OnClosed(e);
+
+            LogMessage(TraceEventType.Stop, "Universal media player stopped.");
         }
 
         private void Window_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
@@ -132,12 +136,6 @@ namespace TCell.UniversalMediaPlayer
                                     if (uiElement != null)
                                         container.Children.Add(uiElement);
                                 }
-
-                                LogMessage(TraceEventType.Start, $"Load {player.Id} successfully.");
-                            }
-                            else
-                            {
-                                LogMessage(TraceEventType.Start, $"Start {player.Id} return false!");
                             }
                         }
                     }
