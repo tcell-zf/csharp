@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
+using TCell.IO;
 using TCell.Text;
 using TCell.Abstraction;
 
@@ -59,6 +60,12 @@ namespace TCell.MediaPlayerPlugins.VideoPlayer
         #region private functions
         private bool PlayMedia(string sourcePath)
         {
+            if (!System.IO.File.Exists(sourcePath))
+                return false;
+            FileCategory category = File.GetFileCategory(sourcePath);
+            if (category != FileCategory.Audio && category != FileCategory.Video)
+                return false;
+
             SourcePath = sourcePath;
             if (string.IsNullOrEmpty(sourcePath))
             {

@@ -4,6 +4,7 @@ using System.Windows.Media;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
+using TCell.IO;
 using TCell.Text;
 using TCell.Abstraction;
 using TCell.MediaPlayerPlugins.ImagePlayer.Configuration;
@@ -76,6 +77,12 @@ namespace TCell.MediaPlayerPlugins.ImagePlayer
 
         private bool PlayMedia(string sourcePath)
         {
+            if (!System.IO.File.Exists(sourcePath))
+                return false;
+            FileCategory category = File.GetFileCategory(sourcePath);
+            if (category != FileCategory.Image)
+                return false;
+
             SourcePath = sourcePath;
             if (string.IsNullOrEmpty(sourcePath))
             {
