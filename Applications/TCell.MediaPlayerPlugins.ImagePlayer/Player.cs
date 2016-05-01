@@ -44,13 +44,13 @@ namespace TCell.MediaPlayerPlugins.ImagePlayer
         public bool ExecuteCommand(string commandText)
         {
             if (string.IsNullOrEmpty(commandText))
-                return true;
+                return false;
 
             TextCommand cmd = TextCommand.Parse(commandText);
             if (cmd == null)
-                return true;
+                return false;
 
-            bool execResult = true;
+            bool execResult = false;
             switch (cmd.Name)
             {
                 case TextCommand.CommandName.MediaPlay:
