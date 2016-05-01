@@ -55,6 +55,10 @@
       <Project>{408281ba-340b-4175-bec4-e51757c27a63}</Project>
       <Name>TCell.Abstraction</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Common\TCell.IO\TCell.IO.csproj">
+      <Project>{9963e537-6c3f-4fb2-8fee-1ccb36120e2c}</Project>
+      <Name>TCell.IO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Common\TCell.Text\TCell.Text.csproj">
       <Project>{a3dc3e73-e300-40ac-9d37-58cd7fee8dc4}</Project>
       <Name>TCell.Text</Name>
