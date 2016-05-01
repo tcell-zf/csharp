@@ -22,6 +22,7 @@ namespace TCell.MediaPlayerPlugins.VideoPlayer
         #region public functions
         public bool StartPlayer()
         {
+            LoadedBehavior = MediaState.Manual;
             return true;
         }
 

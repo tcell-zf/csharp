@@ -95,7 +95,7 @@ namespace TCell.IO
                 case "255251":
                     type = FileType.MP3;
                     break;
-                case "11111111":
+                case "00":
                     type = FileType.MP4;
                     break;
                 case "4682":
