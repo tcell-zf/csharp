@@ -17,12 +17,18 @@ namespace TCell.MediaPlayerPlugins.VideoPlayer
         }
 
         public string SourcePath { get; set; }
+
+        public Action<string, object> MediaActedHandler { get; set; }
         #endregion
 
         #region public functions
         public bool StartPlayer()
         {
             LoadedBehavior = MediaState.Manual;
+            this.MediaOpened += Player_MediaOpened;
+            this.MediaEnded += Player_MediaEnded;
+            this.MediaFailed += Player_MediaFailed;
+
             return true;
         }
 
@@ -65,6 +71,32 @@ namespace TCell.MediaPlayerPlugins.VideoPlayer
         #endregion
 
         #region private functions
+        private void Player_MediaOpened(object sender, RoutedEventArgs e)
+        {
+            if (MediaActedHandler == null)
+                return;
+
+            MediaActedHandler(SourcePath, null);
+        }
+
+        private void Player_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            if (MediaActedHandler == null)
+                return;
+
+            MediaActedHandler(SourcePath, null);
+        }
+
+        private void Player_MediaFailed(object sender, ExceptionRoutedEventArgs e)
+        {
+            PlayerHelper.LogException($"Exception occured when play {SourcePath}, {e.ErrorException.Message}", e.ErrorException);
+
+            if (MediaActedHandler == null)
+                return;
+
+            MediaActedHandler(SourcePath, e.ErrorException);
+        }
+
         private bool PlayMedia(string sourcePath)
         {
             if (!System.IO.File.Exists(sourcePath))

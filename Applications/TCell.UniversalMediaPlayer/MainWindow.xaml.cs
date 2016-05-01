@@ -31,12 +31,14 @@ namespace TCell.UniversalMediaPlayer
         #region events
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Logger.LoggerInstance.Log(TraceEventType.Start, "Universal media player starting...");
+            LogMessage(TraceEventType.Start, "Universal media player starting...");
 
             LoadConfigurations();
             LoadPlayers();
+            PlayerHelper.SetLogHandler(LogMessage);
+            PlayerHelper.SetLogHandler(LogException);
 
-            Logger.LoggerInstance.Log(TraceEventType.Start, "Universal media player started.");
+            LogMessage(TraceEventType.Start, "Universal media player started.");
 
 
 
@@ -69,7 +71,7 @@ namespace TCell.UniversalMediaPlayer
                         continue;
 
                     if (!player.StopPlayer())
-                        Logger.LoggerInstance.Log(TraceEventType.Stop, $"Stop {player.Id} return false!");
+                        LogMessage(TraceEventType.Stop, $"Stop {player.Id} return false!");
                 }
             }
 
@@ -131,20 +133,30 @@ namespace TCell.UniversalMediaPlayer
                                         container.Children.Add(uiElement);
                                 }
 
-                                Logger.LoggerInstance.Log(TraceEventType.Start, $"Load {player.Id} successfully.");
+                                LogMessage(TraceEventType.Start, $"Load {player.Id} successfully.");
                             }
                             else
                             {
-                                Logger.LoggerInstance.Log(TraceEventType.Start, $"Start {player.Id} return false!");
+                                LogMessage(TraceEventType.Start, $"Start {player.Id} return false!");
                             }
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    Logger.LoggerInstance.Log($"Load {path} player failed, {ex.Message}", ex);
+                    LogException($"Load {path} player failed, {ex.Message}", ex);
                 }
             }
+        }
+
+        private void LogException(string msg, Exception ex)
+        {
+            Logger.LoggerInstance.Log(msg, ex);
+        }
+
+        private void LogMessage(TraceEventType evt, string msg)
+        {
+            Logger.LoggerInstance.Log(evt, msg);
         }
 
         private DispatcherTimer ActionInATimeInterval(double delayTime, EventHandler handler)

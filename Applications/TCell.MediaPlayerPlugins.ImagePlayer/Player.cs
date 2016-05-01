@@ -20,6 +20,8 @@ namespace TCell.MediaPlayerPlugins.ImagePlayer
         }
 
         public string SourcePath { get; set; }
+
+        public Action<string, object> MediaActedHandler { get; set; }
         #endregion
 
         #region public functions
