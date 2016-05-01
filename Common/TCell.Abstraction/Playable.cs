@@ -3,10 +3,16 @@ using System.Diagnostics;
 
 namespace TCell.Abstraction
 {
+    public enum PlayerStatusType
+    {
+        Idle, Playing, Paused
+    }
+
     public interface IPlayable
     {
         string Id { get; }
         string SourcePath { get; set; }
+        PlayerStatusType Status { get; }
 
         Action<string, object> MediaActedHandler { get; set; }
 

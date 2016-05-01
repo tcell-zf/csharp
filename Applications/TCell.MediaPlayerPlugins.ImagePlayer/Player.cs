@@ -21,6 +21,12 @@ namespace TCell.MediaPlayerPlugins.ImagePlayer
 
         public string SourcePath { get; set; }
 
+        private PlayerStatusType currStatus = PlayerStatusType.Idle;
+        public PlayerStatusType Status
+        {
+            get { return currStatus; }
+        }
+
         public Action<string, object> MediaActedHandler { get; set; }
         #endregion
 
@@ -55,6 +61,8 @@ namespace TCell.MediaPlayerPlugins.ImagePlayer
                     execResult = PlayMedia(string.Empty);
                     break;
                 default:
+                    this.Source = null;
+                    this.Visibility = Visibility.Hidden;
                     break;
             }
 
@@ -79,22 +87,24 @@ namespace TCell.MediaPlayerPlugins.ImagePlayer
 
         private bool PlayMedia(string sourcePath)
         {
-            if (!System.IO.File.Exists(sourcePath))
-                return false;
-            FileCategory category = File.GetFileCategory(sourcePath);
-            if (category != FileCategory.Image)
-                return false;
-
             SourcePath = sourcePath;
             if (string.IsNullOrEmpty(sourcePath))
             {
                 this.Source = null;
                 this.Visibility = Visibility.Hidden;
+                currStatus = PlayerStatusType.Idle;
             }
             else
             {
+                if (!System.IO.File.Exists(sourcePath))
+                    return false;
+                FileCategory category = File.GetFileCategory(sourcePath);
+                if (category != FileCategory.Image)
+                    return false;
+
                 this.Source = BitmapFrame.Create(new Uri(sourcePath));
                 this.Visibility = Visibility.Visible;
+                currStatus = PlayerStatusType.Playing;
             }
             return true;
         }
