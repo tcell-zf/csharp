@@ -45,7 +45,8 @@ namespace TCell.UniversalMediaPlayer
             {
                 Name = TextCommand.CommandName.MediaPlay
             };
-            cmd.SetParameterValue(TextCommand.ParameterName.Path, @"C:\Users\tcell\Pictures\Photo\Kid\20th month\IMG_20160326_111818.jpg");
+            //cmd.SetParameterValue(TextCommand.ParameterName.Path, @"C:\Users\tcell\Pictures\Photo\Kid\20th month\IMG_20160326_111818.jpg");
+            cmd.SetParameterValue(TextCommand.ParameterName.Path, @"C:\Users\tcell\Desktop\Screen1\123.mp4");
             foreach (IPlayable player in players)
                 player.ExecuteCommand(cmd.ToString());
         }
