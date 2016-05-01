@@ -8,6 +8,8 @@ namespace TCell.Abstraction
         string Id { get; }
         string SourcePath { get; set; }
 
+        Action<string, object> MediaActedHandler { get; set; }
+
         bool StartPlayer();
         bool StopPlayer();
         bool ExecuteCommand(string commandText);
@@ -38,7 +40,7 @@ namespace TCell.Abstraction
                 eventLogHandler += handler;
         }
 
-        static private void LogMessage(TraceEventType evt, string msg)
+        static public void LogMessage(TraceEventType evt, string msg)
         {
             if (eventLogHandler != null)
             {
@@ -46,7 +48,7 @@ namespace TCell.Abstraction
             }
         }
 
-        static private void LogException(string msg, Exception ex)
+        static public void LogException(string msg, Exception ex)
         {
             if (exceptionLogHandler != null)
             {
