@@ -50,6 +50,12 @@ namespace TCell.MediaPlayerPlugins.VideoPlayer
                 case TextCommand.CommandName.MediaStop:
                     execResult = PlayMedia(string.Empty);
                     break;
+                case TextCommand.CommandName.MediaMute:
+                    execResult = Mute(true);
+                    break;
+                case TextCommand.CommandName.MediaUnmute:
+                    execResult = Mute(false);
+                    break;
                 default:
                     break;
             }
@@ -80,6 +86,12 @@ namespace TCell.MediaPlayerPlugins.VideoPlayer
                 this.Play();
             }
             return true;
+        }
+
+        private bool Mute(bool isMute)
+        {
+            this.IsMuted = isMute;
+            return (this.IsMuted == isMute);
         }
         #endregion
     }
