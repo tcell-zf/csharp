@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -37,12 +38,14 @@ namespace TCell.MediaPlayerPlugins.VideoPlayer
             this.MediaEnded += Player_MediaEnded;
             this.MediaFailed += Player_MediaFailed;
 
+            PlayerHelper.LogMessage(TraceEventType.Start, $"Start {Id} successfully.");
             return true;
         }
 
         public bool StopPlayer()
         {
             currStatus = PlayerStatusType.Idle;
+            PlayerHelper.LogMessage(TraceEventType.Stop, $"Stop {Id} successfully.");
             return true;
         }
 
