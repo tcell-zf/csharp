@@ -38,6 +38,7 @@ namespace TCell.MediaPlayerPlugins.TcpCommand
                         RemoteEndPoint = null
                     });
 
+                    tcpSvr.SetDatagramReceivedHandler(OnDatagramReceived);
                     execResult = tcpSvr.Start();
                 }
             }
@@ -86,6 +87,16 @@ namespace TCell.MediaPlayerPlugins.TcpCommand
                 PlayerHelper.LogException($"Exception occurred when send {Id} datagram, {ex.Message}", ex);
                 return false;
             }
+        }
+        #endregion
+
+        #region private functions
+        private void OnDatagramReceived(byte[] dgram)
+        {
+            if (dgram == null || dgram.Length == 0 || CommandReceivedHandler == null)
+                return;
+
+            CommandReceivedHandler(Id, Encoding.UTF8.GetString(dgram));
         }
         #endregion
     }
