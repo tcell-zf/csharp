@@ -48,6 +48,25 @@
       <Project>{408281BA-340B-4175-BEC4-E51757C27A63}</Project>
       <Name>TCell.Abstraction</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Common\TCell.Configuration\TCell.Configuration.csproj">
+      <Project>{27E630E7-FB52-47A7-B902-7EB0E0B12795}</Project>
+      <Name>TCell.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\TCell.Entities\TCell.Entities.csproj">
+      <Project>{bc4624ab-56e1-42f7-ad7a-7e9cad8ad669}</Project>
+      <Name>TCell.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\TCell.Mapping\TCell.Mapping.csproj">
+      <Project>{C9BBAA09-5AA3-4271-A214-AA214E494D4F}</Project>
+      <Name>TCell.Mapping</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\TCell.Net\TCell.Net.csproj">
+      <Project>{D4AC8543-312C-4FDA-84BC-093ABE33E3CB}</Project>
+      <Name>TCell.Net</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
