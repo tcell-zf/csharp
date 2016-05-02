@@ -1,15 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
+
+using TCell.Net;
+using TCell.Mapping;
 using TCell.Abstraction;
+using TCell.Configuration;
+using TCell.Entities.Communication;
+using System.Text;
 
 namespace TCell.MediaPlayerPlugins.TcpCommand
 {
     public class Receiver : IReceivable
     {
         #region properties
+        private TcpServerCommander tcpSvr = null;
+
         public string Id
         {
             get { return "TcpCommandReceiver"; }
@@ -21,17 +26,66 @@ namespace TCell.MediaPlayerPlugins.TcpCommand
         #region public functions
         public bool StartReceiver()
         {
-            return true;
+            bool execResult = false;
+            try
+            {
+                EndPoint ep = ConfigItemToEntity.MapNetEndpoint(ConfigurationHelper.GetIPEndPointsConfiguration("tcpServer"));
+                if (ep != null)
+                {
+                    tcpSvr = new TcpServerCommander(new EndpointPair()
+                    {
+                        LocalEndPoint = ep,
+                        RemoteEndPoint = null
+                    });
+
+                    execResult = tcpSvr.Start();
+                }
+            }
+            catch (Exception ex)
+            {
+                PlayerHelper.LogException($"Exception occurred when start {Id}, {ex.Message}", ex);
+                execResult = false;
+            }
+
+            if (execResult)
+                PlayerHelper.LogMessage(TraceEventType.Start, $"Start {Id} successfully.");
+            else
+                PlayerHelper.LogMessage(TraceEventType.Start, $"Start {Id} failed!");
+
+            return execResult;
         }
 
         public bool StopRrceiver()
         {
-            return true;
+            bool execResult = false;
+            if (tcpSvr != null)
+            {
+                execResult = tcpSvr.Stop();
+                tcpSvr = null;
+            }
+
+            if (execResult)
+                PlayerHelper.LogMessage(TraceEventType.Stop, $"Stop {Id} successfully.");
+            else
+                PlayerHelper.LogMessage(TraceEventType.Stop, $"Stop {Id} failed!");
+
+            return execResult;
         }
 
         public bool Send(string response)
         {
-            return true;
+            if (tcpSvr == null || string.IsNullOrEmpty(response))
+                return false;
+
+            try
+            {
+                return tcpSvr.Send(Encoding.UTF8.GetBytes(response));
+            }
+            catch (Exception ex)
+            {
+                PlayerHelper.LogException($"Exception occurred when send {Id} datagram, {ex.Message}", ex);
+                return false;
+            }
         }
         #endregion
     }
