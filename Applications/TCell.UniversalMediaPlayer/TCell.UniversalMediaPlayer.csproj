@@ -132,6 +132,10 @@
       <Project>{3d9fb576-12af-423e-bee6-97aa709ba3e0}</Project>
       <Name>TCell.MediaPlayerPlugins.TcpCommand</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TCell.MediaPlayerPlugins.UdpCommand\TCell.MediaPlayerPlugins.UdpCommand.csproj">
+      <Project>{16a251cf-16c9-48da-8c3d-95c78d19242b}</Project>
+      <Name>TCell.MediaPlayerPlugins.UdpCommand</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TCell.MediaPlayerPlugins.VideoPlayer\TCell.MediaPlayerPlugins.VideoPlayer.csproj">
       <Project>{29a81718-bdbd-40a7-a5f2-c958f4a6a1bf}</Project>
       <Name>TCell.MediaPlayerPlugins.VideoPlayer</Name>

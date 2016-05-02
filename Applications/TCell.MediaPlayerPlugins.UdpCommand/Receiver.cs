@@ -8,16 +8,16 @@ using TCell.Abstraction;
 using TCell.Configuration;
 using TCell.Entities.Communication;
 
-namespace TCell.MediaPlayerPlugins.TcpCommand
+namespace TCell.MediaPlayerPlugins.UdpCommand
 {
     public class Receiver : IReceivable
     {
         #region properties
-        private TcpServerCommander tcpSvr = null;
+        private UdpServerCommander udpSvr = null;
 
         public string Id
         {
-            get { return "TcpCommandReceiver"; }
+            get { return "UdpCommandReceiver"; }
         }
 
         public Action<string, string> CommandReceivedHandler { get; set; }
@@ -29,17 +29,17 @@ namespace TCell.MediaPlayerPlugins.TcpCommand
             bool execResult = false;
             try
             {
-                EndPoint ep = ConfigItemToEntity.MapNetEndpoint(ConfigurationHelper.GetIPEndPointsConfiguration("mediaPlayerTcpLocal"));
+                EndPoint ep = ConfigItemToEntity.MapNetEndpoint(ConfigurationHelper.GetIPEndPointsConfiguration("mediaPlayerUdpLocal"));
                 if (ep != null)
                 {
-                    tcpSvr = new TcpServerCommander(new EndpointPair()
+                    udpSvr = new UdpServerCommander(new EndpointPair()
                     {
                         LocalEndPoint = ep,
                         RemoteEndPoint = null
                     });
 
-                    tcpSvr.SetDatagramReceivedHandler(OnDatagramReceived);
-                    execResult = tcpSvr.Start();
+                    udpSvr.SetDatagramReceivedHandler(OnDatagramReceived);
+                    execResult = udpSvr.Start();
                 }
             }
             catch (Exception ex)
@@ -59,10 +59,10 @@ namespace TCell.MediaPlayerPlugins.TcpCommand
         public bool StopRrceiver()
         {
             bool execResult = false;
-            if (tcpSvr != null)
+            if (udpSvr != null)
             {
-                execResult = tcpSvr.Stop();
-                tcpSvr = null;
+                execResult = udpSvr.Stop();
+                udpSvr = null;
             }
 
             if (execResult)
@@ -75,12 +75,23 @@ namespace TCell.MediaPlayerPlugins.TcpCommand
 
         public bool Send(string response)
         {
-            if (tcpSvr == null || string.IsNullOrEmpty(response))
+            if (string.IsNullOrEmpty(response))
                 return false;
 
+            EndPoint ep = ConfigItemToEntity.MapNetEndpoint(ConfigurationHelper.GetIPEndPointsConfiguration("mediaPlayerUdpRemote"));
+            if (ep == null)
+                return false;
             try
             {
-                return tcpSvr.Send(Encoding.UTF8.GetBytes(response));
+                UdpClientCommander udpClient = new UdpClientCommander(new EndpointPair()
+                {
+                    LocalEndPoint = null,
+                    RemoteEndPoint = ep
+                });
+                if (!udpClient.Start())
+                    return false;
+
+                return udpClient.Send(Encoding.UTF8.GetBytes(response));
             }
             catch (Exception ex)
             {
