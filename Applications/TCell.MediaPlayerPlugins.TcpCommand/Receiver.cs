@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Diagnostics;
 
 using TCell.Net;
@@ -6,7 +7,6 @@ using TCell.Mapping;
 using TCell.Abstraction;
 using TCell.Configuration;
 using TCell.Entities.Communication;
-using System.Text;
 
 namespace TCell.MediaPlayerPlugins.TcpCommand
 {
