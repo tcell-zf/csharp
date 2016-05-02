@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Configuration;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Forms;
 using System.Windows.Threading;
 using System.Windows.Media.Imaging;
 using System.Collections.Generic;
@@ -27,6 +28,11 @@ namespace TCell.UniversalMediaPlayer
         #region properties
         private List<IReceivable> receivers = null;
         private List<IPlayable> players = null;
+
+        private string DeviceId
+        {
+            get { return ConfigurationManager.AppSettings["deviceId"]; }
+        }
         #endregion
 
         #region events
@@ -109,9 +115,28 @@ namespace TCell.UniversalMediaPlayer
             TextCommand cmd = TextCommand.Parse(commandText);
             if (cmd != null)
             {
+                string targetDevIds = cmd.GetParameterValue(TextCommand.ParameterName.DeviceIds);
+                if (!IsItMe(targetDevIds))
+                    return;
+
                 switch (cmd.Name)
                 {
                     case TextCommand.CommandName.MediaQuery:
+                        {
+                            string sourcePath;
+                            PlayerStatusType status = CheckPlayerStatus(out sourcePath);
+                            TextCommand resp = new TextCommand()
+                            {
+                                Name = TextCommand.CommandName.MediaReplyQuery
+                            };
+                            if (!string.IsNullOrEmpty(DeviceId))
+                                resp.SetParameterValue(TextCommand.ParameterName.DeviceId, DeviceId);
+                            resp.SetParameterValue(TextCommand.ParameterName.Status, status.ToString());
+                            if (!string.IsNullOrEmpty(sourcePath))
+                                resp.SetParameterValue(TextCommand.ParameterName.Path, sourcePath);
+
+                            SendResponse(resp);
+                        }
                         break;
                     case TextCommand.CommandName.MediaLoop:
                         break;
@@ -137,6 +162,23 @@ namespace TCell.UniversalMediaPlayer
             str = ConfigurationManager.AppSettings["backgroundImageUri"];
             if (!string.IsNullOrEmpty(str) && File.Exists(str))
                 backgroundImageBrush.ImageSource = BitmapFrame.Create(new Uri(str));
+
+            str = ConfigurationManager.AppSettings["displayDeviceName"];
+            if (!string.IsNullOrEmpty(str))
+            {
+                foreach (Screen screen in Screen.AllScreens)
+                {
+                    if (screen.DeviceName.ToLower().Contains(str.ToLower()))
+                    {
+                        WindowState = WindowState.Normal;
+                        Top = screen.WorkingArea.Top;
+                        Left = screen.WorkingArea.Left;
+                        WindowState = WindowState.Maximized;
+
+                        break;
+                    }
+                }
+            }
         }
 
         private void LoadCommandReceivers()
@@ -220,6 +262,62 @@ namespace TCell.UniversalMediaPlayer
                 {
                     LogException($"Load {path} player failed, {ex.Message}", ex);
                 }
+            }
+        }
+
+        private bool IsItMe(string deviceIds)
+        {
+            if (string.IsNullOrEmpty(deviceIds) || string.IsNullOrEmpty(DeviceId))
+                return true;
+
+            string[] devIdArr = deviceIds.Split(new char[] { ',' });
+            if (devIdArr == null || devIdArr.Length == 0)
+                return true;
+
+            bool isItMe = false;
+            foreach (string id in devIdArr)
+            {
+                if (id == DeviceId)
+                {
+                    isItMe = true;
+                    break;
+                }
+            }
+            return isItMe;
+        }
+
+        private PlayerStatusType CheckPlayerStatus(out string sourcePath)
+        {
+            sourcePath = string.Empty;
+
+            if (players == null || players.Count == 0)
+                return PlayerStatusType.Idle;
+
+            PlayerStatusType status = PlayerStatusType.Idle;
+            foreach (IPlayable player in players)
+            {
+                if (player == null)
+                    continue;
+
+                if (player.Status != PlayerStatusType.Idle)
+                {
+                    status = player.Status;
+                    sourcePath = player.SourcePath;
+                    break;
+                }
+            }
+
+            return status;
+        }
+
+        private void SendResponse(TextCommand cmd)
+        {
+            if (receivers == null || receivers.Count == 0)
+                return;
+
+            foreach (IReceivable receiver in receivers)
+            {
+                receiver.Send(cmd.ToString());
             }
         }
 
