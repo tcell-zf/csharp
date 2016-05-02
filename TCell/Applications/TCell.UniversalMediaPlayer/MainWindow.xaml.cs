@@ -18,6 +18,8 @@ namespace TCell.UniversalMediaPlayer
 {
     public partial class MainWindow : Window, IPlayerHostable
     {
+        private delegate bool ExecuteCommandDelegate(string commandText);
+
         #region constructors
         public MainWindow()
         {
@@ -137,7 +139,7 @@ namespace TCell.UniversalMediaPlayer
 
                             SendResponse(resp);
                         }
-                        break;
+                        return;
                     case TextCommand.CommandName.MediaLoop:
                         break;
                     default:
@@ -147,7 +149,15 @@ namespace TCell.UniversalMediaPlayer
 
             foreach (IPlayable player in players)
             {
-                player.ExecuteCommand(commandText);
+                if (player is UIElement)
+                {
+                    UIElement uiElement = player as UIElement;
+                    uiElement.Dispatcher.BeginInvoke(new ExecuteCommandDelegate(player.ExecuteCommand), new object[] { commandText });
+                }
+                else
+                {
+                    player.ExecuteCommand(commandText);
+                }
             }
         }
         #endregion
