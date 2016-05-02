@@ -101,6 +101,8 @@ namespace TCell.MediaPlayerPlugins.VideoPlayer
 
         private void Player_MediaEnded(object sender, RoutedEventArgs e)
         {
+            this.Source = null;
+            this.Visibility = Visibility.Hidden;
             currStatus = PlayerStatusType.Idle;
 
             if (MediaActedHandler == null)
@@ -111,6 +113,8 @@ namespace TCell.MediaPlayerPlugins.VideoPlayer
 
         private void Player_MediaFailed(object sender, ExceptionRoutedEventArgs e)
         {
+            this.Source = null;
+            this.Visibility = Visibility.Hidden;
             currStatus = PlayerStatusType.Idle;
             PlayerHelper.LogException($"Exception occured when play {SourcePath}, {e.ErrorException.Message}", e.ErrorException);
 

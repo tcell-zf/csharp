@@ -140,6 +140,7 @@ namespace TCell.Text
             public const string DeviceIds = "deviceids";
             public const string DeviceId = "deviceid";
 
+            public const string Status = "status";
             public const string Path = "path";
             public const string Action = "action";
             public const string MultiDeviceId = "deviceids";
