@@ -25,6 +25,7 @@ namespace TCell.UniversalMediaPlayer
         #endregion
 
         #region properties
+        private List<IReceivable> receivers = null;
         private List<IPlayable> players = null;
         #endregion
 
@@ -36,6 +37,7 @@ namespace TCell.UniversalMediaPlayer
             PlayerHelper.SetLogHandler(LogException);
 
             LoadConfigurations();
+            LoadCommandReceivers();
             LoadPlayers();
 
             LogMessage(TraceEventType.Start, "Universal media player started.");
@@ -65,6 +67,18 @@ namespace TCell.UniversalMediaPlayer
         {
             LogMessage(TraceEventType.Stop, "Universal media player stopping...");
 
+            // stop all command receivers
+            if (receivers != null && receivers.Count > 0)
+            {
+                foreach (IReceivable receiver in receivers)
+                {
+                    if (receiver == null)
+                        continue;
+
+                    receiver.StopRrceiver();
+                }
+            }
+            // stop all players
             if (players != null && players.Count > 0)
             {
                 foreach (IPlayable player in players)
@@ -72,8 +86,7 @@ namespace TCell.UniversalMediaPlayer
                     if (player == null)
                         continue;
 
-                    if (!player.StopPlayer())
-                        LogMessage(TraceEventType.Stop, $"Stop {player.Id} return false!");
+                    player.StopPlayer();
                 }
             }
 
@@ -87,6 +100,31 @@ namespace TCell.UniversalMediaPlayer
             if (e.Key == Key.Escape)
                 Close();
         }
+
+        private void OnCommandReceived(string id, string commandText)
+        {
+            if (string.IsNullOrEmpty(commandText))
+                return;
+
+            TextCommand cmd = TextCommand.Parse(commandText);
+            if (cmd != null)
+            {
+                switch (cmd.Name)
+                {
+                    case TextCommand.CommandName.MediaQuery:
+                        break;
+                    case TextCommand.CommandName.MediaLoop:
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            foreach (IPlayable player in players)
+            {
+                player.ExecuteCommand(commandText);
+            }
+        }
         #endregion
 
         #region private functions
@@ -99,6 +137,44 @@ namespace TCell.UniversalMediaPlayer
             str = ConfigurationManager.AppSettings["backgroundImageUri"];
             if (!string.IsNullOrEmpty(str) && File.Exists(str))
                 backgroundImageBrush.ImageSource = BitmapFrame.Create(new Uri(str));
+        }
+
+        private void LoadCommandReceivers()
+        {
+            string[] dllPaths = Directory.GetFiles(Environments.ApplicationPath, "*.dll");
+            if (dllPaths == null || dllPaths.Length == 0)
+                return;
+
+            Type receivererType = typeof(IReceivable);
+            foreach (string path in dllPaths)
+            {
+                try
+                {
+                    Assembly assembly = Assembly.LoadFrom(path);
+                    Type[] types = assembly.GetTypes();
+                    foreach (Type type in types)
+                    {
+                        if (type.IsInterface || type.IsAbstract)
+                            continue;
+
+                        if (type.GetInterface(receivererType.FullName) != null)
+                        {
+                            IReceivable receiver = (IReceivable)Activator.CreateInstance(type);
+
+                            if (receivers == null)
+                                receivers = new List<IReceivable>();
+
+                            receiver.CommandReceivedHandler += this.OnCommandReceived;
+                            if (receiver.StartReceiver())
+                                receivers.Add(receiver);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogException($"Load {path} command receiver failed, {ex.Message}", ex);
+                }
+            }
         }
 
         private void LoadPlayers()

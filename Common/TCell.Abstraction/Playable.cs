@@ -62,4 +62,17 @@ namespace TCell.Abstraction
             }
         }
     }
+
+
+
+    public interface IReceivable
+    {
+        string Id { get; }
+
+        Action<string, string> CommandReceivedHandler { get; set; }
+
+        bool StartReceiver();
+        bool StopRrceiver();
+        bool Send(string response);
+    }
 }

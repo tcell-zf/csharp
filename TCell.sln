@@ -33,6 +33,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCell.MediaPlayerPlugins.Vi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCell.IO", "Common\TCell.IO\TCell.IO.csproj", "{9963E537-6C3F-4FB2-8FEE-1CCB36120E2C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCell.MediaPlayerPlugins.ShellCommand", "Applications\TCell.MediaPlayerPlugins.ShellCommand\TCell.MediaPlayerPlugins.ShellCommand.csproj", "{588DC503-28E1-4A10-8776-521565028554}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCell.MediaPlayerPlugins.TcpCommand", "Applications\TCell.MediaPlayerPlugins.TcpCommand\TCell.MediaPlayerPlugins.TcpCommand.csproj", "{3D9FB576-12AF-423E-BEE6-97AA709BA3E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCell.MediaPlayerPlugins.UdpCommand", "Applications\TCell.MediaPlayerPlugins.UdpCommand\TCell.MediaPlayerPlugins.UdpCommand.csproj", "{16A251CF-16C9-48DA-8C3D-95C78D19242B}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -95,6 +101,18 @@ Global
 		{9963E537-6C3F-4FB2-8FEE-1CCB36120E2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9963E537-6C3F-4FB2-8FEE-1CCB36120E2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9963E537-6C3F-4FB2-8FEE-1CCB36120E2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{588DC503-28E1-4A10-8776-521565028554}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{588DC503-28E1-4A10-8776-521565028554}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{588DC503-28E1-4A10-8776-521565028554}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{588DC503-28E1-4A10-8776-521565028554}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D9FB576-12AF-423E-BEE6-97AA709BA3E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D9FB576-12AF-423E-BEE6-97AA709BA3E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D9FB576-12AF-423E-BEE6-97AA709BA3E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D9FB576-12AF-423E-BEE6-97AA709BA3E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16A251CF-16C9-48DA-8C3D-95C78D19242B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16A251CF-16C9-48DA-8C3D-95C78D19242B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16A251CF-16C9-48DA-8C3D-95C78D19242B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16A251CF-16C9-48DA-8C3D-95C78D19242B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -105,5 +123,8 @@ Global
 		{9C5321FD-D442-43FE-984B-C431EC6154FD} = {09F798D3-8262-41DB-BA5B-3301F5BD2803}
 		{E9F0D7A5-7751-42C2-B6EE-4349D1CD644E} = {09F798D3-8262-41DB-BA5B-3301F5BD2803}
 		{29A81718-BDBD-40A7-A5F2-C958F4A6A1BF} = {09F798D3-8262-41DB-BA5B-3301F5BD2803}
+		{588DC503-28E1-4A10-8776-521565028554} = {09F798D3-8262-41DB-BA5B-3301F5BD2803}
+		{3D9FB576-12AF-423E-BEE6-97AA709BA3E0} = {09F798D3-8262-41DB-BA5B-3301F5BD2803}
+		{16A251CF-16C9-48DA-8C3D-95C78D19242B} = {09F798D3-8262-41DB-BA5B-3301F5BD2803}
 	EndGlobalSection
 EndGlobal
