@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace FileCategorizer
@@ -16,6 +17,12 @@ namespace FileCategorizer
             {
                 textBoxFolder.Text = folderBrowserDialog.SelectedPath;
             }
+        }
+
+        private void buttonCheck_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(textBoxFolder.Text) || !Directory.Exists(textBoxFolder.Text))
+                return;
         }
     }
 }
