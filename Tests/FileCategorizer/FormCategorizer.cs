@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FileCategorizer
@@ -15,6 +8,14 @@ namespace FileCategorizer
         public FormCategorizer()
         {
             InitializeComponent();
+        }
+
+        private void buttonSelect_Click(object sender, EventArgs e)
+        {
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+            {
+                textBoxFolder.Text = folderBrowserDialog.SelectedPath;
+            }
         }
     }
 }

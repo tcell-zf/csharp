@@ -117,4 +117,80 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="folderBrowserDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="textBoxFileTypes.Text" xml:space="preserve">
+    <value>                case "7790":
+                    type = FileType.EXE;
+                    break;
+
+                case "4838":
+                case "255216":
+                    type = FileType.JPG;
+                    break;
+                case "7173":
+                    type = FileType.GIF;
+                    break;
+                case "6677":
+                    type = FileType.BMP;
+                    break;
+                case "13780":
+                    type = FileType.PNG;
+                    break;
+                case "8273":
+                    type = FileType.AVI;
+                    break;
+                case "7368":
+                case "255251":
+                    type = FileType.MP3;
+                    break;
+                case "00":
+                    type = FileType.MP4;
+                    break;
+                case "4682":
+                    type = FileType.RMVB;
+                    break;
+
+                case "8075":
+                    type = FileType.ZIP;
+                    break;
+                case "8297":
+                    type = FileType.RAR;
+                    break;
+                case "6787":
+                    type = FileType.SWF;
+                    break;
+</value>
+  </data>
+  <data name="textBoxFileCategory.Text" xml:space="preserve">
+    <value>                case FileType.EXE:
+                    category = FileCategory.Executable;
+                    break;
+                case FileType.JPG:
+                case FileType.PNG:
+                case FileType.BMP:
+                    category = FileCategory.Image;
+                    break;
+                case FileType.WMA:
+                case FileType.MP3:
+                    category = FileCategory.Audio;
+                    break;
+                case FileType.AVI:
+                case FileType.MP4:
+                case FileType.RMVB:
+                    category = FileCategory.Video;
+                    break;
+                case FileType.ZIP:
+                case FileType.RAR:
+                    category = FileCategory.Compress;
+                    break;
+                case FileType.SWF:
+                    category = FileCategory.Flash;
+                    break;
+                case FileType.GIF:
+                    category = FileCategory.Gif;
+                    break;
+</value>
+  </data>
 </root>
