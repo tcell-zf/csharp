@@ -35,6 +35,8 @@
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.textBoxFileTypes = new System.Windows.Forms.TextBox();
             this.textBoxFileCategory = new System.Windows.Forms.TextBox();
+            this.listViewFiles = new System.Windows.Forms.ListView();
+            this.buttonCheck = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -42,6 +44,7 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.buttonCheck);
             this.groupBox1.Controls.Add(this.buttonSelect);
             this.groupBox1.Controls.Add(this.textBoxFolder);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
@@ -57,13 +60,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxFolder.Location = new System.Drawing.Point(6, 48);
             this.textBoxFolder.Name = "textBoxFolder";
-            this.textBoxFolder.Size = new System.Drawing.Size(986, 35);
+            this.textBoxFolder.Size = new System.Drawing.Size(728, 35);
             this.textBoxFolder.TabIndex = 0;
             // 
             // buttonSelect
             // 
             this.buttonSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSelect.Location = new System.Drawing.Point(1015, 35);
+            this.buttonSelect.Location = new System.Drawing.Point(757, 35);
             this.buttonSelect.Name = "buttonSelect";
             this.buttonSelect.Size = new System.Drawing.Size(216, 60);
             this.buttonSelect.TabIndex = 1;
@@ -102,11 +105,33 @@
             this.textBoxFileCategory.Text = resources.GetString("textBoxFileCategory.Text");
             this.textBoxFileCategory.WordWrap = false;
             // 
+            // listViewFiles
+            // 
+            this.listViewFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewFiles.Location = new System.Drawing.Point(12, 721);
+            this.listViewFiles.Name = "listViewFiles";
+            this.listViewFiles.Size = new System.Drawing.Size(1237, 108);
+            this.listViewFiles.TabIndex = 3;
+            this.listViewFiles.UseCompatibleStateImageBehavior = false;
+            // 
+            // buttonCheck
+            // 
+            this.buttonCheck.Location = new System.Drawing.Point(995, 35);
+            this.buttonCheck.Name = "buttonCheck";
+            this.buttonCheck.Size = new System.Drawing.Size(211, 60);
+            this.buttonCheck.TabIndex = 2;
+            this.buttonCheck.Text = "Check";
+            this.buttonCheck.UseVisualStyleBackColor = true;
+            this.buttonCheck.Click += new System.EventHandler(this.buttonCheck_Click);
+            // 
             // FormCategorizer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 29F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1261, 1345);
+            this.ClientSize = new System.Drawing.Size(1261, 841);
+            this.Controls.Add(this.listViewFiles);
             this.Controls.Add(this.textBoxFileCategory);
             this.Controls.Add(this.textBoxFileTypes);
             this.Controls.Add(this.groupBox1);
@@ -127,5 +152,7 @@
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
         private System.Windows.Forms.TextBox textBoxFileTypes;
         private System.Windows.Forms.TextBox textBoxFileCategory;
+        private System.Windows.Forms.ListView listViewFiles;
+        private System.Windows.Forms.Button buttonCheck;
     }
 }
