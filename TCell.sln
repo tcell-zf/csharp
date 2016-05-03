@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCell.MediaPlayerPlugins.Tc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCell.MediaPlayerPlugins.UdpCommand", "Applications\TCell.MediaPlayerPlugins.UdpCommand\TCell.MediaPlayerPlugins.UdpCommand.csproj", "{16A251CF-16C9-48DA-8C3D-95C78D19242B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileCategorizer", "Tests\FileCategorizer\FileCategorizer.csproj", "{33DD6AC5-FCD6-47AA-8C8C-D494BCDFFD68}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -113,6 +115,10 @@ Global
 		{16A251CF-16C9-48DA-8C3D-95C78D19242B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16A251CF-16C9-48DA-8C3D-95C78D19242B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16A251CF-16C9-48DA-8C3D-95C78D19242B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33DD6AC5-FCD6-47AA-8C8C-D494BCDFFD68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33DD6AC5-FCD6-47AA-8C8C-D494BCDFFD68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33DD6AC5-FCD6-47AA-8C8C-D494BCDFFD68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33DD6AC5-FCD6-47AA-8C8C-D494BCDFFD68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -126,5 +132,6 @@ Global
 		{588DC503-28E1-4A10-8776-521565028554} = {09F798D3-8262-41DB-BA5B-3301F5BD2803}
 		{3D9FB576-12AF-423E-BEE6-97AA709BA3E0} = {09F798D3-8262-41DB-BA5B-3301F5BD2803}
 		{16A251CF-16C9-48DA-8C3D-95C78D19242B} = {09F798D3-8262-41DB-BA5B-3301F5BD2803}
+		{33DD6AC5-FCD6-47AA-8C8C-D494BCDFFD68} = {C22A6F2D-50A1-4969-8B1F-5010EFBD3DEA}
 	EndGlobalSection
 EndGlobal
