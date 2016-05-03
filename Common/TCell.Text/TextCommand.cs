@@ -143,6 +143,7 @@ namespace TCell.Text
             public const string Status = "status";
             public const string Path = "path";
             public const string IsMute = "ismute";
+            public const string IsCountDown = "iscountdown";
 
             public const string Action = "action";
             public const string MultiDeviceId = "deviceids";

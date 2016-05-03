@@ -72,6 +72,7 @@ namespace TCell.IO
                     type = FileType.EXE;
                     break;
 
+                case "4838":
                 case "255216":
                     type = FileType.JPG;
                     break;
@@ -83,10 +84,6 @@ namespace TCell.IO
                     break;
                 case "13780":
                     type = FileType.PNG;
-                    break;
-
-                case "4838":
-                    type = FileType.WMA;
                     break;
                 case "8273":
                     type = FileType.AVI;
