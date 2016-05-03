@@ -28,7 +28,7 @@ namespace TCell.MediaPlayerPlugins.ImagePlayer
             get { return currStatus; }
         }
 
-        public Action<string, object> MediaActedHandler { get; set; }
+        public Action<MediaActedNotifier> MediaActedHandler { get; set; }
         #endregion
 
         #region public functions

@@ -8,13 +8,26 @@ namespace TCell.Abstraction
         Idle, Playing, Paused
     }
 
+    public enum PlayerActionType
+    {
+        Opend, Ended, Failed
+    }
+
+    public class MediaActedNotifier
+    {
+        public PlayerActionType Action { get; set; }
+        public string Id { get; set; }
+        public string SourcePath { get; set; }
+        public object Param { get; set; }
+    }
+
     public interface IPlayable
     {
         string Id { get; }
         string SourcePath { get; set; }
         PlayerStatusType Status { get; }
 
-        Action<string, object> MediaActedHandler { get; set; }
+        Action<MediaActedNotifier> MediaActedHandler { get; set; }
 
         bool StartPlayer();
         bool StopPlayer();

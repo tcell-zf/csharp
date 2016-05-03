@@ -25,7 +25,7 @@ namespace TCell.MediaPlayerPlugins.VideoPlayer
             get { return currStatus; }
         }
 
-        public Action<string, object> MediaActedHandler { get; set; }
+        public Action<MediaActedNotifier> MediaActedHandler { get; set; }
         #endregion
 
         #region public functions
@@ -96,7 +96,13 @@ namespace TCell.MediaPlayerPlugins.VideoPlayer
             if (MediaActedHandler == null)
                 return;
 
-            MediaActedHandler(SourcePath, null);
+            MediaActedHandler(new MediaActedNotifier()
+            {
+                Action = PlayerActionType.Opend,
+                Id = this.Id,
+                SourcePath = this.SourcePath,
+                Param = null
+            });
         }
 
         private void Player_MediaEnded(object sender, RoutedEventArgs e)
@@ -108,7 +114,13 @@ namespace TCell.MediaPlayerPlugins.VideoPlayer
             if (MediaActedHandler == null)
                 return;
 
-            MediaActedHandler(SourcePath, null);
+            MediaActedHandler(new MediaActedNotifier()
+            {
+                Action = PlayerActionType.Ended,
+                Id = this.Id,
+                SourcePath = this.SourcePath,
+                Param = null
+            });
         }
 
         private void Player_MediaFailed(object sender, ExceptionRoutedEventArgs e)
@@ -121,7 +133,13 @@ namespace TCell.MediaPlayerPlugins.VideoPlayer
             if (MediaActedHandler == null)
                 return;
 
-            MediaActedHandler(SourcePath, e.ErrorException);
+            MediaActedHandler(new MediaActedNotifier()
+            {
+                Action = PlayerActionType.Failed,
+                Id = this.Id,
+                SourcePath = this.SourcePath,
+                Param = e.ErrorException
+            });
         }
 
         private bool PlayMedia(string sourcePath)

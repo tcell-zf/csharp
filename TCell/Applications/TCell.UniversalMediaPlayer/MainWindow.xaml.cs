@@ -141,6 +141,9 @@ namespace TCell.UniversalMediaPlayer
                         }
                         return;
                     case TextCommand.CommandName.MediaLoop:
+                        {
+
+                        }
                         break;
                     default:
                         break;
@@ -159,6 +162,11 @@ namespace TCell.UniversalMediaPlayer
                     player.ExecuteCommand(commandText);
                 }
             }
+        }
+
+        private void OnMediaActed(MediaActedNotifier notifier)
+        {
+
         }
         #endregion
 
@@ -256,6 +264,7 @@ namespace TCell.UniversalMediaPlayer
 
                             if (player.StartPlayer())
                             {
+                                player.MediaActedHandler += OnMediaActed;
                                 players.Add(player);
 
                                 if (player is UIElement)
