@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Controls;
+using System.Windows.Threading;
 using System.Windows.Media.Imaging;
 
 using TCell.IO;
@@ -21,6 +22,10 @@ namespace TCell.MediaPlayerPlugins.ImagePlayer
         }
 
         public string SourcePath { get; set; }
+
+        private int? playInterval = null;
+        private DateTime latestPlayDateTime = DateTime.Now;
+        private DispatcherTimer checkIntervalTimer = null;
 
         private PlayerStatusType currStatus = PlayerStatusType.Idle;
         public PlayerStatusType Status
@@ -48,6 +53,11 @@ namespace TCell.MediaPlayerPlugins.ImagePlayer
         public bool StopPlayer()
         {
             currStatus = PlayerStatusType.Idle;
+            if (checkIntervalTimer != null)
+            {
+                checkIntervalTimer.Stop();
+                checkIntervalTimer = null;
+            }
             PlayerHelper.LogMessage(TraceEventType.Stop, $"Stop {Id} successfully.");
             return true;
         }
@@ -66,10 +76,13 @@ namespace TCell.MediaPlayerPlugins.ImagePlayer
             {
                 case TextCommand.CommandName.MediaPlay:
                     string path = cmd.GetParameterValue(TextCommand.ParameterName.Path);
-                    execResult = PlayMedia(path);
+                    bool isCountDown = false;
+                    if (!bool.TryParse(cmd.GetParameterValue(TextCommand.ParameterName.IsCountDown), out isCountDown))
+                        isCountDown = false;
+                    execResult = PlayMedia(path, isCountDown);
                     break;
                 case TextCommand.CommandName.MediaStop:
-                    execResult = PlayMedia(string.Empty);
+                    execResult = PlayMedia(string.Empty, false);
                     break;
                 default:
                     this.Source = null;
@@ -93,10 +106,17 @@ namespace TCell.MediaPlayerPlugins.ImagePlayer
 
                 this.Stretch = stretch;
             }
+
+            if (item != null && !string.IsNullOrEmpty(item.PlayInterval))
+            {
+                int interval;
+                if (int.TryParse(item.PlayInterval, out interval))
+                    playInterval = interval;
+            }
             return true;
         }
 
-        private bool PlayMedia(string sourcePath)
+        private bool PlayMedia(string sourcePath, bool isCountDown)
         {
             SourcePath = sourcePath;
             if (string.IsNullOrEmpty(sourcePath))
@@ -116,8 +136,48 @@ namespace TCell.MediaPlayerPlugins.ImagePlayer
                 this.Source = BitmapFrame.Create(new Uri(sourcePath));
                 this.Visibility = Visibility.Visible;
                 currStatus = PlayerStatusType.Playing;
+
+                if (isCountDown && playInterval != null)
+                {
+                    latestPlayDateTime = DateTime.Now;
+                    checkIntervalTimer = ActionInATimeInterval(1000, new EventHandler(CheckCountDown));
+                }
             }
             return true;
+        }
+
+        private void CheckCountDown(Object sender, EventArgs e)
+        {
+            TimeSpan ts = DateTime.Now - latestPlayDateTime;
+            int seconds = ts.Hours * 60 * 60 + ts.Minutes * 60 + ts.Seconds;
+            if (seconds >= playInterval)
+            {
+                checkIntervalTimer.Stop();
+                checkIntervalTimer = null;
+
+                if (MediaActedHandler != null)
+                    MediaActedHandler(new MediaActedNotifier()
+                    {
+                        Action = PlayerActionType.Ended,
+                        Id = this.Id,
+                        SourcePath = this.SourcePath,
+                        Param = null
+                    });
+                PlayMedia(string.Empty, false);
+            }
+        }
+
+        private DispatcherTimer ActionInATimeInterval(double delayTime, EventHandler handler)
+        {
+            DispatcherTimer timer = new DispatcherTimer()
+            {
+                Interval = TimeSpan.FromMilliseconds(delayTime),
+                IsEnabled = false
+            };
+            timer.Tick += new EventHandler(handler);
+            timer.Start();
+
+            return timer;
         }
         #endregion
     }

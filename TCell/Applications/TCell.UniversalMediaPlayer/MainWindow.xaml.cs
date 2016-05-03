@@ -33,10 +33,17 @@ namespace TCell.UniversalMediaPlayer
         private List<IPlayable> players = null;
 
         private LoopMode loopMode = null;
+        private int? autoStartLoopInterval = null;
+        private DateTime lastActiveDateTime = DateTime.Now;
+        private DispatcherTimer checkLoopTimer = null;
 
         private string DeviceId
         {
             get { return ConfigurationManager.AppSettings["deviceId"]; }
+        }
+        private string MediaPath
+        {
+            get { return ConfigurationManager.AppSettings["mediaPath"]; }
         }
         #endregion
 
@@ -51,27 +58,15 @@ namespace TCell.UniversalMediaPlayer
             LoadCommandReceivers();
             LoadPlayers();
 
-            LogMessage(TraceEventType.Start, "Universal media player started.");
-
-
-
-
-            TextCommand cmd = new TextCommand()
+            if (autoStartLoopInterval != null && players != null && players.Count > 0)
             {
-                Name = TextCommand.CommandName.MediaPlay
-            };
-            //cmd.SetParameterValue(TextCommand.ParameterName.Path, @"C:\Users\tcell\Pictures\Photo\Kid\20th month\IMG_20160326_111818.jpg");
-            cmd.SetParameterValue(TextCommand.ParameterName.Path, @"C:\Users\tcell\Desktop\Screen1\123.mp4");
-            TextCommand cmd1 = new TextCommand()
-            {
-                Name = TextCommand.CommandName.MediaMute
-            };
-
-            foreach (IPlayable player in players)
-            {
-                player.ExecuteCommand(cmd.ToString());
-                player.ExecuteCommand(cmd1.ToString());
+                if (!string.IsNullOrEmpty(MediaPath) && Directory.Exists(MediaPath))
+                {
+                    checkLoopTimer = ActionInATimeInterval(60 * 1000, new EventHandler(CheckAutoLoop));
+                }
             }
+
+            LogMessage(TraceEventType.Start, "Universal media player started.");
         }
 
         protected override void OnClosed(EventArgs e)
@@ -99,6 +94,12 @@ namespace TCell.UniversalMediaPlayer
 
                     player.StopPlayer();
                 }
+            }
+            // stop auto loop timer
+            if (checkLoopTimer != null)
+            {
+                checkLoopTimer.Stop();
+                checkLoopTimer = null;
             }
 
             base.OnClosed(e);
@@ -244,6 +245,12 @@ namespace TCell.UniversalMediaPlayer
                     }
                 }
             }
+
+            int interval;
+            if (int.TryParse(ConfigurationManager.AppSettings["autoStartLoopInterval"], out interval))
+                autoStartLoopInterval = interval;
+            else
+                autoStartLoopInterval = null;
         }
 
         private void LoadCommandReceivers()
@@ -394,7 +401,10 @@ namespace TCell.UniversalMediaPlayer
             if (!Directory.Exists(mediaPath))
                 return;
 
-            loopMode = new LoopMode();
+            loopMode = new LoopMode()
+            {
+                IsMuted = isMute
+            };
             string[] filePaths = Directory.GetFiles(mediaPath);
             if (filePaths == null || filePaths.Length == 0)
                 return;
@@ -418,10 +428,20 @@ namespace TCell.UniversalMediaPlayer
                 Name = TextCommand.CommandName.MediaPlay
             };
             cmdPlay.SetParameterValue(TextCommand.ParameterName.Path, path);
+            if (loopMode != null)
+                cmdPlay.SetParameterValue(TextCommand.ParameterName.IsCountDown, true.ToString());
 
             foreach (IPlayable player in players)
             {
-                player.ExecuteCommand(cmdPlay.ToString());
+                if (player is UIElement)
+                {
+                    UIElement uiElement = player as UIElement;
+                    uiElement.Dispatcher.BeginInvoke(new ExecuteCommandDelegate(player.ExecuteCommand), new object[] { cmdPlay.ToString() });
+                }
+                else
+                {
+                    player.ExecuteCommand(cmdPlay.ToString());
+                }
             }
         }
 
@@ -433,6 +453,22 @@ namespace TCell.UniversalMediaPlayer
         private void LogMessage(TraceEventType evt, string msg)
         {
             Logger.LoggerInstance.Log(evt, msg);
+        }
+
+        private void CheckAutoLoop(Object sender, EventArgs e)
+        {
+            if (loopMode != null)
+                return;
+
+            TimeSpan ts = DateTime.Now - lastActiveDateTime;
+            int minutes = ts.Hours * 60 + ts.Minutes;
+            if (minutes >= autoStartLoopInterval)
+            {
+                bool isMute = true;
+                if (!bool.TryParse(ConfigurationManager.AppSettings["autoStartLoopOnMute"], out isMute))
+                    isMute = true;
+                Loop(MediaPath, isMute);
+            }
         }
 
         private DispatcherTimer ActionInATimeInterval(double delayTime, EventHandler handler)

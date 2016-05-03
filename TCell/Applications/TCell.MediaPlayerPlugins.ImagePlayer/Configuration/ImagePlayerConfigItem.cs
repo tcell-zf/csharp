@@ -11,5 +11,13 @@ namespace TCell.MediaPlayerPlugins.ImagePlayer.Configuration
             get { return (string)this[StretchAttribute]; }
             set { base[StretchAttribute] = value; }
         }
+
+        private const string PlayIntervalAttribute = "PlayInterval";
+        [ConfigurationProperty(PlayIntervalAttribute, IsRequired = false)]
+        public string PlayInterval
+        {
+            get { return (string)this[PlayIntervalAttribute]; }
+            set { base[PlayIntervalAttribute] = value; }
+        }
     }
 }
