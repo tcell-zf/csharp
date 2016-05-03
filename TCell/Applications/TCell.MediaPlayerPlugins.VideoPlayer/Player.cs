@@ -168,6 +168,7 @@ namespace TCell.MediaPlayerPlugins.VideoPlayer
                 this.Source = new Uri(sourcePath);
                 this.Visibility = Visibility.Visible;
                 this.Play();
+                MuteMedia(false);
             }
             return true;
         }
