@@ -10,6 +10,7 @@ using System.Windows.Threading;
 using System.Windows.Media.Imaging;
 using System.Collections.Generic;
 
+using TCell.IO;
 using TCell.Text;
 using TCell.Logging;
 using TCell.Abstraction;
@@ -30,6 +31,8 @@ namespace TCell.UniversalMediaPlayer
         #region properties
         private List<IReceivable> receivers = null;
         private List<IPlayable> players = null;
+
+        private LoopMode loopMode = null;
 
         private string DeviceId
         {
@@ -142,9 +145,22 @@ namespace TCell.UniversalMediaPlayer
                         return;
                     case TextCommand.CommandName.MediaLoop:
                         {
+                            string mediaPath = cmd.GetParameterValue(TextCommand.ParameterName.Path);
+                            if (string.IsNullOrEmpty(mediaPath))
+                                mediaPath = ConfigurationManager.AppSettings["mediaPath"];
+                            if (!string.IsNullOrEmpty(mediaPath))
+                            {
+                                if (Directory.Exists(mediaPath))
+                                {
+                                    bool isMuted = true;
+                                    if (!bool.TryParse(cmd.GetParameterValue(TextCommand.ParameterName.IsMute), out isMuted))
+                                        isMuted = true;
 
+                                    Loop(mediaPath, isMuted);
+                                }
+                            }
                         }
-                        break;
+                        return;
                     default:
                         break;
                 }
@@ -162,11 +178,42 @@ namespace TCell.UniversalMediaPlayer
                     player.ExecuteCommand(commandText);
                 }
             }
+            if (loopMode != null)
+                loopMode = null;
         }
 
         private void OnMediaActed(MediaActedNotifier notifier)
         {
+            if (notifier == null)
+                return;
 
+            if (loopMode != null)
+            {
+                switch (notifier.Action)
+                {
+                    case PlayerActionType.Opend:
+                        {
+                            if (loopMode.IsMuted)
+                            {
+                                foreach (IPlayable player in players)
+                                {
+                                    player.ExecuteCommand(new TextCommand()
+                                    {
+                                        Name = TextCommand.CommandName.MediaMute
+                                    }.ToString());
+                                }
+                            }
+                        }
+                        break;
+                    case PlayerActionType.Ended:
+                        {
+                            PlayMedia(loopMode.GetNextMedia());
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
         #endregion
 
@@ -178,7 +225,7 @@ namespace TCell.UniversalMediaPlayer
                 Title = str;
 
             str = ConfigurationManager.AppSettings["backgroundImageUri"];
-            if (!string.IsNullOrEmpty(str) && File.Exists(str))
+            if (!string.IsNullOrEmpty(str) && System.IO.File.Exists(str))
                 backgroundImageBrush.ImageSource = BitmapFrame.Create(new Uri(str));
 
             str = ConfigurationManager.AppSettings["displayDeviceName"];
@@ -340,6 +387,44 @@ namespace TCell.UniversalMediaPlayer
             }
         }
 
+        private void Loop(string mediaPath, bool isMute)
+        {
+            if (string.IsNullOrEmpty(mediaPath))
+                return;
+            if (!Directory.Exists(mediaPath))
+                return;
+
+            loopMode = new LoopMode();
+            string[] filePaths = Directory.GetFiles(mediaPath);
+            if (filePaths == null || filePaths.Length == 0)
+                return;
+
+            foreach (string path in filePaths)
+            {
+                FileCategory category = TCell.IO.File.GetFileCategory(path);
+                if (category == FileCategory.Video
+                    || category == FileCategory.Audio
+                    || category == FileCategory.Image)
+                    loopMode.AddPlayableMedia(path);
+            }
+
+            PlayMedia(loopMode.GetNextMedia());
+        }
+
+        private void PlayMedia(string path)
+        {
+            TextCommand cmdPlay = new TextCommand()
+            {
+                Name = TextCommand.CommandName.MediaPlay
+            };
+            cmdPlay.SetParameterValue(TextCommand.ParameterName.Path, path);
+
+            foreach (IPlayable player in players)
+            {
+                player.ExecuteCommand(cmdPlay.ToString());
+            }
+        }
+
         private void LogException(string msg, Exception ex)
         {
             Logger.LoggerInstance.Log(msg, ex);
@@ -363,5 +448,37 @@ namespace TCell.UniversalMediaPlayer
             return timer;
         }
         #endregion
+    }
+
+    internal class LoopMode
+    {
+        private Dictionary<int, string> playableMedia = null;
+        private int currMediaIndex = 0;
+
+        public bool IsMuted { get; set; }
+
+        public void AddPlayableMedia(string path)
+        {
+            if (!System.IO.File.Exists(path))
+                return;
+
+            if (playableMedia == null)
+                playableMedia = new Dictionary<int, string>();
+
+            playableMedia.Add(playableMedia.Count, path);
+        }
+
+        public string GetNextMedia()
+        {
+            if (playableMedia == null || playableMedia.Count == 0)
+                return string.Empty;
+
+            string path = playableMedia[currMediaIndex];
+            currMediaIndex++;
+            if (currMediaIndex >= playableMedia.Count)
+                currMediaIndex = 0;
+
+            return path;
+        }
     }
 }
