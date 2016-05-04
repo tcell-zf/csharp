@@ -1,0 +1,4 @@
+﻿ump protocol/tcp ip/127.0.0.1:10000 cmd/play?path=C:\Users\tcell\Desktop\Screen1\000.wmv
+ump protocol/udp ip/127.0.0.1:10001 cmd/play?path=C:\Users\tcell\Desktop\Screen1\000.wmv
+
+ump protocol/tcp ip/127.0.0.1:10000 cmd/query

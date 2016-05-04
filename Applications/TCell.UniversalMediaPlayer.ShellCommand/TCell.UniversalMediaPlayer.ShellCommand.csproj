@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TCell.UniversalMediaPlayer.ShellCommand</RootNamespace>
-    <AssemblyName>TCell.UniversalMediaPlayer.ShellCommand</AssemblyName>
+    <AssemblyName>UMP</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -48,6 +48,23 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="sample.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\TCell.Abstraction\TCell.Abstraction.csproj">
+      <Project>{408281ba-340b-4175-bec4-e51757c27a63}</Project>
+      <Name>TCell.Abstraction</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\TCell.Entities\TCell.Entities.csproj">
+      <Project>{BC4624AB-56E1-42F7-AD7A-7E9CAD8AD669}</Project>
+      <Name>TCell.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\TCell.Net\TCell.Net.csproj">
+      <Project>{D4AC8543-312C-4FDA-84BC-093ABE33E3CB}</Project>
+      <Name>TCell.Net</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
