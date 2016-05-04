@@ -30,13 +30,17 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCategorizer));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBoxFolder = new System.Windows.Forms.TextBox();
+            this.buttonCheck = new System.Windows.Forms.Button();
             this.buttonSelect = new System.Windows.Forms.Button();
+            this.textBoxFolder = new System.Windows.Forms.TextBox();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.textBoxFileTypes = new System.Windows.Forms.TextBox();
             this.textBoxFileCategory = new System.Windows.Forms.TextBox();
             this.listViewFiles = new System.Windows.Forms.ListView();
-            this.buttonCheck = new System.Windows.Forms.Button();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,14 +58,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Select folder";
             // 
-            // textBoxFolder
+            // buttonCheck
             // 
-            this.textBoxFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxFolder.Location = new System.Drawing.Point(6, 48);
-            this.textBoxFolder.Name = "textBoxFolder";
-            this.textBoxFolder.Size = new System.Drawing.Size(728, 35);
-            this.textBoxFolder.TabIndex = 0;
+            this.buttonCheck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCheck.Location = new System.Drawing.Point(995, 35);
+            this.buttonCheck.Name = "buttonCheck";
+            this.buttonCheck.Size = new System.Drawing.Size(211, 60);
+            this.buttonCheck.TabIndex = 2;
+            this.buttonCheck.Text = "Check";
+            this.buttonCheck.UseVisualStyleBackColor = true;
+            this.buttonCheck.Click += new System.EventHandler(this.buttonCheck_Click);
             // 
             // buttonSelect
             // 
@@ -73,6 +79,15 @@
             this.buttonSelect.Text = "Select";
             this.buttonSelect.UseVisualStyleBackColor = true;
             this.buttonSelect.Click += new System.EventHandler(this.buttonSelect_Click);
+            // 
+            // textBoxFolder
+            // 
+            this.textBoxFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxFolder.Location = new System.Drawing.Point(6, 48);
+            this.textBoxFolder.Name = "textBoxFolder";
+            this.textBoxFolder.Size = new System.Drawing.Size(728, 35);
+            this.textBoxFolder.TabIndex = 0;
             // 
             // folderBrowserDialog
             // 
@@ -110,21 +125,38 @@
             this.listViewFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewFiles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4});
+            this.listViewFiles.FullRowSelect = true;
             this.listViewFiles.Location = new System.Drawing.Point(12, 721);
             this.listViewFiles.Name = "listViewFiles";
             this.listViewFiles.Size = new System.Drawing.Size(1237, 108);
             this.listViewFiles.TabIndex = 3;
             this.listViewFiles.UseCompatibleStateImageBehavior = false;
+            this.listViewFiles.View = System.Windows.Forms.View.Details;
             // 
-            // buttonCheck
+            // columnHeader1
             // 
-            this.buttonCheck.Location = new System.Drawing.Point(995, 35);
-            this.buttonCheck.Name = "buttonCheck";
-            this.buttonCheck.Size = new System.Drawing.Size(211, 60);
-            this.buttonCheck.TabIndex = 2;
-            this.buttonCheck.Text = "Check";
-            this.buttonCheck.UseVisualStyleBackColor = true;
-            this.buttonCheck.Click += new System.EventHandler(this.buttonCheck_Click);
+            this.columnHeader1.Text = "path";
+            this.columnHeader1.Width = 600;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "value";
+            this.columnHeader2.Width = 250;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "type";
+            this.columnHeader3.Width = 150;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "category";
+            this.columnHeader4.Width = 150;
             // 
             // FormCategorizer
             // 
@@ -154,5 +186,9 @@
         private System.Windows.Forms.TextBox textBoxFileCategory;
         private System.Windows.Forms.ListView listViewFiles;
         private System.Windows.Forms.Button buttonCheck;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
     }
 }

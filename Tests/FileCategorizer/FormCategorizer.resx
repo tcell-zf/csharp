@@ -127,7 +127,14 @@
 
                 case "4838":
                 case "255216":
-                    type = FileType.JPG;
+                    string extension = System.IO.Path.GetExtension(path).ToLower();
+                    if (extension == ".jpg" || extension == ".jpeg")
+                        type = FileType.JPG;
+                    else if (extension == ".wmv")
+                        type = FileType.WMV;
+                    else if (extension == ".wma")
+                        type = FileType.WMA;
+                    else { }
                     break;
                 case "7173":
                     type = FileType.GIF;
@@ -176,6 +183,7 @@
                 case FileType.MP3:
                     category = FileCategory.Audio;
                     break;
+                case FileType.WMV:
                 case FileType.AVI:
                 case FileType.MP4:
                 case FileType.RMVB:

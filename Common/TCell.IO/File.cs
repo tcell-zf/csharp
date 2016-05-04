@@ -15,6 +15,7 @@ namespace TCell.IO
         BMP,
 
         WMA,
+        WMV,
         AVI,
         MP3,
         MP4,
@@ -44,6 +45,14 @@ namespace TCell.IO
     {
         static public FileType GetFileType(string path)
         {
+            string typeString = string.Empty;
+            return GetFileType(path, out typeString);
+        }
+
+        static public FileType GetFileType(string path, out string typeString)
+        {
+            typeString = string.Empty;
+
             FileType type = FileType.Unknown;
             if (!System.IO.File.Exists(path))
                 return type;
@@ -74,7 +83,14 @@ namespace TCell.IO
 
                 case "4838":
                 case "255216":
-                    type = FileType.JPG;
+                    string extension = System.IO.Path.GetExtension(path).ToLower();
+                    if (extension == ".jpg" || extension == ".jpeg")
+                        type = FileType.JPG;
+                    else if (extension == ".wmv")
+                        type = FileType.WMV;
+                    else if (extension == ".wma")
+                        type = FileType.WMA;
+                    else { }
                     break;
                 case "7173":
                     type = FileType.GIF;
@@ -112,6 +128,7 @@ namespace TCell.IO
                     break;
             }
 
+            typeString = sb.ToString();
             return type;
         }
 
@@ -133,6 +150,7 @@ namespace TCell.IO
                 case FileType.MP3:
                     category = FileCategory.Audio;
                     break;
+                case FileType.WMV:
                 case FileType.AVI:
                 case FileType.MP4:
                 case FileType.RMVB:
