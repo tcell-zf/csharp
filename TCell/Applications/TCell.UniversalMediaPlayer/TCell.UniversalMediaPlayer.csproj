@@ -144,6 +144,10 @@
       <Project>{29a81718-bdbd-40a7-a5f2-c958f4a6a1bf}</Project>
       <Name>TCell.MediaPlayerPlugins.VideoPlayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TCell.UniversalMediaPlayer.ShellCommand\TCell.UniversalMediaPlayer.ShellCommand.csproj">
+      <Project>{6ae818d0-aa56-417a-857b-756f4cc34582}</Project>
+      <Name>TCell.UniversalMediaPlayer.ShellCommand</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
