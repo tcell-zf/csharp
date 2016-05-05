@@ -41,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileCategorizer", "Tests\Fi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCell.UniversalMediaPlayer.ShellCommand", "Applications\TCell.UniversalMediaPlayer.ShellCommand\TCell.UniversalMediaPlayer.ShellCommand.csproj", "{6AE818D0-AA56-417A-857B-756F4CC34582}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemInfo", "Tests\SystemInfo\SystemInfo.csproj", "{E00CA6D6-6AEE-4AD0-86A3-CB7FE62F41F4}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -119,6 +121,10 @@ Global
 		{6AE818D0-AA56-417A-857B-756F4CC34582}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6AE818D0-AA56-417A-857B-756F4CC34582}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6AE818D0-AA56-417A-857B-756F4CC34582}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E00CA6D6-6AEE-4AD0-86A3-CB7FE62F41F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E00CA6D6-6AEE-4AD0-86A3-CB7FE62F41F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E00CA6D6-6AEE-4AD0-86A3-CB7FE62F41F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E00CA6D6-6AEE-4AD0-86A3-CB7FE62F41F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -133,5 +139,6 @@ Global
 		{16A251CF-16C9-48DA-8C3D-95C78D19242B} = {09F798D3-8262-41DB-BA5B-3301F5BD2803}
 		{33DD6AC5-FCD6-47AA-8C8C-D494BCDFFD68} = {C22A6F2D-50A1-4969-8B1F-5010EFBD3DEA}
 		{6AE818D0-AA56-417A-857B-756F4CC34582} = {09F798D3-8262-41DB-BA5B-3301F5BD2803}
+		{E00CA6D6-6AEE-4AD0-86A3-CB7FE62F41F4} = {C22A6F2D-50A1-4969-8B1F-5010EFBD3DEA}
 	EndGlobalSection
 EndGlobal
