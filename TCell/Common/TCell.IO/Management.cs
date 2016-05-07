@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Management;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace TCell.IO
@@ -12,20 +13,23 @@ namespace TCell.IO
         [DllImport("Ws2_32.dll")]
         private static extern Int32 inet_addr(string ip);
 
-        static public string GetLocalHostMac()
+        static public Dictionary<string, bool> GetLocalHostMac()
         {
-            string mac = string.Empty;
+            Dictionary<string, bool> macs = null;
             ManagementClass mcMAC = new ManagementClass("Win32_NetworkAdapterConfiguration");
             ManagementObjectCollection mocMAC = mcMAC.GetInstances();
+            if (mocMAC == null)
+                return macs;
+
             foreach (ManagementObject m in mocMAC)
             {
-                if ((bool)m["IPEnabled"])
-                {
-                    mac = m["MacAddress"].ToString();
-                    break;
-                }
+                if (macs == null)
+                    macs = new Dictionary<string, bool>();
+
+                if (m["MacAddress"] != null)
+                    macs.Add(m["MacAddress"].ToString(), (bool)m["IPEnabled"]);
             }
-            return mac;
+            return macs;
         }
 
         static public string GetRemoteHostMac(IPAddress ip)
@@ -44,30 +48,46 @@ namespace TCell.IO
             return mac;
         }
 
-        static public string GetCPUProcessorId()
+        static public List<string> GetCPUProcessorIds()
         {
-            string procId = string.Empty;
+            List<string> procIds = null;
             ManagementClass mcCpu = new ManagementClass("Win32_Processor");
             ManagementObjectCollection mocCpu = mcCpu.GetInstances();
+            if (mocCpu == null)
+                return procIds;
+
             foreach (ManagementObject m in mocCpu)
             {
-                procId = m["ProcessorID"].ToString();
+                if (procIds == null)
+                    procIds = new List<string>();
+
+                procIds.Add(m["ProcessorID"].ToString());
             }
-            return procId;
+            return procIds;
         }
 
-        static public string GetHDDSerialNumber()
+        static public List<string> GetHDDSerialNumbers()
         {
-            string sn = string.Empty;
+            List<string> sns = null;
             ManagementClass mcHD = new ManagementClass("Win32_DiskDrive");
             ManagementObjectCollection mocHD = mcHD.GetInstances();
-            if ((mocHD != null) && (mocHD.Count > 0))
+            if (mocHD == null)
+                return sns;
+
+            foreach (ManagementObject m in mocHD)
             {
-                ManagementObject[] moArr = new ManagementObject[mocHD.Count];
-                mocHD.CopyTo(moArr, 0);
-                sn = moArr[0]["Model"].ToString();
+                if (sns == null)
+                    sns = new List<string>();
+
+                sns.Add(m["Model"].ToString());
             }
-            return sn;
+            //if ((mocHD != null) && (mocHD.Count > 0))
+            //{
+            //    ManagementObject[] moArr = new ManagementObject[mocHD.Count];
+            //    mocHD.CopyTo(moArr, 0);
+            //    sn = moArr[0]["Model"].ToString();
+            //}
+            return sns;
         }
     }
 }

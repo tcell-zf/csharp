@@ -43,6 +43,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCell.UniversalMediaPlayer.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemInfo", "Tests\SystemInfo\SystemInfo.csproj", "{E00CA6D6-6AEE-4AD0-86A3-CB7FE62F41F4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mexxum.MediaPlayerPlugins.ModbusCommand", "..\Mexxum\Common\Mexxum.MediaPlayerPlugins.ModbusCommand\Mexxum.MediaPlayerPlugins.ModbusCommand.csproj", "{2C7D860B-F5DA-4800-A1B1-6C554142418C}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -125,6 +127,10 @@ Global
 		{E00CA6D6-6AEE-4AD0-86A3-CB7FE62F41F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E00CA6D6-6AEE-4AD0-86A3-CB7FE62F41F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E00CA6D6-6AEE-4AD0-86A3-CB7FE62F41F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C7D860B-F5DA-4800-A1B1-6C554142418C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C7D860B-F5DA-4800-A1B1-6C554142418C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C7D860B-F5DA-4800-A1B1-6C554142418C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C7D860B-F5DA-4800-A1B1-6C554142418C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -140,5 +146,6 @@ Global
 		{33DD6AC5-FCD6-47AA-8C8C-D494BCDFFD68} = {C22A6F2D-50A1-4969-8B1F-5010EFBD3DEA}
 		{6AE818D0-AA56-417A-857B-756F4CC34582} = {09F798D3-8262-41DB-BA5B-3301F5BD2803}
 		{E00CA6D6-6AEE-4AD0-86A3-CB7FE62F41F4} = {C22A6F2D-50A1-4969-8B1F-5010EFBD3DEA}
+		{2C7D860B-F5DA-4800-A1B1-6C554142418C} = {09F798D3-8262-41DB-BA5B-3301F5BD2803}
 	EndGlobalSection
 EndGlobal

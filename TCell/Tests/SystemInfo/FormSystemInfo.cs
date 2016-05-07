@@ -14,9 +14,9 @@ namespace SystemInfo
 
         private void FormSystemInfo_Load(object sender, EventArgs e)
         {
-            textBoxLocalMac.Text = Management.GetLocalHostMac();
-            textBoxCpuId.Text = Management.GetCPUProcessorId();
-            textBoxHDD.Text = Management.GetHDDSerialNumber();
+            textBoxLocalMac.Text = Management.GetLocalHostMac().ToString();
+            textBoxCpuId.Text = Management.GetCPUProcessorIds().ToString();
+            textBoxHDD.Text = Management.GetHDDSerialNumbers().ToString();
         }
     }
 }
