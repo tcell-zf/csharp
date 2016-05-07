@@ -112,6 +112,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Mexxum\Common\Mexxum.MediaPlayerPlugins.ModbusCommand\Mexxum.MediaPlayerPlugins.ModbusCommand.csproj">
+      <Project>{2c7d860b-f5da-4800-a1b1-6c554142418c}</Project>
+      <Name>Mexxum.MediaPlayerPlugins.ModbusCommand</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Common\TCell.Abstraction\TCell.Abstraction.csproj">
       <Project>{408281ba-340b-4175-bec4-e51757c27a63}</Project>
       <Name>TCell.Abstraction</Name>
