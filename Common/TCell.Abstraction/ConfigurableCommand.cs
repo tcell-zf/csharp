@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Collections.Generic;
 
 namespace TCell.Abstraction
 {
@@ -7,6 +8,7 @@ namespace TCell.Abstraction
     {
         private string baseCommandPath = string.Empty;
         protected Action<byte[]> DataReceivedHandler = null;
+        private Stack<string> recentCmdNames = null;
 
         public ConfigurableCommand(string basePath)
         {
@@ -16,7 +18,7 @@ namespace TCell.Abstraction
             baseCommandPath = basePath;
         }
 
-        public bool Send(string cmdName)
+        protected bool Send(string cmdName)
         {
             if (string.IsNullOrEmpty(cmdName))
                 throw new ArgumentNullException(nameof(cmdName));
@@ -29,26 +31,63 @@ namespace TCell.Abstraction
             if (!File.Exists(path))
                 throw new FileNotFoundException($"{path} not exists.");
 
-            byte[] cmd = ReadCommandBytes(path);
+            byte[] cmd = ReadRequestBytes(path);
             if (cmd == null || cmd.Length == 0)
                 return false;
 
-            return SendCommandBytes(cmd);
+            bool result = SendRequestBytes(cmd);
+            if (result)
+            {
+                if (recentCmdNames == null)
+                    recentCmdNames = new Stack<string>();
+
+                recentCmdNames.Push(cmdName);
+            }
+            return result;
         }
 
-        virtual protected byte[] ReadCommandBytes(string path)
+        protected bool Process(byte[] response)
         {
-            throw new NotImplementedException("Read command text method not implemented!");
+            if (recentCmdNames == null || recentCmdNames.Count == 0)
+                return false;
+
+            string cmdName = recentCmdNames.Pop();
+            if (string.IsNullOrEmpty(cmdName))
+                return false;
+
+            string path = Path.Combine(baseCommandPath, cmdName);
+            if (!Directory.Exists(path))
+                throw new DirectoryNotFoundException($"{path} not exists.");
+
+            path = Path.Combine(path, "response.txt");
+            if (!File.Exists(path))
+                throw new FileNotFoundException($"{path} not exists.");
+
+            byte[] resp = ReadResponseBytes(path, response);
+            if (resp == null || resp.Length == 0)
+                return false;
+
+            return ProcessResponseBytes(resp);
         }
 
-        virtual protected bool SendCommandBytes(byte[] cmd)
+        virtual protected byte[] ReadRequestBytes(string path)
         {
-            throw new NotImplementedException("Send command bytes method not implemented!");
+            throw new NotImplementedException("Read request text method not implemented!");
         }
 
-        virtual protected bool ProcessCommandBytes(byte[] cmd)
+        virtual protected bool SendRequestBytes(byte[] cmd)
         {
-            throw new NotImplementedException("Process command bytes method not implemented!");
+            throw new NotImplementedException("Send request bytes method not implemented!");
+        }
+
+        virtual protected byte[] ReadResponseBytes(string path, byte[] rawResp)
+        {
+            throw new NotImplementedException("Read response text method not implemented!");
+        }
+
+        virtual protected bool ProcessResponseBytes(byte[] resp)
+        {
+            throw new NotImplementedException("Process response bytes method not implemented!");
         }
     }
 }
