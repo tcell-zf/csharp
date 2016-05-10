@@ -22,6 +22,7 @@ namespace TCell.UniversalWindowsService
 
         #region properties
         private List<IReceivable> receivers = null;
+        private List<IServiceActor> actors = null;
         #endregion
 
         #region events
@@ -33,15 +34,7 @@ namespace TCell.UniversalWindowsService
 
             LoadConfigurations();
             LoadCommandReceivers();
-            //LoadPlayers();
-
-            //if (autoStartLoopInterval != null && players != null && players.Count > 0)
-            //{
-            //    if (!string.IsNullOrEmpty(MediaPath) && Directory.Exists(MediaPath))
-            //    {
-            //        checkLoopTimer = ActionInATimeInterval(60 * 1000, new EventHandler(CheckAutoLoop));
-            //    }
-            //}
+            LoadActors();
 
             LogMessage(TraceEventType.Start, "Universal windows service started.");
         }
@@ -61,95 +54,30 @@ namespace TCell.UniversalWindowsService
                     receiver.StopRrceiver();
                 }
             }
-            //// stop all players
-            //if (players != null && players.Count > 0)
-            //{
-            //    foreach (IPlayable player in players)
-            //    {
-            //        if (player == null)
-            //            continue;
+            // stop all actors
+            if (actors != null && actors.Count > 0)
+            {
+                foreach (IServiceActor actor in actors)
+                {
+                    if (actor == null)
+                        continue;
 
-            //        player.StopPlayer();
-            //    }
-            //}
-            //// stop auto loop timer
-            //if (checkLoopTimer != null)
-            //{
-            //    checkLoopTimer.Stop();
-            //    checkLoopTimer = null;
-            //}
+                    actor.StopActor();
+                }
+            }
 
             LogMessage(TraceEventType.Stop, "Universal windows service stopped.");
         }
 
         private void OnCommandReceived(string id, string commandText)
         {
-            //if (string.IsNullOrEmpty(commandText))
-            //    return;
+            if (string.IsNullOrEmpty(commandText))
+                return;
 
-            //TextCommand cmd = TextCommand.Parse(commandText);
-            //if (cmd != null)
-            //{
-            //    string targetDevIds = cmd.GetParameterValue(TextCommand.ParameterName.DeviceIds);
-            //    if (!IsItMe(targetDevIds))
-            //        return;
-
-            //    switch (cmd.Name)
-            //    {
-            //        case TextCommand.CommandName.MediaQuery:
-            //            {
-            //                string sourcePath;
-            //                PlayerStatusType status = CheckPlayerStatus(out sourcePath);
-            //                TextCommand resp = new TextCommand()
-            //                {
-            //                    Name = TextCommand.CommandName.MediaReplyQuery
-            //                };
-            //                if (!string.IsNullOrEmpty(DeviceId))
-            //                    resp.SetParameterValue(TextCommand.ParameterName.DeviceId, DeviceId);
-            //                resp.SetParameterValue(TextCommand.ParameterName.Status, status.ToString());
-            //                if (!string.IsNullOrEmpty(sourcePath))
-            //                    resp.SetParameterValue(TextCommand.ParameterName.Path, sourcePath);
-
-            //                SendResponse(resp);
-            //            }
-            //            return;
-            //        case TextCommand.CommandName.MediaLoop:
-            //            {
-            //                string mediaPath = cmd.GetParameterValue(TextCommand.ParameterName.Path);
-            //                if (string.IsNullOrEmpty(mediaPath))
-            //                    mediaPath = ConfigurationManager.AppSettings["mediaPath"];
-            //                if (!string.IsNullOrEmpty(mediaPath))
-            //                {
-            //                    if (Directory.Exists(mediaPath))
-            //                    {
-            //                        bool isMuted = true;
-            //                        if (!bool.TryParse(cmd.GetParameterValue(TextCommand.ParameterName.IsMute), out isMuted))
-            //                            isMuted = true;
-
-            //                        Loop(mediaPath, isMuted);
-            //                    }
-            //                }
-            //            }
-            //            return;
-            //        default:
-            //            break;
-            //    }
-            //}
-
-            //foreach (IPlayable player in players)
-            //{
-            //    if (player is UIElement)
-            //    {
-            //        UIElement uiElement = player as UIElement;
-            //        uiElement.Dispatcher.BeginInvoke(new ExecuteCommandDelegate(player.ExecuteCommand), new object[] { commandText });
-            //    }
-            //    else
-            //    {
-            //        player.ExecuteCommand(commandText);
-            //    }
-            //}
-            //if (loopMode != null)
-            //    loopMode = null;
+            foreach (IServiceActor actor in actors)
+            {
+                actor.ExecuteCommand(commandText);
+            }
         }
         #endregion
 
@@ -232,6 +160,43 @@ namespace TCell.UniversalWindowsService
                 catch (Exception ex)
                 {
                     LogException($"Load {path} command receiver failed, {ex.Message}", ex);
+                }
+            }
+        }
+
+        private void LoadActors()
+        {
+            string[] dllPaths = Directory.GetFiles(Environments.ApplicationPath, "*.dll");
+            if (dllPaths == null || dllPaths.Length == 0)
+                return;
+
+            Type actorType = typeof(IServiceActor);
+            foreach (string path in dllPaths)
+            {
+                try
+                {
+                    Assembly assembly = Assembly.LoadFrom(path);
+                    Type[] types = assembly.GetTypes();
+                    foreach (Type type in types)
+                    {
+                        if (type.IsInterface || type.IsAbstract)
+                            continue;
+
+                        if (type.GetInterface(actorType.FullName) != null)
+                        {
+                            IServiceActor actor = (IServiceActor)Activator.CreateInstance(type);
+
+                            if (actors == null)
+                                actors = new List<IServiceActor>();
+
+                            if (actor.StartActor())
+                                actors.Add(actor);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogException($"Load {path} service command actor failed, {ex.Message}", ex);
                 }
             }
         }

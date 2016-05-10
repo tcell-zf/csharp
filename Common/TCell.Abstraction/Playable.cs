@@ -3,6 +3,20 @@ using System.Diagnostics;
 
 namespace TCell.Abstraction
 {
+    public interface IReceivable
+    {
+        string Id { get; }
+
+        Action<string, string> CommandReceivedHandler { get; set; }
+
+        bool StartReceiver();
+        bool StopRrceiver();
+        bool Send(string response);
+    }
+
+
+
+
     public enum PlayerStatusType
     {
         Idle, Playing, Paused
@@ -78,14 +92,13 @@ namespace TCell.Abstraction
 
 
 
-    public interface IReceivable
+
+    public interface IServiceActor
     {
         string Id { get; }
 
-        Action<string, string> CommandReceivedHandler { get; set; }
-
-        bool StartReceiver();
-        bool StopRrceiver();
-        bool Send(string response);
+        bool StartActor();
+        bool StopActor();
+        bool ExecuteCommand(string commandText);
     }
 }
