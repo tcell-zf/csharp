@@ -47,6 +47,7 @@
     <Compile Include="TcpServerCommander.cs" />
     <Compile Include="UdpClientCommander.cs" />
     <Compile Include="UdpServerCommander.cs" />
+    <Compile Include="WOLCommander.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TCell.Abstraction\TCell.Abstraction.csproj">
@@ -56,6 +57,10 @@
     <ProjectReference Include="..\TCell.Entities\TCell.Entities.csproj">
       <Project>{bc4624ab-56e1-42f7-ad7a-7e9cad8ad669}</Project>
       <Name>TCell.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TCell.Text\TCell.Text.csproj">
+      <Project>{A3DC3E73-E300-40AC-9D37-58CD7FEE8DC4}</Project>
+      <Name>TCell.Text</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
