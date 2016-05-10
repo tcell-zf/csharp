@@ -119,6 +119,7 @@ namespace TCell.Text
 
         public class CommandName
         {
+            public const string PowerOn = "poweron";
             public const string Shutdown = "shutdown";
 
             public const string MediaPlay = "play";
@@ -139,6 +140,8 @@ namespace TCell.Text
         {
             public const string DeviceIds = "deviceids";
             public const string DeviceId = "deviceid";
+
+            public const string Machines = "machines";
 
             public const string Status = "status";
             public const string Path = "path";
