@@ -2,19 +2,19 @@
 using System.IO;
 using System.Reflection;
 using System.Diagnostics;
-using System.ServiceProcess;
+using System.Windows.Forms;
 using System.Collections.Generic;
 
 using TCell.Text;
 using TCell.Logging;
 using TCell.Abstraction;
 
-namespace TCell.UniversalWindowsService
+namespace UniversalServiceTestWindow
 {
-    partial class UniversalService : ServiceBase
+    public partial class Form1 : Form
     {
         #region constructors
-        public UniversalService()
+        public Form1()
         {
             InitializeComponent();
         }
@@ -25,7 +25,7 @@ namespace TCell.UniversalWindowsService
         #endregion
 
         #region events
-        protected override void OnStart(string[] args)
+        private void Form1_Load(object sender, EventArgs e)
         {
             LogMessage(TraceEventType.Start, "Universal windows service starting...");
             PlayerHelper.SetLogHandler(LogMessage);
@@ -46,7 +46,7 @@ namespace TCell.UniversalWindowsService
             LogMessage(TraceEventType.Start, "Universal windows service started.");
         }
 
-        protected override void OnStop()
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             LogMessage(TraceEventType.Stop, "Universal windows service stopping...");
 

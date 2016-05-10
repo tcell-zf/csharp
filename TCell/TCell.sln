@@ -53,6 +53,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCell.WindowsServicePlugins
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCell.WindowsServicePlugins.UdpCommand", "Applications\TCell.WindowsServicePlugins.UdpCommand\TCell.WindowsServicePlugins.UdpCommand.csproj", "{5577479B-CED7-42FF-A7E4-96F0571F6927}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalServiceTestWindow", "Tests\UniversalServiceTestWindow\UniversalServiceTestWindow.csproj", "{7FB821FB-E8BE-43BE-A0F7-1866F914E6EE}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -155,6 +157,10 @@ Global
 		{5577479B-CED7-42FF-A7E4-96F0571F6927}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5577479B-CED7-42FF-A7E4-96F0571F6927}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5577479B-CED7-42FF-A7E4-96F0571F6927}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FB821FB-E8BE-43BE-A0F7-1866F914E6EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FB821FB-E8BE-43BE-A0F7-1866F914E6EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FB821FB-E8BE-43BE-A0F7-1866F914E6EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FB821FB-E8BE-43BE-A0F7-1866F914E6EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -175,5 +181,6 @@ Global
 		{F8B10635-BF02-4C73-A5BE-AEF73D20FB21} = {09F798D3-8262-41DB-BA5B-3301F5BD2803}
 		{2369A4AD-44B6-42B9-9F16-00B2FB743EF3} = {09F798D3-8262-41DB-BA5B-3301F5BD2803}
 		{5577479B-CED7-42FF-A7E4-96F0571F6927} = {09F798D3-8262-41DB-BA5B-3301F5BD2803}
+		{7FB821FB-E8BE-43BE-A0F7-1866F914E6EE} = {C22A6F2D-50A1-4969-8B1F-5010EFBD3DEA}
 	EndGlobalSection
 EndGlobal
