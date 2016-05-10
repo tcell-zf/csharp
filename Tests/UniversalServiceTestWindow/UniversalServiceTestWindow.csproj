@@ -46,16 +46,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="FormService.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="FormService.Designer.cs">
+      <DependentUpon>FormService.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="FormService.resx">
+      <DependentUpon>FormService.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -80,6 +80,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Applications\TCell.WindowsServicePlugins.ShutdownActor\TCell.WindowsServicePlugins.ShutdownActor.csproj">
+      <Project>{a4d5e7e1-eca4-41c0-bc81-17a52f1e7e38}</Project>
+      <Name>TCell.WindowsServicePlugins.ShutdownActor</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Applications\TCell.WindowsServicePlugins.TcpCommand\TCell.WindowsServicePlugins.TcpCommand.csproj">
       <Project>{2369a4ad-44b6-42b9-9f16-00b2fb743ef3}</Project>
       <Name>TCell.WindowsServicePlugins.TcpCommand</Name>

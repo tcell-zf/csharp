@@ -1,6 +1,6 @@
 ﻿namespace UniversalServiceTestWindow
 {
-    partial class Form1
+    partial class FormService
     {
         /// <summary>
         /// Required designer variable.
