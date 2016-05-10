@@ -219,6 +219,16 @@ namespace TCell.UniversalMediaPlayer
         #endregion
 
         #region private functions
+        private void LogException(string msg, Exception ex)
+        {
+            Logger.LoggerInstance.Log(msg, ex);
+        }
+
+        private void LogMessage(TraceEventType evt, string msg)
+        {
+            Logger.LoggerInstance.Log(evt, msg);
+        }
+
         private void LoadConfigurations()
         {
             string str = ConfigurationManager.AppSettings["title"];
@@ -443,16 +453,6 @@ namespace TCell.UniversalMediaPlayer
                     player.ExecuteCommand(cmdPlay.ToString());
                 }
             }
-        }
-
-        private void LogException(string msg, Exception ex)
-        {
-            Logger.LoggerInstance.Log(msg, ex);
-        }
-
-        private void LogMessage(TraceEventType evt, string msg)
-        {
-            Logger.LoggerInstance.Log(evt, msg);
         }
 
         private void CheckAutoLoop(Object sender, EventArgs e)
