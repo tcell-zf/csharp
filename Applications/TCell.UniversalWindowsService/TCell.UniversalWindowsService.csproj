@@ -34,7 +34,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,6 +47,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
+    <Compile Include="ProjectInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ProjectInstaller.Designer.cs">
+      <DependentUpon>ProjectInstaller.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UniversalService.cs">
       <SubType>Component</SubType>
@@ -55,6 +63,28 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ProjectInstaller.resx">
+      <DependentUpon>ProjectInstaller.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UniversalService.resx">
+      <DependentUpon>UniversalService.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\TCell.Abstraction\TCell.Abstraction.csproj">
+      <Project>{408281BA-340B-4175-BEC4-E51757C27A63}</Project>
+      <Name>TCell.Abstraction</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\TCell.Logging\TCell.Logging.csproj">
+      <Project>{4C99570A-B99A-4B2E-ADF8-4CDD11BC4D88}</Project>
+      <Name>TCell.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\TCell.Text\TCell.Text.csproj">
+      <Project>{A3DC3E73-E300-40AC-9D37-58CD7FEE8DC4}</Project>
+      <Name>TCell.Text</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
