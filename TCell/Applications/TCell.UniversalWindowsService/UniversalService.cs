@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reflection;
 using System.Diagnostics;
+using System.Configuration;
 using System.ServiceProcess;
 using System.Collections.Generic;
 
@@ -23,6 +24,11 @@ namespace TCell.UniversalWindowsService
         #region properties
         private List<IReceivable> receivers = null;
         private List<IServiceActor> actors = null;
+
+        private string DeviceId
+        {
+            get { return ConfigurationManager.AppSettings["deviceId"]; }
+        }
         #endregion
 
         #region events
@@ -73,6 +79,14 @@ namespace TCell.UniversalWindowsService
         {
             if (string.IsNullOrEmpty(commandText))
                 return;
+
+            TextCommand cmd = TextCommand.Parse(commandText);
+            if (cmd != null)
+            {
+                string targetDevIds = cmd.GetParameterValue(TextCommand.ParameterName.DeviceIds);
+                if (!IsItMe(targetDevIds))
+                    return;
+            }
 
             foreach (IServiceActor actor in actors)
             {
@@ -199,6 +213,27 @@ namespace TCell.UniversalWindowsService
                     LogException($"Load {path} service command actor failed, {ex.Message}", ex);
                 }
             }
+        }
+
+        private bool IsItMe(string deviceIds)
+        {
+            if (string.IsNullOrEmpty(deviceIds) || string.IsNullOrEmpty(DeviceId))
+                return true;
+
+            string[] devIdArr = deviceIds.Split(new char[] { ',' });
+            if (devIdArr == null || devIdArr.Length == 0)
+                return true;
+
+            bool isItMe = false;
+            foreach (string id in devIdArr)
+            {
+                if (id == DeviceId)
+                {
+                    isItMe = true;
+                    break;
+                }
+            }
+            return isItMe;
         }
         #endregion
     }
