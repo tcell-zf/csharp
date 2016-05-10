@@ -59,6 +59,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCell.WindowsServicePlugins
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCell.WindowsServicePlugins.PowerOffActor", "Applications\TCell.WindowsServicePlugins.PowerOffActor\TCell.WindowsServicePlugins.PowerOffActor.csproj", "{AF592F2B-7060-4082-877E-6FC23081E39C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCell.WindowsServicePlugins.PowerOnActor", "Applications\TCell.WindowsServicePlugins.PowerOnActor\TCell.WindowsServicePlugins.PowerOnActor.csproj", "{94CC7D9A-A1B8-4CC5-9528-D9CB91914FD8}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -173,6 +175,10 @@ Global
 		{AF592F2B-7060-4082-877E-6FC23081E39C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF592F2B-7060-4082-877E-6FC23081E39C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF592F2B-7060-4082-877E-6FC23081E39C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94CC7D9A-A1B8-4CC5-9528-D9CB91914FD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94CC7D9A-A1B8-4CC5-9528-D9CB91914FD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94CC7D9A-A1B8-4CC5-9528-D9CB91914FD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94CC7D9A-A1B8-4CC5-9528-D9CB91914FD8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -196,5 +202,6 @@ Global
 		{7FB821FB-E8BE-43BE-A0F7-1866F914E6EE} = {C22A6F2D-50A1-4969-8B1F-5010EFBD3DEA}
 		{A4D5E7E1-ECA4-41C0-BC81-17A52F1E7E38} = {09F798D3-8262-41DB-BA5B-3301F5BD2803}
 		{AF592F2B-7060-4082-877E-6FC23081E39C} = {09F798D3-8262-41DB-BA5B-3301F5BD2803}
+		{94CC7D9A-A1B8-4CC5-9528-D9CB91914FD8} = {09F798D3-8262-41DB-BA5B-3301F5BD2803}
 	EndGlobalSection
 EndGlobal

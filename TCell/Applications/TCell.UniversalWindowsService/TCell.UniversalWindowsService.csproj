@@ -98,6 +98,10 @@
       <Project>{af592f2b-7060-4082-877e-6fc23081e39c}</Project>
       <Name>TCell.WindowsServicePlugins.PowerOffActor</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TCell.WindowsServicePlugins.PowerOnActor\TCell.WindowsServicePlugins.PowerOnActor.csproj">
+      <Project>{94cc7d9a-a1b8-4cc5-9528-d9cb91914fd8}</Project>
+      <Name>TCell.WindowsServicePlugins.PowerOnActor</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TCell.WindowsServicePlugins.ShutdownActor\TCell.WindowsServicePlugins.ShutdownActor.csproj">
       <Project>{a4d5e7e1-eca4-41c0-bc81-17a52f1e7e38}</Project>
       <Name>TCell.WindowsServicePlugins.ShutdownActor</Name>
