@@ -1,10 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 
+using TCell.Net;
+using TCell.Text;
+using TCell.Mapping;
 using TCell.Abstraction;
+using TCell.Configuration;
+using TCell.Entities.Communication;
 
 namespace TCell.WindowsServicePlugins.ShutdownActor
 {
@@ -15,63 +18,73 @@ namespace TCell.WindowsServicePlugins.ShutdownActor
         {
             get { return "ShutdownActor"; }
         }
+
+        private EndPoint BroadcastEndpoint { get; set; }
         #endregion
 
         #region public functions
         public bool StartActor()
         {
-            //currStatus = PlayerStatusType.Idle;
+            bool execResult = LoadConfiguration();
+            if (execResult)
+                PlayerHelper.LogMessage(TraceEventType.Start, $"Start {Id} successfully.");
+            else
+                PlayerHelper.LogMessage(TraceEventType.Start, $"Start {Id} failed!");
 
-            //bool execResult = LoadConfiguration();
-            //if (execResult)
-            //    PlayerHelper.LogMessage(TraceEventType.Start, $"Start {Id} successfully.");
-            //else
-            //    PlayerHelper.LogMessage(TraceEventType.Start, $"Start {Id} failed!");
-
-            //return execResult;
+            return execResult;
         }
 
         public bool StopActor()
         {
-            //currStatus = PlayerStatusType.Idle;
-            //if (checkIntervalTimer != null)
-            //{
-            //    checkIntervalTimer.Stop();
-            //    checkIntervalTimer = null;
-            //}
-            //PlayerHelper.LogMessage(TraceEventType.Stop, $"Stop {Id} successfully.");
-            //return true;
+            PlayerHelper.LogMessage(TraceEventType.Stop, $"Stop {Id} successfully.");
+            return true;
         }
 
         public bool ExecuteCommand(string commandText)
         {
-            //if (string.IsNullOrEmpty(commandText))
-            //    return false;
+            if (string.IsNullOrEmpty(commandText) || BroadcastEndpoint == null)
+                return false;
 
-            //TextCommand cmd = TextCommand.Parse(commandText);
-            //if (cmd == null)
-            //    return false;
+            TextCommand cmd = TextCommand.Parse(commandText);
+            if (cmd == null)
+                return false;
 
-            //bool execResult = false;
-            //switch (cmd.Name)
-            //{
-            //    case TextCommand.CommandName.MediaPlay:
-            //        string path = cmd.GetParameterValue(TextCommand.ParameterName.Path);
-            //        bool isCountDown = false;
-            //        if (!bool.TryParse(cmd.GetParameterValue(TextCommand.ParameterName.IsCountDown), out isCountDown))
-            //            isCountDown = false;
-            //        execResult = PlayMedia(path, isCountDown);
-            //        break;
-            //    case TextCommand.CommandName.MediaStop:
-            //        execResult = PlayMedia(string.Empty, false);
-            //        break;
-            //    default:
-            //        this.Source = null;
-            //        this.Visibility = Visibility.Hidden;
-            //        break;
-            //}
+            bool execResult = false;
+            if (cmd.Name == TextCommand.CommandName.Shutdown)
+            {
+                UdpClientCommander udpClient = new UdpClientCommander(new EndpointPair()
+                {
+                    LocalEndPoint = null,
+                    RemoteEndPoint = BroadcastEndpoint
+                });
 
-            //return execResult;
+                try
+                {
+                    if (udpClient.Start())
+                    {
+                        udpClient.Send(Encoding.UTF8.GetBytes(cmd.ToString()));
+                        udpClient.Stop();
+
+                        execResult = false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    PlayerHelper.LogException($"Exception occurred when {Id} send shutdown command, {ex.Message}", ex);
+                    execResult = false;
+                }
+            }
+
+            return execResult;
+        }
+        #endregion
+
+        #region private functions
+        private bool LoadConfiguration()
+        {
+            BroadcastEndpoint = ConfigItemToEntity.MapNetEndpoint(ConfigurationHelper.GetIPEndPointsConfiguration("uniServiceUdpBroadcast"));
+
+            return (BroadcastEndpoint != null);
         }
         #endregion
     }
