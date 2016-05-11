@@ -29,7 +29,7 @@ namespace TCell.WindowsServicePlugins.UdpCommand
             bool execResult = false;
             try
             {
-                EndPoint ep = ConfigItemToEntity.MapNetEndpoint(ConfigurationHelper.GetIPEndPointsConfiguration("uniServiceUdpLocal"));
+                EndPoint ep = ConfigItemToEntity.MapNetEndpoint(ConfigurationHelper.GetIPEndPointConfiguration("uniServiceUdpLocal"));
                 if (ep != null)
                 {
                     udpSvr = new UdpServerCommander(new EndpointPair()
@@ -78,7 +78,7 @@ namespace TCell.WindowsServicePlugins.UdpCommand
             if (string.IsNullOrEmpty(response))
                 return false;
 
-            EndPoint ep = ConfigItemToEntity.MapNetEndpoint(ConfigurationHelper.GetIPEndPointsConfiguration("uniServiceUdpRemote"));
+            EndPoint ep = ConfigItemToEntity.MapNetEndpoint(ConfigurationHelper.GetIPEndPointConfiguration("uniServiceUdpRemote"));
             if (ep == null)
                 return false;
             try

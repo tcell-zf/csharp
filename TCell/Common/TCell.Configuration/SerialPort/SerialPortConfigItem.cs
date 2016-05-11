@@ -75,5 +75,13 @@ namespace TCell.Configuration.SerialPort
             get { return (string)this[WriteTimeoutAttribute]; }
             set { base[WriteTimeoutAttribute] = value; }
         }
+
+        private const string CategoryAttribute = "Category";
+        [ConfigurationProperty(CategoryAttribute, IsRequired = false)]
+        public string Category
+        {
+            get { return (string)this[CategoryAttribute]; }
+            set { base[CategoryAttribute] = value; }
+        }
     }
 }

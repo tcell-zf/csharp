@@ -19,7 +19,20 @@ namespace TCell.Configuration
             return endPoints;
         }
 
-        public static IPEndPointConfigItem GetIPEndPointsConfiguration(string id)
+        public static List<IPEndPointConfigItem> GetIPEndPointsConfiguration(string category)
+        {
+            List<IPEndPointConfigItem> endPoints = null;
+            IPEndPointCollection collection = GetIPEndPointsConfig().IPEndPointsConfigItem;
+            if (collection != null && collection.Count > 0)
+            {
+                endPoints = (from item in GetIPEndPointsConfiguration()
+                             where item.Category == category
+                             select item).Cast<IPEndPointConfigItem>().ToList();
+            }
+            return endPoints;
+        }
+
+        public static IPEndPointConfigItem GetIPEndPointConfiguration(string id)
         {
             if (string.IsNullOrEmpty(id))
                 return null;

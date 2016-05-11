@@ -27,8 +27,8 @@ namespace TcpUdpServer
 
         private void FormServer_Load(object sender, EventArgs e)
         {
-            tcpEp = ConfigItemToEntity.MapNetEndpoint(ConfigurationHelper.GetIPEndPointsConfiguration("TcpServer"));
-            udpEp = ConfigItemToEntity.MapNetEndpoint(ConfigurationHelper.GetIPEndPointsConfiguration("UdpServer"));
+            tcpEp = ConfigItemToEntity.MapNetEndpoint(ConfigurationHelper.GetIPEndPointConfiguration("TcpServer"));
+            udpEp = ConfigItemToEntity.MapNetEndpoint(ConfigurationHelper.GetIPEndPointConfiguration("UdpServer"));
 
             ChangePortValue();
             groupBoxProtocol.Enabled = true;
