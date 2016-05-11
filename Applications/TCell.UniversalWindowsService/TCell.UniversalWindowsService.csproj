@@ -94,6 +94,10 @@
       <Project>{A3DC3E73-E300-40AC-9D37-58CD7FEE8DC4}</Project>
       <Name>TCell.Text</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TCell.WindowsServicePlugins.BroadcastActor\TCell.WindowsServicePlugins.BroadcastActor.csproj">
+      <Project>{794113ba-18fa-4cd4-a4b3-af6810f144b7}</Project>
+      <Name>TCell.WindowsServicePlugins.BroadcastActor</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TCell.WindowsServicePlugins.PowerOffActor\TCell.WindowsServicePlugins.PowerOffActor.csproj">
       <Project>{af592f2b-7060-4082-877e-6fc23081e39c}</Project>
       <Name>TCell.WindowsServicePlugins.PowerOffActor</Name>

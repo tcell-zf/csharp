@@ -81,6 +81,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Applications\TCell.WindowsServicePlugins.BroadcastActor\TCell.WindowsServicePlugins.BroadcastActor.csproj">
+      <Project>{794113ba-18fa-4cd4-a4b3-af6810f144b7}</Project>
+      <Name>TCell.WindowsServicePlugins.BroadcastActor</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Applications\TCell.WindowsServicePlugins.PowerOffActor\TCell.WindowsServicePlugins.PowerOffActor.csproj">
       <Project>{af592f2b-7060-4082-877e-6fc23081e39c}</Project>
       <Name>TCell.WindowsServicePlugins.PowerOffActor</Name>
