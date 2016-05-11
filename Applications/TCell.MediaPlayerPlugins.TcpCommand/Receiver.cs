@@ -29,7 +29,7 @@ namespace TCell.MediaPlayerPlugins.TcpCommand
             bool execResult = false;
             try
             {
-                EndPoint ep = ConfigItemToEntity.MapNetEndpoint(ConfigurationHelper.GetIPEndPointsConfiguration("mediaPlayerTcpLocal"));
+                EndPoint ep = ConfigItemToEntity.MapNetEndpoint(ConfigurationHelper.GetIPEndPointConfiguration("mediaPlayerTcpLocal"));
                 if (ep != null)
                 {
                     tcpSvr = new TcpServerCommander(new EndpointPair()

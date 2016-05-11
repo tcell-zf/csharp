@@ -60,9 +60,17 @@ namespace TCell.Configuration.IPEndPoint
             set { base[BufferLengthAttribute] = value; }
         }
 
+        private const string CategoryAttribute = "Category";
+        [ConfigurationProperty(CategoryAttribute, IsRequired = false)]
+        public string Category
+        {
+            get { return (string)this[CategoryAttribute]; }
+            set { base[CategoryAttribute] = value; }
+        }
+
         new public string ToString()
         {
-            return $"IPEndPointConfigItem: {nameof(Id)}={Id},{nameof(Protocol)}={Protocol},{nameof(IP)}={IP},{nameof(Port)}={Port},{nameof(ReadTimeout)}={ReadTimeout},{nameof(WriteTimeout)}={WriteTimeout}";
+            return $"IPEndPointConfigItem: {nameof(Id)}={Id},{nameof(Protocol)}={Protocol},{nameof(IP)}={IP},{nameof(Port)}={Port},{nameof(ReadTimeout)}={ReadTimeout},{nameof(WriteTimeout)}={WriteTimeout},{nameof(BufferLength)}={BufferLength},{nameof(Category)}={Category}";
         }
     }
 }

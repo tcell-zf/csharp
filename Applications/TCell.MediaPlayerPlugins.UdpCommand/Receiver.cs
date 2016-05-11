@@ -29,7 +29,7 @@ namespace TCell.MediaPlayerPlugins.UdpCommand
             bool execResult = false;
             try
             {
-                EndPoint ep = ConfigItemToEntity.MapNetEndpoint(ConfigurationHelper.GetIPEndPointsConfiguration("mediaPlayerUdpLocal"));
+                EndPoint ep = ConfigItemToEntity.MapNetEndpoint(ConfigurationHelper.GetIPEndPointConfiguration("mediaPlayerUdpLocal"));
                 if (ep != null)
                 {
                     udpSvr = new UdpServerCommander(new EndpointPair()
@@ -78,7 +78,7 @@ namespace TCell.MediaPlayerPlugins.UdpCommand
             if (string.IsNullOrEmpty(response))
                 return false;
 
-            EndPoint ep = ConfigItemToEntity.MapNetEndpoint(ConfigurationHelper.GetIPEndPointsConfiguration("mediaPlayerUdpRemote"));
+            EndPoint ep = ConfigItemToEntity.MapNetEndpoint(ConfigurationHelper.GetIPEndPointConfiguration("mediaPlayerUdpRemote"));
             if (ep == null)
                 return false;
             try

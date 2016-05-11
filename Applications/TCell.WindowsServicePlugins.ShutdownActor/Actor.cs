@@ -82,7 +82,7 @@ namespace TCell.WindowsServicePlugins.ShutdownActor
         #region private functions
         private bool LoadConfiguration()
         {
-            BroadcastEndpoint = ConfigItemToEntity.MapNetEndpoint(ConfigurationHelper.GetIPEndPointsConfiguration("uniServiceUdpBroadcast"));
+            BroadcastEndpoint = ConfigItemToEntity.MapNetEndpoint(ConfigurationHelper.GetIPEndPointConfiguration("uniServiceUdpBroadcast"));
 
             if (BroadcastEndpoint != null)
             {

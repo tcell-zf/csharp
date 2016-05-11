@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 using TCell.Net;
 using TCell.Mapping;
@@ -18,7 +19,7 @@ namespace TCell.WindowsServicePlugins.UdpActor
             get { return "UdpActor"; }
         }
 
-        private EndPoint BroadcastEndpoint { get; set; }
+        private List<EndPoint> UdpEndpoints { get; set; }
         #endregion
 
         #region public functions
@@ -41,30 +42,34 @@ namespace TCell.WindowsServicePlugins.UdpActor
 
         public bool ExecuteCommand(string commandText)
         {
-            if (string.IsNullOrEmpty(commandText) || BroadcastEndpoint == null)
+            if (string.IsNullOrEmpty(commandText) || UdpEndpoints == null || UdpEndpoints.Count == 0)
                 return false;
 
-            bool execResult = false;
-            UdpClientCommander udpClient = new UdpClientCommander(new EndpointPair()
+            bool execResult = true;
+            foreach (EndPoint ep in UdpEndpoints)
             {
-                LocalEndPoint = null,
-                RemoteEndPoint = BroadcastEndpoint
-            });
+                if (ep == null || ep.Protocol != System.Net.Sockets.ProtocolType.Udp)
+                    continue;
 
-            try
-            {
-                if (udpClient.Start())
+                UdpClientCommander udpClient = new UdpClientCommander(new EndpointPair()
                 {
-                    udpClient.Send(Encoding.UTF8.GetBytes(commandText));
-                    udpClient.Stop();
+                    LocalEndPoint = null,
+                    RemoteEndPoint = ep
+                });
 
-                    execResult = true;
+                try
+                {
+                    if (udpClient.Start())
+                    {
+                        udpClient.Send(Encoding.UTF8.GetBytes(commandText));
+                        udpClient.Stop();
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                PlayerHelper.LogException($"Exception occurred when {Id} broadcast command, {ex.Message}", ex);
-                execResult = false;
+                catch (Exception ex)
+                {
+                    PlayerHelper.LogException($"Exception occurred when {Id} send command, {ex.Message}", ex);
+                    execResult = false;
+                }
             }
 
             return execResult;
@@ -74,16 +79,8 @@ namespace TCell.WindowsServicePlugins.UdpActor
         #region private functions
         private bool LoadConfiguration()
         {
-            BroadcastEndpoint = ConfigItemToEntity.MapNetEndpoint(ConfigurationHelper.GetIPEndPointsConfiguration("uniServiceUdpBroadcast"));
-
-            if (BroadcastEndpoint != null)
-            {
-                return (BroadcastEndpoint.Protocol == System.Net.Sockets.ProtocolType.Udp);
-            }
-            else
-            {
-                return false;
-            }
+            UdpEndpoints = ConfigItemToEntity.MapNetEndpoints(ConfigurationHelper.GetIPEndPointsConfiguration("UdpActor"));
+            return true;
         }
         #endregion
     }

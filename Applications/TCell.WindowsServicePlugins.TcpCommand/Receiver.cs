@@ -29,7 +29,7 @@ namespace TCell.WindowsServicePlugins.TcpCommand
             bool execResult = false;
             try
             {
-                EndPoint ep = ConfigItemToEntity.MapNetEndpoint(ConfigurationHelper.GetIPEndPointsConfiguration("uniServiceTcpLocal"));
+                EndPoint ep = ConfigItemToEntity.MapNetEndpoint(ConfigurationHelper.GetIPEndPointConfiguration("uniServiceTcpLocal"));
                 if (ep != null)
                 {
                     tcpSvr = new TcpServerCommander(new EndpointPair()

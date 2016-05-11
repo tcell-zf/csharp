@@ -67,7 +67,8 @@ namespace TCell.Mapping
                     Port = port,
                     ReadTimeout = readTimeout,
                     WriteTimeout = writeTimeout,
-                    BufferLength = bufferLength
+                    BufferLength = bufferLength,
+                    Category = configItem.Category
                 };
             }
             catch (Exception ex)
@@ -182,7 +183,8 @@ namespace TCell.Mapping
                 StopBits = stopBits,
                 Encoding = encoding,
                 ReadTimeout = readTimeout,
-                WriteTimeout = writeTimeout
+                WriteTimeout = writeTimeout,
+                Category = configItem.Category
             };
         }
     }

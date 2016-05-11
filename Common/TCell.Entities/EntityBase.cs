@@ -6,6 +6,7 @@ namespace TCell.Entities
     public abstract class EntityBase
     {
         public string Id { get; set; }
+        public string Category { get; set; }
     }
 
     public static partial class ConfigurationHelper
