@@ -9,14 +9,14 @@ using TCell.Abstraction;
 using TCell.Configuration;
 using TCell.Entities.Communication;
 
-namespace TCell.WindowsServicePlugins.ShutdownActor
+namespace TCell.WindowsServicePlugins.BroadcastActor
 {
     public class Actor : IServiceActor
     {
         #region properties
         public string Id
         {
-            get { return "ShutdownActor"; }
+            get { return "BroadcastActor"; }
         }
 
         private EndPoint BroadcastEndpoint { get; set; }
@@ -45,34 +45,27 @@ namespace TCell.WindowsServicePlugins.ShutdownActor
             if (string.IsNullOrEmpty(commandText) || BroadcastEndpoint == null)
                 return false;
 
-            TextCommand cmd = TextCommand.Parse(commandText);
-            if (cmd == null)
-                return false;
-
             bool execResult = false;
-            if (cmd.Name == TextCommand.CommandName.Shutdown)
+            UdpClientCommander udpClient = new UdpClientCommander(new EndpointPair()
             {
-                UdpClientCommander udpClient = new UdpClientCommander(new EndpointPair()
-                {
-                    LocalEndPoint = null,
-                    RemoteEndPoint = BroadcastEndpoint
-                });
+                LocalEndPoint = null,
+                RemoteEndPoint = BroadcastEndpoint
+            });
 
-                try
+            try
+            {
+                if (udpClient.Start())
                 {
-                    if (udpClient.Start())
-                    {
-                        udpClient.Send(Encoding.UTF8.GetBytes(cmd.ToString()));
-                        udpClient.Stop();
+                    udpClient.Send(Encoding.UTF8.GetBytes(commandText));
+                    udpClient.Stop();
 
-                        execResult = true;
-                    }
+                    execResult = true;
                 }
-                catch (Exception ex)
-                {
-                    PlayerHelper.LogException($"Exception occurred when {Id} send shutdown command, {ex.Message}", ex);
-                    execResult = false;
-                }
+            }
+            catch (Exception ex)
+            {
+                PlayerHelper.LogException($"Exception occurred when {Id} broadcast command, {ex.Message}", ex);
+                execResult = false;
             }
 
             return execResult;
