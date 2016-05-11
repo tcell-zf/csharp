@@ -101,6 +101,10 @@
       <Project>{2369a4ad-44b6-42b9-9f16-00b2fb743ef3}</Project>
       <Name>TCell.WindowsServicePlugins.TcpCommand</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Applications\TCell.WindowsServicePlugins.UdpActor\TCell.WindowsServicePlugins.UdpActor.csproj">
+      <Project>{cd4244cc-511d-446d-99fe-d3521db07b05}</Project>
+      <Name>TCell.WindowsServicePlugins.UdpActor</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Applications\TCell.WindowsServicePlugins.UdpCommand\TCell.WindowsServicePlugins.UdpCommand.csproj">
       <Project>{5577479b-ced7-42ff-a7e4-96f0571f6927}</Project>
       <Name>TCell.WindowsServicePlugins.UdpCommand</Name>
