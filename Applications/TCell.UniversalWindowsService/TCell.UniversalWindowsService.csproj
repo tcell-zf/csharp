@@ -110,6 +110,10 @@
       <Project>{a4d5e7e1-eca4-41c0-bc81-17a52f1e7e38}</Project>
       <Name>TCell.WindowsServicePlugins.ShutdownActor</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TCell.WindowsServicePlugins.TcpActor\TCell.WindowsServicePlugins.TcpActor.csproj">
+      <Project>{159190ec-e4cb-4e5b-a05a-335afa958975}</Project>
+      <Name>TCell.WindowsServicePlugins.TcpActor</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TCell.WindowsServicePlugins.TcpCommand\TCell.WindowsServicePlugins.TcpCommand.csproj">
       <Project>{2369a4ad-44b6-42b9-9f16-00b2fb743ef3}</Project>
       <Name>TCell.WindowsServicePlugins.TcpCommand</Name>
