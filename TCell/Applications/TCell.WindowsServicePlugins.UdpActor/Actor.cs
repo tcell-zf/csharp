@@ -8,14 +8,14 @@ using TCell.Abstraction;
 using TCell.Configuration;
 using TCell.Entities.Communication;
 
-namespace TCell.WindowsServicePlugins.BroadcastActor
+namespace TCell.WindowsServicePlugins.UdpActor
 {
     public class Actor : IServiceActor
     {
         #region properties
         public string Id
         {
-            get { return "BroadcastActor"; }
+            get { return "UdpActor"; }
         }
 
         private EndPoint BroadcastEndpoint { get; set; }

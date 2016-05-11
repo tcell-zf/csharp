@@ -84,7 +84,14 @@ namespace TCell.WindowsServicePlugins.ShutdownActor
         {
             BroadcastEndpoint = ConfigItemToEntity.MapNetEndpoint(ConfigurationHelper.GetIPEndPointsConfiguration("uniServiceUdpBroadcast"));
 
-            return (BroadcastEndpoint != null);
+            if (BroadcastEndpoint != null)
+            {
+                return (BroadcastEndpoint.Protocol == System.Net.Sockets.ProtocolType.Udp);
+            }
+            else
+            {
+                return false;
+            }
         }
         #endregion
     }

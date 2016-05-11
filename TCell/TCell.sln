@@ -63,6 +63,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCell.WindowsServicePlugins
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCell.WindowsServicePlugins.BroadcastActor", "Applications\TCell.WindowsServicePlugins.BroadcastActor\TCell.WindowsServicePlugins.BroadcastActor.csproj", "{794113BA-18FA-4CD4-A4B3-AF6810F144B7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCell.WindowsServicePlugins.UdpActor", "Applications\TCell.WindowsServicePlugins.UdpActor\TCell.WindowsServicePlugins.UdpActor.csproj", "{CD4244CC-511D-446D-99FE-D3521DB07B05}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -185,6 +187,10 @@ Global
 		{794113BA-18FA-4CD4-A4B3-AF6810F144B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{794113BA-18FA-4CD4-A4B3-AF6810F144B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{794113BA-18FA-4CD4-A4B3-AF6810F144B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD4244CC-511D-446D-99FE-D3521DB07B05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD4244CC-511D-446D-99FE-D3521DB07B05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD4244CC-511D-446D-99FE-D3521DB07B05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD4244CC-511D-446D-99FE-D3521DB07B05}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -210,5 +216,6 @@ Global
 		{AF592F2B-7060-4082-877E-6FC23081E39C} = {09F798D3-8262-41DB-BA5B-3301F5BD2803}
 		{94CC7D9A-A1B8-4CC5-9528-D9CB91914FD8} = {09F798D3-8262-41DB-BA5B-3301F5BD2803}
 		{794113BA-18FA-4CD4-A4B3-AF6810F144B7} = {09F798D3-8262-41DB-BA5B-3301F5BD2803}
+		{CD4244CC-511D-446D-99FE-D3521DB07B05} = {09F798D3-8262-41DB-BA5B-3301F5BD2803}
 	EndGlobalSection
 EndGlobal
