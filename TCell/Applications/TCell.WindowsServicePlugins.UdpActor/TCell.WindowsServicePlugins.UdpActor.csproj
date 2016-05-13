@@ -67,6 +67,10 @@
       <Project>{D4AC8543-312C-4FDA-84BC-093ABE33E3CB}</Project>
       <Name>TCell.Net</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Common\TCell.Text\TCell.Text.csproj">
+      <Project>{A3DC3E73-E300-40AC-9D37-58CD7FEE8DC4}</Project>
+      <Name>TCell.Text</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

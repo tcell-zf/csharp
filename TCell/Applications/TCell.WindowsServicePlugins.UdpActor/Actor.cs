@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Collections.Generic;
 
 using TCell.Net;
+using TCell.Text;
 using TCell.Mapping;
 using TCell.Abstraction;
 using TCell.Configuration;
@@ -44,6 +45,13 @@ namespace TCell.WindowsServicePlugins.UdpActor
         {
             if (string.IsNullOrEmpty(commandText) || UdpEndpoints == null || UdpEndpoints.Count == 0)
                 return false;
+
+            TextCommand cmd = TextCommand.Parse(commandText);
+            if (cmd != null)
+            {
+                if (cmd.Name == TextCommand.CommandName.Shutdown)
+                    return false;
+            }
 
             bool execResult = true;
             foreach (EndPoint ep in UdpEndpoints)
