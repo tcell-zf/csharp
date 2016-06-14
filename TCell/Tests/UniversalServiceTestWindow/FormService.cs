@@ -83,7 +83,7 @@ namespace UniversalServiceTestWindow
             TextCommand cmd = TextCommand.Parse(commandText);
             if (cmd != null)
             {
-                string targetDevIds = cmd.GetParameterValue(TextCommand.ParameterName.DeviceIds);
+                string targetDevIds = cmd.GetParameterValue(TextCommand.ParameterName.MultiDeviceId);
                 if (!IsItMe(targetDevIds))
                     return;
             }
