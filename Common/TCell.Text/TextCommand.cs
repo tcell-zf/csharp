@@ -138,7 +138,6 @@ namespace TCell.Text
 
         public class ParameterName
         {
-            public const string DeviceIds = "deviceids";
             public const string DeviceId = "deviceid";
 
             public const string Machines = "machines";
