@@ -128,10 +128,20 @@ namespace TCell.MediaPlayerPlugins.ImagePlayer
             else
             {
                 if (!System.IO.File.Exists(sourcePath))
+                {
+                    this.Source = null;
+                    this.Visibility = Visibility.Hidden;
+                    currStatus = PlayerStatusType.Idle;
                     return false;
+                }
                 FileCategory category = File.GetFileCategory(sourcePath);
                 if (category != FileCategory.Image)
+                {
+                    this.Source = null;
+                    this.Visibility = Visibility.Hidden;
+                    currStatus = PlayerStatusType.Idle;
                     return false;
+                }
 
                 this.Source = BitmapFrame.Create(new Uri(sourcePath));
                 this.Visibility = Visibility.Visible;

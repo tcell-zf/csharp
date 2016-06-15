@@ -51,6 +51,8 @@ namespace TCell.UniversalMediaPlayer
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             LogMessage(TraceEventType.Start, "Universal media player starting...");
+
+            Mouse.OverrideCursor = System.Windows.Input.Cursors.None;
             PlayerHelper.SetLogHandler(LogMessage);
             PlayerHelper.SetLogHandler(LogException);
 

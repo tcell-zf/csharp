@@ -160,10 +160,20 @@ namespace TCell.MediaPlayerPlugins.VideoPlayer
             else
             {
                 if (!System.IO.File.Exists(sourcePath))
+                {
+                    this.Source = null;
+                    this.Visibility = Visibility.Hidden;
+                    currStatus = PlayerStatusType.Idle;
                     return false;
+                }
                 FileCategory category = File.GetFileCategory(sourcePath);
                 if (category != FileCategory.Audio && category != FileCategory.Video)
+                {
+                    this.Source = null;
+                    this.Visibility = Visibility.Hidden;
+                    currStatus = PlayerStatusType.Idle;
                     return false;
+                }
 
                 this.Source = new Uri(sourcePath);
                 this.Visibility = Visibility.Visible;
