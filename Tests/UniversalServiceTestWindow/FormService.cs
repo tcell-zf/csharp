@@ -57,7 +57,7 @@ namespace UniversalServiceTestWindow
                     if (receiver == null)
                         continue;
 
-                    receiver.StopRrceiver();
+                    receiver.StopReceiver();
                 }
             }
             // stop all actors

@@ -83,7 +83,7 @@ namespace TCell.UniversalMediaPlayer
                     if (receiver == null)
                         continue;
 
-                    receiver.StopRrceiver();
+                    receiver.StopReceiver();
                 }
             }
             // stop all players
