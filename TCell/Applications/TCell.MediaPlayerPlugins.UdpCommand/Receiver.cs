@@ -56,7 +56,7 @@ namespace TCell.MediaPlayerPlugins.UdpCommand
             return execResult;
         }
 
-        public bool StopRrceiver()
+        public bool StopReceiver()
         {
             bool execResult = false;
             if (udpSvr != null)

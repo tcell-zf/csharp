@@ -57,7 +57,7 @@ namespace TCell.UniversalWindowsService
                     if (receiver == null)
                         continue;
 
-                    receiver.StopRrceiver();
+                    receiver.StopReceiver();
                 }
             }
             // stop all actors

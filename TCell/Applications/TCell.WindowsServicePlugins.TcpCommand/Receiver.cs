@@ -56,7 +56,7 @@ namespace TCell.WindowsServicePlugins.TcpCommand
             return execResult;
         }
 
-        public bool StopRrceiver()
+        public bool StopReceiver()
         {
             bool execResult = false;
             if (tcpSvr != null)

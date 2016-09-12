@@ -10,7 +10,7 @@ namespace TCell.Abstraction
         Action<string, string> CommandReceivedHandler { get; set; }
 
         bool StartReceiver();
-        bool StopRrceiver();
+        bool StopReceiver();
         bool Send(string response);
     }
 
