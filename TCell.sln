@@ -73,6 +73,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WindowsService", "WindowsSe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mexxum.MediaPlayerPlugins.PowerPointPlayer2013", "..\Mexxum\Common\Mexxum.MediaPlayerPlugins.PowerPointPlayer2013\Mexxum.MediaPlayerPlugins.PowerPointPlayer2013.csproj", "{5CA436B0-4CC9-45AA-A323-00DD1591F21E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mexxum.WindowsServicePlugins.ModbusCommand", "..\Mexxum\Common\Mexxum.WindowsServicePlugins.ModbusCommand\Mexxum.WindowsServicePlugins.ModbusCommand.csproj", "{38946CFE-9A14-4D64-A4F7-17F4AFD9A638}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -207,6 +209,10 @@ Global
 		{5CA436B0-4CC9-45AA-A323-00DD1591F21E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CA436B0-4CC9-45AA-A323-00DD1591F21E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CA436B0-4CC9-45AA-A323-00DD1591F21E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38946CFE-9A14-4D64-A4F7-17F4AFD9A638}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38946CFE-9A14-4D64-A4F7-17F4AFD9A638}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38946CFE-9A14-4D64-A4F7-17F4AFD9A638}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38946CFE-9A14-4D64-A4F7-17F4AFD9A638}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -237,5 +243,6 @@ Global
 		{C37E7DB4-F200-4ADD-859A-6B5B12A8FDF4} = {09F798D3-8262-41DB-BA5B-3301F5BD2803}
 		{330F0FAB-5B11-4C0C-85A3-D29CCAECDE4E} = {09F798D3-8262-41DB-BA5B-3301F5BD2803}
 		{5CA436B0-4CC9-45AA-A323-00DD1591F21E} = {C37E7DB4-F200-4ADD-859A-6B5B12A8FDF4}
+		{38946CFE-9A14-4D64-A4F7-17F4AFD9A638} = {330F0FAB-5B11-4C0C-85A3-D29CCAECDE4E}
 	EndGlobalSection
 EndGlobal
