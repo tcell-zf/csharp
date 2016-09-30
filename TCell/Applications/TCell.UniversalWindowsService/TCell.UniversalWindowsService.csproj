@@ -82,6 +82,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Mexxum\Common\Mexxum.WindowsServicePlugins.ModbusCommand\Mexxum.WindowsServicePlugins.ModbusCommand.csproj">
+      <Project>{38946cfe-9a14-4d64-a4f7-17f4afd9a638}</Project>
+      <Name>Mexxum.WindowsServicePlugins.ModbusCommand</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Common\TCell.Abstraction\TCell.Abstraction.csproj">
       <Project>{408281BA-340B-4175-BEC4-E51757C27A63}</Project>
       <Name>TCell.Abstraction</Name>
