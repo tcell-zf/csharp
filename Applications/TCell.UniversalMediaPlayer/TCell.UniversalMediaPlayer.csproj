@@ -116,6 +116,10 @@
       <Project>{2c7d860b-f5da-4800-a1b1-6c554142418c}</Project>
       <Name>Mexxum.MediaPlayerPlugins.ModbusCommand</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Mexxum\Common\Mexxum.MediaPlayerPlugins.PowerPointPlayer2013\Mexxum.MediaPlayerPlugins.PowerPointPlayer2013.csproj">
+      <Project>{5ca436b0-4cc9-45aa-a323-00dd1591f21e}</Project>
+      <Name>Mexxum.MediaPlayerPlugins.PowerPointPlayer2013</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Common\TCell.Abstraction\TCell.Abstraction.csproj">
       <Project>{408281ba-340b-4175-bec4-e51757c27a63}</Project>
       <Name>TCell.Abstraction</Name>
