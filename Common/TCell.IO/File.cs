@@ -24,7 +24,9 @@ namespace TCell.IO
         ZIP,
         RAR,
 
-        SWF
+        SWF,
+
+        PowerPoint
     }
 
     public enum FileCategory
@@ -38,7 +40,9 @@ namespace TCell.IO
         Compress,
 
         Flash,
-        Gif
+        Gif,
+
+        MicrosoftOffice
     }
 
     public class File
@@ -123,6 +127,9 @@ namespace TCell.IO
                     break;
                 case "6787":
                     type = FileType.SWF;
+                    break;
+                case "": // TBD
+                    type = FileType.PowerPoint;
                     break;
                 default:
                     break;
