@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCell.Net", "Common\TCell.Net\TCell.Net.csproj", "{D4AC8543-312C-4FDA-84BC-093ABE33E3CB}"
 EndProject
@@ -70,6 +70,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Player", "Player", "{C37E7DB4-F200-4ADD-859A-6B5B12A8FDF4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WindowsService", "WindowsService", "{330F0FAB-5B11-4C0C-85A3-D29CCAECDE4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mexxum.MediaPlayerPlugins.PowerPointPlayer2013", "..\Mexxum\Common\Mexxum.MediaPlayerPlugins.PowerPointPlayer2013\Mexxum.MediaPlayerPlugins.PowerPointPlayer2013.csproj", "{5CA436B0-4CC9-45AA-A323-00DD1591F21E}"
 EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
@@ -201,6 +203,10 @@ Global
 		{159190EC-E4CB-4E5B-A05A-335AFA958975}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{159190EC-E4CB-4E5B-A05A-335AFA958975}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{159190EC-E4CB-4E5B-A05A-335AFA958975}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CA436B0-4CC9-45AA-A323-00DD1591F21E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CA436B0-4CC9-45AA-A323-00DD1591F21E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CA436B0-4CC9-45AA-A323-00DD1591F21E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CA436B0-4CC9-45AA-A323-00DD1591F21E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -230,5 +236,6 @@ Global
 		{159190EC-E4CB-4E5B-A05A-335AFA958975} = {330F0FAB-5B11-4C0C-85A3-D29CCAECDE4E}
 		{C37E7DB4-F200-4ADD-859A-6B5B12A8FDF4} = {09F798D3-8262-41DB-BA5B-3301F5BD2803}
 		{330F0FAB-5B11-4C0C-85A3-D29CCAECDE4E} = {09F798D3-8262-41DB-BA5B-3301F5BD2803}
+		{5CA436B0-4CC9-45AA-A323-00DD1591F21E} = {C37E7DB4-F200-4ADD-859A-6B5B12A8FDF4}
 	EndGlobalSection
 EndGlobal
