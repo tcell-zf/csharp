@@ -81,6 +81,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Mexxum\Common\Mexxum.WindowsServicePlugins.ModbusCommand\Mexxum.WindowsServicePlugins.ModbusCommand.csproj">
+      <Project>{38946cfe-9a14-4d64-a4f7-17f4afd9a638}</Project>
+      <Name>Mexxum.WindowsServicePlugins.ModbusCommand</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Applications\TCell.WindowsServicePlugins.BroadcastActor\TCell.WindowsServicePlugins.BroadcastActor.csproj">
       <Project>{794113ba-18fa-4cd4-a4b3-af6810f144b7}</Project>
       <Name>TCell.WindowsServicePlugins.BroadcastActor</Name>

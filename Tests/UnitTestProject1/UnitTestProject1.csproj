@@ -52,12 +52,24 @@
   <ItemGroup>
     <Compile Include="PlayerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReceiverTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Mexxum\Common\Mexxum.MediaPlayerPlugins.PowerPointPlayer2013\Mexxum.MediaPlayerPlugins.PowerPointPlayer2013.csproj">
       <Project>{5CA436B0-4CC9-45AA-A323-00DD1591F21E}</Project>
       <Name>Mexxum.MediaPlayerPlugins.PowerPointPlayer2013</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Mexxum\Common\Mexxum.WindowsServicePlugins.ModbusCommand\Mexxum.WindowsServicePlugins.ModbusCommand.csproj">
+      <Project>{38946CFE-9A14-4D64-A4F7-17F4AFD9A638}</Project>
+      <Name>Mexxum.WindowsServicePlugins.ModbusCommand</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\TCell.Abstraction\TCell.Abstraction.csproj">
+      <Project>{408281ba-340b-4175-bec4-e51757c27a63}</Project>
+      <Name>TCell.Abstraction</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
