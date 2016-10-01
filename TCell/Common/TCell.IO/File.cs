@@ -119,16 +119,16 @@ namespace TCell.IO
                     type = FileType.RMVB;
                     break;
 
-                case "8075":
-                    type = FileType.ZIP;
-                    break;
+                //case "8075":
+                //    type = FileType.ZIP;
+                //    break;
                 case "8297":
                     type = FileType.RAR;
                     break;
                 case "6787":
                     type = FileType.SWF;
                     break;
-                case "": // TBD
+                case "8075":
                     type = FileType.PowerPoint;
                     break;
                 default:
