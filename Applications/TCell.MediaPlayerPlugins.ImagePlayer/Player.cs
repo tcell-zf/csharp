@@ -37,7 +37,7 @@ namespace TCell.MediaPlayerPlugins.ImagePlayer
         #endregion
 
         #region public functions
-        public bool StartPlayer()
+        public bool StartPlayer(object owner)
         {
             currStatus = PlayerStatusType.Idle;
 

@@ -43,7 +43,7 @@ namespace TCell.Abstraction
 
         Action<MediaActedNotifier> MediaActedHandler { get; set; }
 
-        bool StartPlayer();
+        bool StartPlayer(object owner);
         bool StopPlayer();
         bool ExecuteCommand(string commandText);
     }

@@ -20,6 +20,7 @@ namespace TCell.UniversalMediaPlayer
     public partial class MainWindow : Window, IPlayerHostable
     {
         private delegate bool ExecuteCommandDelegate(string commandText);
+        private delegate void ShowWindowDelegate(bool isShow);
 
         #region constructors
         public MainWindow()
@@ -220,6 +221,13 @@ namespace TCell.UniversalMediaPlayer
         }
         #endregion
 
+        #region public functions
+        public void ShowMe(bool isShow)
+        {
+            this.Dispatcher.BeginInvoke(new ShowWindowDelegate(ShowWindow), new object[] { isShow });
+        }
+        #endregion
+
         #region private functions
         private void LogException(string msg, Exception ex)
         {
@@ -328,7 +336,7 @@ namespace TCell.UniversalMediaPlayer
                             if (players == null)
                                 players = new List<IPlayable>();
 
-                            if (player.StartPlayer())
+                            if (player.StartPlayer(this))
                             {
                                 player.MediaActedHandler += OnMediaActed;
                                 players.Add(player);
@@ -484,6 +492,14 @@ namespace TCell.UniversalMediaPlayer
             timer.Start();
 
             return timer;
+        }
+
+        private void ShowWindow(bool isShow)
+        {
+            if (isShow)
+                Show();
+            else
+                Hide();
         }
         #endregion
     }
