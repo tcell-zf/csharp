@@ -497,9 +497,14 @@ namespace TCell.UniversalMediaPlayer
         private void ShowWindow(bool isShow)
         {
             if (isShow)
+            {
                 Show();
+                Activate();
+            }
             else
+            {
                 Hide();
+            }
         }
         #endregion
     }
