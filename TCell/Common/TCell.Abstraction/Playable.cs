@@ -38,6 +38,7 @@ namespace TCell.Abstraction
     public interface IPlayable
     {
         string Id { get; }
+        string BasePath { set; }
         string SourcePath { get; set; }
         PlayerStatusType Status { get; }
 
