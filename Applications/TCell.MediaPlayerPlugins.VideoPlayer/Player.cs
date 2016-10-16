@@ -17,6 +17,11 @@ namespace TCell.MediaPlayerPlugins.VideoPlayer
             get { return "VideoPlayer"; }
         }
 
+        private string basePath = string.Empty;
+        public string BasePath
+        {
+            set { this.basePath = value; }
+        }
         public string SourcePath { get; set; }
 
         private PlayerStatusType currStatus = PlayerStatusType.Idle;
@@ -149,36 +154,42 @@ namespace TCell.MediaPlayerPlugins.VideoPlayer
                 this.Play();
                 currStatus = PlayerStatusType.Playing;
             }
-
-            SourcePath = sourcePath;
-            if (string.IsNullOrEmpty(sourcePath))
+            else if (currStatus == PlayerStatusType.Playing && string.Compare(sourcePath, SourcePath, true) == 0)
             {
-                this.Source = null;
-                this.Visibility = Visibility.Hidden;
-                currStatus = PlayerStatusType.Idle;
+                return true;
             }
             else
             {
-                if (!System.IO.File.Exists(sourcePath))
+                SourcePath = sourcePath;
+                if (string.IsNullOrEmpty(sourcePath))
                 {
                     this.Source = null;
                     this.Visibility = Visibility.Hidden;
                     currStatus = PlayerStatusType.Idle;
-                    return false;
                 }
-                FileCategory category = File.GetFileCategory(sourcePath);
-                if (category != FileCategory.Audio && category != FileCategory.Video)
+                else
                 {
-                    this.Source = null;
-                    this.Visibility = Visibility.Hidden;
-                    currStatus = PlayerStatusType.Idle;
-                    return false;
-                }
+                    if (!System.IO.File.Exists(sourcePath))
+                    {
+                        this.Source = null;
+                        this.Visibility = Visibility.Hidden;
+                        currStatus = PlayerStatusType.Idle;
+                        return false;
+                    }
+                    FileCategory category = File.GetFileCategory(sourcePath);
+                    if (category != FileCategory.Audio && category != FileCategory.Video)
+                    {
+                        this.Source = null;
+                        this.Visibility = Visibility.Hidden;
+                        currStatus = PlayerStatusType.Idle;
+                        return false;
+                    }
 
-                this.Source = new Uri(sourcePath);
-                this.Visibility = Visibility.Visible;
-                this.Play();
-                MuteMedia(false);
+                    this.Source = new Uri(sourcePath);
+                    this.Visibility = Visibility.Visible;
+                    this.Play();
+                    MuteMedia(false);
+                }
             }
             return true;
         }

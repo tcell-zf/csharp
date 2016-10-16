@@ -21,6 +21,11 @@ namespace TCell.MediaPlayerPlugins.ImagePlayer
             get { return "ImagePlayer"; }
         }
 
+        private string basePath = string.Empty;
+        public string BasePath
+        {
+            set { this.basePath = value; }
+        }
         public string SourcePath { get; set; }
 
         private int? playInterval = null;
@@ -118,6 +123,9 @@ namespace TCell.MediaPlayerPlugins.ImagePlayer
 
         private bool PlayMedia(string sourcePath, bool isCountDown)
         {
+            if (currStatus == PlayerStatusType.Playing && string.Compare(sourcePath, SourcePath, true) == 0)
+                return true;
+
             SourcePath = sourcePath;
             if (string.IsNullOrEmpty(sourcePath))
             {

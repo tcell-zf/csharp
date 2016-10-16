@@ -332,6 +332,8 @@ namespace TCell.UniversalMediaPlayer
                         if (type.GetInterface(playerType.FullName) != null)
                         {
                             IPlayable player = (IPlayable)Activator.CreateInstance(type);
+                            if (!string.IsNullOrEmpty(MediaPath) && Directory.Exists(MediaPath))
+                                player.BasePath = MediaPath;
 
                             if (players == null)
                                 players = new List<IPlayable>();
