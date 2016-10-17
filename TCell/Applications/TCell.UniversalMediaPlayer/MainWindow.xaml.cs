@@ -245,7 +245,7 @@ namespace TCell.UniversalMediaPlayer
             if (!string.IsNullOrEmpty(str))
                 Title = str;
 
-            str = ConfigurationManager.AppSettings["backgroundImageUri"];
+            str = FindFileByCategory("background", FileCategory.Image, "App");
             if (!string.IsNullOrEmpty(str) && System.IO.File.Exists(str))
                 backgroundImageBrush.ImageSource = BitmapFrame.Create(new Uri(str));
 
@@ -271,6 +271,47 @@ namespace TCell.UniversalMediaPlayer
                 autoStartLoopInterval = interval;
             else
                 autoStartLoopInterval = null;
+        }
+
+        private string FindFileByCategory(string filename, FileCategory category, string subfolder = "")
+        {
+            string basePath = string.Empty;
+            if (string.IsNullOrEmpty(MediaPath) || !Directory.Exists(MediaPath))
+                basePath = string.IsNullOrEmpty(subfolder) ? Path.Combine(Environments.ApplicationPath, "MediaFiles")
+                    : Path.Combine(Environments.ApplicationPath, "MediaFiles", subfolder);
+            else
+                basePath = string.IsNullOrEmpty(subfolder) ? MediaPath
+                    : Path.Combine(MediaPath, subfolder);
+
+            if (!Directory.Exists(basePath))
+                return string.Empty;
+
+            string[] files = null;
+            try
+            {
+                files = Directory.GetFiles(basePath, $"{filename}.*", SearchOption.TopDirectoryOnly);
+            }
+            catch (Exception ex)
+            {
+                Logger.LoggerInstance.Log($"Exception occurred when searching {filename}.* of {category} with subfolder={subfolder}, {ex.Message}", ex);
+                return string.Empty;
+            }
+
+            if (files == null || files.Length == 0)
+                return string.Empty;
+
+            string path = string.Empty;
+            foreach (string f in files)
+            {
+                FileCategory cat = TCell.IO.File.GetFileCategory(f);
+                if (category != cat)
+                    continue;
+
+                path = f;
+                break;
+            }
+
+            return path;
         }
 
         private void LoadCommandReceivers()
