@@ -18,25 +18,31 @@ namespace TCell.Text
             if (str.Length != 8)
                 return null;
 
-            byte by = 0;
-            by += (byte)(ParseBitValue(str.Substring(7, 1)) * 1);
-            by += (byte)(ParseBitValue(str.Substring(6, 1)) * 2);
-            by += (byte)(ParseBitValue(str.Substring(5, 1)) * 4);
-            by += (byte)(ParseBitValue(str.Substring(4, 1)) * 8);
-            by += (byte)(ParseBitValue(str.Substring(3, 1)) * 16);
-            by += (byte)(ParseBitValue(str.Substring(2, 1)) * 32);
-            by += (byte)(ParseBitValue(str.Substring(1, 1)) * 64);
-            by += (byte)(ParseBitValue(str.Substring(0, 1)) * 128);
+            try
+            {
+                byte by = 0;
+                by += (byte)(ParseBitValue(str.Substring(7, 1)) * 1);
+                by += (byte)(ParseBitValue(str.Substring(6, 1)) * 2);
+                by += (byte)(ParseBitValue(str.Substring(5, 1)) * 4);
+                by += (byte)(ParseBitValue(str.Substring(4, 1)) * 8);
+                by += (byte)(ParseBitValue(str.Substring(3, 1)) * 16);
+                by += (byte)(ParseBitValue(str.Substring(2, 1)) * 32);
+                by += (byte)(ParseBitValue(str.Substring(1, 1)) * 64);
+                by += (byte)(ParseBitValue(str.Substring(0, 1)) * 128);
 
-            return by;
+                return by;
+            }
+            catch { return null; }
         }
 
         static private byte ParseBitValue(string bit)
         {
             if (bit == "1")
                 return 1;
-            else
+            else if (bit == "0")
                 return 0;
+            else
+                throw new ArgumentException($"Invalid bit string value {bit}.", nameof(bit));
         }
 
         static public byte? ParseDecimal(string str)
