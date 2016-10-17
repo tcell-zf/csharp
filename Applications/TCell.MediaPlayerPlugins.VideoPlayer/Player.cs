@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -149,19 +150,20 @@ namespace TCell.MediaPlayerPlugins.VideoPlayer
 
         private bool PlayMedia(string sourcePath)
         {
+            string path = FindFileByCategory(sourcePath, FileCategory.Video);
             if (currStatus == PlayerStatusType.Paused)
             {
                 this.Play();
                 currStatus = PlayerStatusType.Playing;
             }
-            else if (currStatus == PlayerStatusType.Playing && string.Compare(sourcePath, SourcePath, true) == 0)
+            else if (currStatus == PlayerStatusType.Playing && string.Compare(path, SourcePath, true) == 0)
             {
                 return true;
             }
             else
             {
-                SourcePath = sourcePath;
-                if (string.IsNullOrEmpty(sourcePath))
+                SourcePath = path;
+                if (string.IsNullOrEmpty(SourcePath))
                 {
                     this.Source = null;
                     this.Visibility = Visibility.Hidden;
@@ -169,14 +171,14 @@ namespace TCell.MediaPlayerPlugins.VideoPlayer
                 }
                 else
                 {
-                    if (!System.IO.File.Exists(sourcePath))
+                    if (!System.IO.File.Exists(SourcePath))
                     {
                         this.Source = null;
                         this.Visibility = Visibility.Hidden;
                         currStatus = PlayerStatusType.Idle;
                         return false;
                     }
-                    FileCategory category = File.GetFileCategory(sourcePath);
+                    FileCategory category = TCell.IO.File.GetFileCategory(SourcePath);
                     if (category != FileCategory.Audio && category != FileCategory.Video)
                     {
                         this.Source = null;
@@ -185,13 +187,63 @@ namespace TCell.MediaPlayerPlugins.VideoPlayer
                         return false;
                     }
 
-                    this.Source = new Uri(sourcePath);
+                    this.Source = new Uri(SourcePath);
                     this.Visibility = Visibility.Visible;
                     this.Play();
                     MuteMedia(false);
                 }
             }
             return true;
+        }
+
+        private string FindFileByCategory(string filename, FileCategory category, string subfolder = "")
+        {
+            string path = string.Empty;
+            if (System.IO.File.Exists(filename))
+            {
+                FileCategory cat = TCell.IO.File.GetFileCategory(filename);
+                if (category == cat)
+                    path = filename;
+            }
+            else
+            {
+                string basePath = string.Empty;
+                if (string.IsNullOrEmpty(basePath) || !Directory.Exists(basePath))
+                    basePath = string.IsNullOrEmpty(subfolder) ? Path.Combine(Environments.ApplicationPath, "MediaFiles")
+                        : Path.Combine(Environments.ApplicationPath, "MediaFiles", subfolder);
+                else
+                    basePath = string.IsNullOrEmpty(subfolder) ? basePath
+                        : Path.Combine(basePath, subfolder);
+
+                if (Directory.Exists(basePath))
+                {
+                    string[] files = null;
+                    try
+                    {
+                        files = Directory.GetFiles(basePath, filename, SearchOption.TopDirectoryOnly);
+                    }
+                    catch (Exception ex)
+                    {
+                        PlayerHelper.LogException($"Exception occurred when searching {filename} of {category} with subfolder={subfolder}, {ex.Message}", ex);
+                        return string.Empty;
+                    }
+
+                    if (files != null && files.Length > 0)
+                    {
+                        foreach (string f in files)
+                        {
+                            FileCategory cat = TCell.IO.File.GetFileCategory(f);
+                            if (category != cat)
+                                continue;
+
+                            path = f;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return path.Replace("\\", "/");
         }
 
         private bool MuteMedia(bool isMute)
