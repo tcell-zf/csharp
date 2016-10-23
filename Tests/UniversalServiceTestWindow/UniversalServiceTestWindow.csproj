@@ -89,34 +89,6 @@
       <Project>{794113ba-18fa-4cd4-a4b3-af6810f144b7}</Project>
       <Name>TCell.WindowsServicePlugins.BroadcastActor</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Applications\TCell.WindowsServicePlugins.PowerOffActor\TCell.WindowsServicePlugins.PowerOffActor.csproj">
-      <Project>{af592f2b-7060-4082-877e-6fc23081e39c}</Project>
-      <Name>TCell.WindowsServicePlugins.PowerOffActor</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Applications\TCell.WindowsServicePlugins.PowerOnActor\TCell.WindowsServicePlugins.PowerOnActor.csproj">
-      <Project>{94cc7d9a-a1b8-4cc5-9528-d9cb91914fd8}</Project>
-      <Name>TCell.WindowsServicePlugins.PowerOnActor</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Applications\TCell.WindowsServicePlugins.ShutdownActor\TCell.WindowsServicePlugins.ShutdownActor.csproj">
-      <Project>{a4d5e7e1-eca4-41c0-bc81-17a52f1e7e38}</Project>
-      <Name>TCell.WindowsServicePlugins.ShutdownActor</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Applications\TCell.WindowsServicePlugins.TcpActor\TCell.WindowsServicePlugins.TcpActor.csproj">
-      <Project>{159190ec-e4cb-4e5b-a05a-335afa958975}</Project>
-      <Name>TCell.WindowsServicePlugins.TcpActor</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Applications\TCell.WindowsServicePlugins.TcpCommand\TCell.WindowsServicePlugins.TcpCommand.csproj">
-      <Project>{2369a4ad-44b6-42b9-9f16-00b2fb743ef3}</Project>
-      <Name>TCell.WindowsServicePlugins.TcpCommand</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Applications\TCell.WindowsServicePlugins.UdpActor\TCell.WindowsServicePlugins.UdpActor.csproj">
-      <Project>{cd4244cc-511d-446d-99fe-d3521db07b05}</Project>
-      <Name>TCell.WindowsServicePlugins.UdpActor</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Applications\TCell.WindowsServicePlugins.UdpCommand\TCell.WindowsServicePlugins.UdpCommand.csproj">
-      <Project>{5577479b-ced7-42ff-a7e4-96f0571f6927}</Project>
-      <Name>TCell.WindowsServicePlugins.UdpCommand</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Common\TCell.Abstraction\TCell.Abstraction.csproj">
       <Project>{408281BA-340B-4175-BEC4-E51757C27A63}</Project>
       <Name>TCell.Abstraction</Name>
