@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -13,6 +14,8 @@ namespace TCell.MediaPlayerPlugins.VideoPlayer
     public class Player : MediaElement, IPlayable
     {
         #region properties
+        private Window owner = null;
+
         public string Id
         {
             get { return "VideoPlayer"; }
@@ -38,6 +41,12 @@ namespace TCell.MediaPlayerPlugins.VideoPlayer
         public bool StartPlayer(object owner)
         {
             currStatus = PlayerStatusType.Idle;
+
+            if (owner != null)
+            {
+                if (owner is Window)
+                    this.owner = (Window)owner;
+            }
 
             LoadedBehavior = MediaState.Manual;
             this.MediaOpened += Player_MediaOpened;
@@ -191,6 +200,16 @@ namespace TCell.MediaPlayerPlugins.VideoPlayer
                     this.Visibility = Visibility.Visible;
                     this.Play();
                     MuteMedia(false);
+                    currStatus = PlayerStatusType.Playing;
+
+                    if (owner != null)
+                    {
+                        MethodInfo mi = owner.GetType().GetMethod("ShowMe");
+                        if (mi != null)
+                        {
+                            mi.Invoke(owner, new object[] { true });
+                        }
+                    }
                 }
             }
             return true;
@@ -220,7 +239,7 @@ namespace TCell.MediaPlayerPlugins.VideoPlayer
                     string[] files = null;
                     try
                     {
-                        files = Directory.GetFiles(basePath, filename, SearchOption.TopDirectoryOnly);
+                        files = Directory.GetFiles(basePath, Path.GetFileName(filename), SearchOption.TopDirectoryOnly);
                     }
                     catch (Exception ex)
                     {
