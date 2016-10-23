@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Controls;
@@ -17,6 +18,8 @@ namespace TCell.MediaPlayerPlugins.ImagePlayer
     public class Player : Image, IPlayable
     {
         #region properties
+        private Window owner = null;
+
         public string Id
         {
             get { return "ImagePlayer"; }
@@ -46,6 +49,12 @@ namespace TCell.MediaPlayerPlugins.ImagePlayer
         public bool StartPlayer(object owner)
         {
             currStatus = PlayerStatusType.Idle;
+
+            if (owner != null)
+            {
+                if (owner is Window)
+                    this.owner = (Window)owner;
+            }
 
             bool execResult = LoadConfiguration();
             if (execResult)
@@ -157,6 +166,15 @@ namespace TCell.MediaPlayerPlugins.ImagePlayer
                 this.Visibility = Visibility.Visible;
                 currStatus = PlayerStatusType.Playing;
 
+                if (owner != null)
+                {
+                    MethodInfo mi = owner.GetType().GetMethod("ShowMe");
+                    if (mi != null)
+                    {
+                        mi.Invoke(owner, new object[] { true });
+                    }
+                }
+
                 if (isCountDown && playInterval != null)
                 {
                     latestPlayDateTime = DateTime.Now;
@@ -190,7 +208,7 @@ namespace TCell.MediaPlayerPlugins.ImagePlayer
                     string[] files = null;
                     try
                     {
-                        files = Directory.GetFiles(basePath, filename, SearchOption.TopDirectoryOnly);
+                        files = Directory.GetFiles(basePath, Path.GetFileName(filename), SearchOption.TopDirectoryOnly);
                     }
                     catch (Exception ex)
                     {
