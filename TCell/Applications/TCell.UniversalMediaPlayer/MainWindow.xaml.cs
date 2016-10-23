@@ -541,11 +541,13 @@ namespace TCell.UniversalMediaPlayer
         {
             if (isShow)
             {
+                //WindowState = WindowState.Maximized;
                 Show();
                 Activate();
             }
             else
             {
+                //WindowState = WindowState.Minimized;
                 Hide();
             }
         }
