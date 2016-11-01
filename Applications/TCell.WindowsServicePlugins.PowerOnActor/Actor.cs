@@ -9,7 +9,7 @@ using TCell.WindowsServicePlugins.PowerOnActor.Configuration;
 
 namespace TCell.WindowsServicePlugins.PowerOnActor
 {
-    public class Actor : IServiceActor
+    public class Actor : IServiceActor, IStringCommandServiceActor
     {
         #region properties
         private NaryType nary = NaryType.Decimal;
@@ -39,7 +39,7 @@ namespace TCell.WindowsServicePlugins.PowerOnActor
             return true;
         }
 
-        public bool ExecuteCommand(string commandText)
+        public bool ExecuteStringCommand(string commandText)
         {
             if (string.IsNullOrEmpty(commandText))
                 return false;

@@ -6,7 +6,7 @@ using TCell.Abstraction;
 
 namespace TCell.WindowsServicePlugins.PowerOffActor
 {
-    public class Actor : IServiceActor
+    public class Actor : IServiceActor, IStringCommandServiceActor
     {
         #region properties
         public string Id
@@ -28,7 +28,7 @@ namespace TCell.WindowsServicePlugins.PowerOffActor
             return true;
         }
 
-        public bool ExecuteCommand(string commandText)
+        public bool ExecuteStringCommand(string commandText)
         {
             if (string.IsNullOrEmpty(commandText))
                 return false;

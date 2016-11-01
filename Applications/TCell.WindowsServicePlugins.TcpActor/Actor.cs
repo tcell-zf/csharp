@@ -12,7 +12,7 @@ using TCell.Entities.Communication;
 
 namespace TCell.WindowsServicePlugins.TcpActor
 {
-    public class Actor : IServiceActor
+    public class Actor : IServiceActor, IStringCommandServiceActor
     {
         #region properties
         public string Id
@@ -55,7 +55,7 @@ namespace TCell.WindowsServicePlugins.TcpActor
             }
         }
 
-        public bool ExecuteCommand(string commandText)
+        public bool ExecuteStringCommand(string commandText)
         {
             if (string.IsNullOrEmpty(commandText) || TcpClients == null || TcpClients.Count == 0)
                 return false;
