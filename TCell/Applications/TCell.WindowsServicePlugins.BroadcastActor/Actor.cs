@@ -10,7 +10,7 @@ using TCell.Entities.Communication;
 
 namespace TCell.WindowsServicePlugins.BroadcastActor
 {
-    public class Actor : IServiceActor
+    public class Actor : IServiceActor, IStringCommandServiceActor
     {
         #region properties
         public string Id
@@ -39,7 +39,7 @@ namespace TCell.WindowsServicePlugins.BroadcastActor
             return true;
         }
 
-        public bool ExecuteCommand(string commandText)
+        public bool ExecuteStringCommand(string commandText)
         {
             if (string.IsNullOrEmpty(commandText) || BroadcastEndpoint == null)
                 return false;

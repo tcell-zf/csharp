@@ -107,6 +107,15 @@ namespace TCell.Abstraction
 
         bool StartActor();
         bool StopActor();
-        bool ExecuteCommand(string commandText);
+    }
+
+    public interface IStringCommandServiceActor
+    {
+        bool ExecuteStringCommand(string commandText);
+    }
+
+    public interface IBytesCommandServiceActor
+    {
+        bool ExecuteBytesCommand(Dictionary<int, KeyValuePair<byte, byte?>> commandBytes);
     }
 }
