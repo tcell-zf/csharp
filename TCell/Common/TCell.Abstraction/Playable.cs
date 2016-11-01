@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace TCell.Abstraction
@@ -7,14 +8,20 @@ namespace TCell.Abstraction
     {
         string Id { get; }
 
-        Action<string, string> CommandReceivedHandler { get; set; }
-
         bool StartReceiver();
         bool StopReceiver();
         bool Send(string response);
     }
 
+    public interface IStringCommandReceivable
+    {
+        Action<string, string> StringCommandReceivedHandler { get; set; }
+    }
 
+    public interface IBytesCommandReceivable
+    {
+        Action<string, Dictionary<int, KeyValuePair<byte, byte?>>> BytesCommandReceivedHandler { get; set; }
+    }
 
 
     public enum PlayerStatusType

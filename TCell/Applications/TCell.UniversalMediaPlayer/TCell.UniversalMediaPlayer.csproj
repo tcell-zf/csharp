@@ -112,10 +112,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Mexxum\Common\Mexxum.MediaPlayerPlugins.ModbusCommand\Mexxum.MediaPlayerPlugins.ModbusCommand.csproj">
-      <Project>{2c7d860b-f5da-4800-a1b1-6c554142418c}</Project>
-      <Name>Mexxum.MediaPlayerPlugins.ModbusCommand</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Mexxum\Common\Mexxum.MediaPlayerPlugins.PowerPointPlayer2013\Mexxum.MediaPlayerPlugins.PowerPointPlayer2013.csproj">
       <Project>{5ca436b0-4cc9-45aa-a323-00dd1591f21e}</Project>
       <Name>Mexxum.MediaPlayerPlugins.PowerPointPlayer2013</Name>
@@ -139,10 +135,6 @@
     <ProjectReference Include="..\TCell.MediaPlayerPlugins.ImagePlayer\TCell.MediaPlayerPlugins.ImagePlayer.csproj">
       <Project>{e9f0d7a5-7751-42c2-b6ee-4349d1cd644e}</Project>
       <Name>TCell.MediaPlayerPlugins.ImagePlayer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TCell.MediaPlayerPlugins.TcpCommand\TCell.MediaPlayerPlugins.TcpCommand.csproj">
-      <Project>{3d9fb576-12af-423e-bee6-97aa709ba3e0}</Project>
-      <Name>TCell.MediaPlayerPlugins.TcpCommand</Name>
     </ProjectReference>
     <ProjectReference Include="..\TCell.MediaPlayerPlugins.UdpCommand\TCell.MediaPlayerPlugins.UdpCommand.csproj">
       <Project>{16a251cf-16c9-48da-8c3d-95c78d19242b}</Project>

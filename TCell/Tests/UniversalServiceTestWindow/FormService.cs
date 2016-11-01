@@ -75,7 +75,7 @@ namespace UniversalServiceTestWindow
             LogMessage(TraceEventType.Stop, "Universal windows service stopped.");
         }
 
-        private void OnCommandReceived(string id, string commandText)
+        private void OnStringCommandReceived(string id, string commandText)
         {
             if (string.IsNullOrEmpty(commandText))
                 return;
@@ -92,6 +92,25 @@ namespace UniversalServiceTestWindow
             {
                 actor.ExecuteCommand(commandText);
             }
+        }
+
+        private void OnBytesCommandReceived(string id, Dictionary<int, KeyValuePair<byte, byte?>> commandBytes)
+        {
+            if (commandBytes == null || commandBytes.Count == 0)
+                return;
+
+            //TextCommand cmd = TextCommand.Parse(commandText);
+            //if (cmd != null)
+            //{
+            //    string targetDevIds = cmd.GetParameterValue(TextCommand.ParameterName.MultiDeviceId);
+            //    if (!IsItMe(targetDevIds))
+            //        return;
+            //}
+
+            //foreach (IServiceActor actor in actors)
+            //{
+            //    actor.ExecuteCommand(commandText);
+            //}
         }
         #endregion
 
@@ -147,6 +166,8 @@ namespace UniversalServiceTestWindow
                 return;
 
             Type receivererType = typeof(IReceivable);
+            Type stringCmdRecType = typeof(IStringCommandReceivable);
+            Type bytesCmdRecType = typeof(IBytesCommandReceivable);
             foreach (string path in dllPaths)
             {
                 try
@@ -162,12 +183,28 @@ namespace UniversalServiceTestWindow
                         {
                             IReceivable receiver = (IReceivable)Activator.CreateInstance(type);
 
-                            if (receivers == null)
-                                receivers = new List<IReceivable>();
+                            if (type.GetInterface(stringCmdRecType.FullName) != null)
+                            {
+                                IStringCommandReceivable stringRec = (IStringCommandReceivable)receiver;
+                                stringRec.StringCommandReceivedHandler += this.OnStringCommandReceived;
+                            }
+                            else if (type.GetInterface(bytesCmdRecType.FullName) != null)
+                            {
+                                IBytesCommandReceivable bytesRec = (IBytesCommandReceivable)receiver;
+                                bytesRec.BytesCommandReceivedHandler += this.OnBytesCommandReceived;
+                            }
+                            else
+                            {
+                                continue;
+                            }
 
-                            receiver.CommandReceivedHandler += this.OnCommandReceived;
                             if (receiver.StartReceiver())
+                            {
+                                if (receivers == null)
+                                    receivers = new List<IReceivable>();
+
                                 receivers.Add(receiver);
+                            }
                         }
                     }
                 }

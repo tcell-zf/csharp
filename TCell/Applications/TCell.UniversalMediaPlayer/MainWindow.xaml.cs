@@ -321,6 +321,7 @@ namespace TCell.UniversalMediaPlayer
                 return;
 
             Type receivererType = typeof(IReceivable);
+            Type stringCmdRecType = typeof(IStringCommandReceivable);
             foreach (string path in dllPaths)
             {
                 try
@@ -336,12 +337,19 @@ namespace TCell.UniversalMediaPlayer
                         {
                             IReceivable receiver = (IReceivable)Activator.CreateInstance(type);
 
-                            if (receivers == null)
-                                receivers = new List<IReceivable>();
+                            if (type.GetInterface(stringCmdRecType.FullName) != null)
+                            {
+                                IStringCommandReceivable stringRec = (IStringCommandReceivable)receiver;
+                                stringRec.StringCommandReceivedHandler += this.OnCommandReceived;
 
-                            receiver.CommandReceivedHandler += this.OnCommandReceived;
-                            if (receiver.StartReceiver())
-                                receivers.Add(receiver);
+                                if (receiver.StartReceiver())
+                                {
+                                    if (receivers == null)
+                                        receivers = new List<IReceivable>();
+
+                                    receivers.Add(receiver);
+                                }
+                            }
                         }
                     }
                 }

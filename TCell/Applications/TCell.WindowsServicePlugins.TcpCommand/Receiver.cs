@@ -10,7 +10,7 @@ using TCell.Entities.Communication;
 
 namespace TCell.WindowsServicePlugins.TcpCommand
 {
-    public class Receiver : IReceivable
+    public class Receiver : IReceivable, IStringCommandReceivable
     {
         #region properties
         private TcpServerCommander tcpSvr = null;
@@ -20,7 +20,7 @@ namespace TCell.WindowsServicePlugins.TcpCommand
             get { return "TcpCommandReceiver"; }
         }
 
-        public Action<string, string> CommandReceivedHandler { get; set; }
+        public Action<string, string> StringCommandReceivedHandler { get; set; }
         #endregion
 
         #region public functions
@@ -93,10 +93,10 @@ namespace TCell.WindowsServicePlugins.TcpCommand
         #region private functions
         private void OnDatagramReceived(byte[] dgram)
         {
-            if (dgram == null || dgram.Length == 0 || CommandReceivedHandler == null)
+            if (dgram == null || dgram.Length == 0 || StringCommandReceivedHandler == null)
                 return;
 
-            CommandReceivedHandler(Id, Encoding.UTF8.GetString(dgram));
+            StringCommandReceivedHandler(Id, Encoding.UTF8.GetString(dgram));
         }
         #endregion
     }
