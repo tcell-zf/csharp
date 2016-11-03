@@ -29,7 +29,7 @@ namespace TCell.Entities.Communication
             {
                 //if (value < 10000 || value > 65535)
                 if (value < 0 || value > 65535)
-                    throw new IndexOutOfRangeException("Support valid port number from 10000 to 65535.");
+                    throw new IndexOutOfRangeException("Support valid port number from 0 to 65535.");
 
                 port = value;
             }
