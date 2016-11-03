@@ -24,6 +24,8 @@ namespace UniversalServiceTestWindow
         #region properties
         private List<IReceivable> receivers = null;
         private List<IServiceActor> actors = null;
+        private List<IStringCommandServiceActor> stringCmdActors = null;
+        private List<IBytesCommandServiceActor> bytesCmdActors = null;
 
         private string DeviceId
         {
@@ -77,7 +79,7 @@ namespace UniversalServiceTestWindow
 
         private void OnStringCommandReceived(string id, string commandText)
         {
-            if (string.IsNullOrEmpty(commandText))
+            if (string.IsNullOrEmpty(commandText) || stringCmdActors == null || stringCmdActors.Count == 0)
                 return;
 
             TextCommand cmd = TextCommand.Parse(commandText);
@@ -88,29 +90,22 @@ namespace UniversalServiceTestWindow
                     return;
             }
 
-            foreach (IServiceActor actor in actors)
+            foreach (IStringCommandServiceActor actor in stringCmdActors)
             {
-                actor.ExecuteCommand(commandText);
+                actor.ExecuteStringCommand(commandText);
             }
         }
 
         private void OnBytesCommandReceived(string id, Dictionary<int, KeyValuePair<byte, byte?>> commandBytes)
         {
-            if (commandBytes == null || commandBytes.Count == 0)
+            if (commandBytes == null || commandBytes.Count == 0
+                || bytesCmdActors == null || bytesCmdActors.Count == 0)
                 return;
 
-            //TextCommand cmd = TextCommand.Parse(commandText);
-            //if (cmd != null)
-            //{
-            //    string targetDevIds = cmd.GetParameterValue(TextCommand.ParameterName.MultiDeviceId);
-            //    if (!IsItMe(targetDevIds))
-            //        return;
-            //}
-
-            //foreach (IServiceActor actor in actors)
-            //{
-            //    actor.ExecuteCommand(commandText);
-            //}
+            foreach (IBytesCommandServiceActor actor in bytesCmdActors)
+            {
+                actor.ExecuteBytesCommand(commandBytes);
+            }
         }
         #endregion
 
@@ -195,6 +190,7 @@ namespace UniversalServiceTestWindow
                             }
                             else
                             {
+                                LogMessage(TraceEventType.Start, $"Unsupported receiver type, {type.FullName}.");
                                 continue;
                             }
 
@@ -222,6 +218,8 @@ namespace UniversalServiceTestWindow
                 return;
 
             Type actorType = typeof(IServiceActor);
+            Type stringActorType = typeof(IStringCommandServiceActor);
+            Type bytesActorType = typeof(IBytesCommandServiceActor);
             foreach (string path in dllPaths)
             {
                 try
@@ -237,11 +235,35 @@ namespace UniversalServiceTestWindow
                         {
                             IServiceActor actor = (IServiceActor)Activator.CreateInstance(type);
 
-                            if (actors == null)
-                                actors = new List<IServiceActor>();
+                            if (type.GetInterface(stringActorType.FullName) != null)
+                            {
+                                IStringCommandServiceActor stringActor = (IStringCommandServiceActor)actor;
+
+                                if (stringCmdActors == null)
+                                    stringCmdActors = new List<IStringCommandServiceActor>();
+                                stringCmdActors.Add(stringActor);
+                            }
+                            else if (type.GetInterface(bytesActorType.FullName) != null)
+                            {
+                                IBytesCommandServiceActor bytesActor = (IBytesCommandServiceActor)actor;
+
+                                if (bytesCmdActors == null)
+                                    bytesCmdActors = new List<IBytesCommandServiceActor>();
+                                bytesCmdActors.Add(bytesActor);
+                            }
+                            else
+                            {
+                                LogMessage(TraceEventType.Start, $"Unsupported actor type, {type.FullName}.");
+                                continue;
+                            }
 
                             if (actor.StartActor())
+                            {
+                                if (actors == null)
+                                    actors = new List<IServiceActor>();
+
                                 actors.Add(actor);
+                            }
                         }
                     }
                 }
