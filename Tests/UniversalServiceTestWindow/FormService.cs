@@ -96,7 +96,7 @@ namespace UniversalServiceTestWindow
             }
         }
 
-        private void OnBytesCommandReceived(string id, Dictionary<int, KeyValuePair<byte, byte?>> commandBytes)
+        private void OnBytesCommandReceived(string id, Dictionary<int, KeyValuePair<byte, byte?>> commandBytes, string commandText)
         {
             if (commandBytes == null || commandBytes.Count == 0
                 || bytesCmdActors == null || bytesCmdActors.Count == 0)
@@ -104,7 +104,7 @@ namespace UniversalServiceTestWindow
 
             foreach (IBytesCommandServiceActor actor in bytesCmdActors)
             {
-                actor.ExecuteBytesCommand(commandBytes);
+                actor.ExecuteBytesCommand(commandBytes, commandText);
             }
         }
         #endregion

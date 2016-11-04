@@ -20,7 +20,7 @@ namespace TCell.Abstraction
 
     public interface IBytesCommandReceivable
     {
-        Action<string, Dictionary<int, KeyValuePair<byte, byte?>>> BytesCommandReceivedHandler { get; set; }
+        Action<string, Dictionary<int, KeyValuePair<byte, byte?>>, string> BytesCommandReceivedHandler { get; set; }
     }
 
 
@@ -116,6 +116,6 @@ namespace TCell.Abstraction
 
     public interface IBytesCommandServiceActor
     {
-        bool ExecuteBytesCommand(Dictionary<int, KeyValuePair<byte, byte?>> commandBytes);
+        bool ExecuteBytesCommand(Dictionary<int, KeyValuePair<byte, byte?>> commandBytes, string commandText);
     }
 }
