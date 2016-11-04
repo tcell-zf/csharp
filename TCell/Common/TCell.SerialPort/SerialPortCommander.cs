@@ -13,6 +13,11 @@ namespace TCell.SerialPort
         private IO.SerialPort port = null;
         private SerialPortParam config = null;
 
+        public string Id
+        {
+            get { return config.Id; }
+        }
+
         public bool IsOpen
         {
             get { return (port != null && port.IsOpen); }

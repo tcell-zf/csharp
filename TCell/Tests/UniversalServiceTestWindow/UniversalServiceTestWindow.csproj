@@ -81,13 +81,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Mexxum\Common\Mexxum.WindowsServicePlugins.EpsonProjectorActor\Mexxum.WindowsServicePlugins.EpsonProjectorActor.csproj">
+      <Project>{2b0f445c-82be-4b06-92f9-ac0ab3d9dc35}</Project>
+      <Name>Mexxum.WindowsServicePlugins.EpsonProjectorActor</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Mexxum\Common\Mexxum.WindowsServicePlugins.ModbusCommand\Mexxum.WindowsServicePlugins.ModbusCommand.csproj">
       <Project>{38946cfe-9a14-4d64-a4f7-17f4afd9a638}</Project>
       <Name>Mexxum.WindowsServicePlugins.ModbusCommand</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Applications\TCell.WindowsServicePlugins.BroadcastActor\TCell.WindowsServicePlugins.BroadcastActor.csproj">
-      <Project>{794113ba-18fa-4cd4-a4b3-af6810f144b7}</Project>
-      <Name>TCell.WindowsServicePlugins.BroadcastActor</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Common\TCell.Abstraction\TCell.Abstraction.csproj">
       <Project>{408281BA-340B-4175-BEC4-E51757C27A63}</Project>
@@ -101,6 +101,17 @@
       <Project>{A3DC3E73-E300-40AC-9D37-58CD7FEE8DC4}</Project>
       <Name>TCell.Text</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="epson-projector-commands\power-off\request.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="epson-projector-commands\power-on\request.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="epson-projector-commands\switch-to-hdmi\request.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
