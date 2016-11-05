@@ -178,28 +178,36 @@ namespace TCell.UniversalWindowsService
                         {
                             IReceivable receiver = (IReceivable)Activator.CreateInstance(type);
 
+                            bool isSupportedReceiver = false;
                             if (type.GetInterface(stringCmdRecType.FullName) != null)
                             {
                                 IStringCommandReceivable stringRec = (IStringCommandReceivable)receiver;
                                 stringRec.StringCommandReceivedHandler += this.OnStringCommandReceived;
+
+                                isSupportedReceiver = true;
                             }
-                            else if (type.GetInterface(bytesCmdRecType.FullName) != null)
+                            if (type.GetInterface(bytesCmdRecType.FullName) != null)
                             {
                                 IBytesCommandReceivable bytesRec = (IBytesCommandReceivable)receiver;
                                 bytesRec.BytesCommandReceivedHandler += this.OnBytesCommandReceived;
+
+                                isSupportedReceiver = true;
+                            }
+
+                            if (isSupportedReceiver)
+                            {
+                                if (receiver.StartReceiver())
+                                {
+                                    if (receivers == null)
+                                        receivers = new List<IReceivable>();
+
+                                    receivers.Add(receiver);
+                                }
                             }
                             else
                             {
                                 LogMessage(TraceEventType.Start, $"Unsupported receiver type, {type.FullName}.");
                                 continue;
-                            }
-
-                            if (receiver.StartReceiver())
-                            {
-                                if (receivers == null)
-                                    receivers = new List<IReceivable>();
-
-                                receivers.Add(receiver);
                             }
                         }
                     }
