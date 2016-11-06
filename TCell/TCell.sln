@@ -81,6 +81,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mexxum.WindowsServicePlugin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCell.SerialPort", "Common\TCell.SerialPort\TCell.SerialPort.csproj", "{4B270D13-1B84-4990-9EC4-3A5FB3897818}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mexxum.MediaPlayerPlugins.PowerPointPlayer2010", "..\Mexxum\Common\Mexxum.MediaPlayerPlugins.PowerPointPlayer2010\Mexxum.MediaPlayerPlugins.PowerPointPlayer2010.csproj", "{16A3ED07-4641-458C-87A9-5831E3A4653C}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -231,6 +233,10 @@ Global
 		{4B270D13-1B84-4990-9EC4-3A5FB3897818}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B270D13-1B84-4990-9EC4-3A5FB3897818}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B270D13-1B84-4990-9EC4-3A5FB3897818}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16A3ED07-4641-458C-87A9-5831E3A4653C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16A3ED07-4641-458C-87A9-5831E3A4653C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16A3ED07-4641-458C-87A9-5831E3A4653C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16A3ED07-4641-458C-87A9-5831E3A4653C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -264,5 +270,6 @@ Global
 		{38946CFE-9A14-4D64-A4F7-17F4AFD9A638} = {330F0FAB-5B11-4C0C-85A3-D29CCAECDE4E}
 		{4B9772B5-51A3-4DD2-9A47-6BDA85B8F5E3} = {C22A6F2D-50A1-4969-8B1F-5010EFBD3DEA}
 		{2B0F445C-82BE-4B06-92F9-AC0AB3D9DC35} = {330F0FAB-5B11-4C0C-85A3-D29CCAECDE4E}
+		{16A3ED07-4641-458C-87A9-5831E3A4653C} = {C37E7DB4-F200-4ADD-859A-6B5B12A8FDF4}
 	EndGlobalSection
 EndGlobal
