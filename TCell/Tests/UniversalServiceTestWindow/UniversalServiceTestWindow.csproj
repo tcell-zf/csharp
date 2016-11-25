@@ -83,10 +83,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Mexxum\Common\Mexxum.WindowsServicePlugins.EpsonProjectorActor\Mexxum.WindowsServicePlugins.EpsonProjectorActor.csproj">
-      <Project>{2b0f445c-82be-4b06-92f9-ac0ab3d9dc35}</Project>
-      <Name>Mexxum.WindowsServicePlugins.EpsonProjectorActor</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Mexxum\Common\Mexxum.WindowsServicePlugins.ModbusCommand\Mexxum.WindowsServicePlugins.ModbusCommand.csproj">
       <Project>{38946cfe-9a14-4d64-a4f7-17f4afd9a638}</Project>
       <Name>Mexxum.WindowsServicePlugins.ModbusCommand</Name>
