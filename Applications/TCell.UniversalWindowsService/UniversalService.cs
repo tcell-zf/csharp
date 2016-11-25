@@ -82,13 +82,14 @@ namespace TCell.UniversalWindowsService
             if (string.IsNullOrEmpty(commandText) || stringCmdActors == null || stringCmdActors.Count == 0)
                 return;
 
-            TextCommand cmd = TextCommand.Parse(commandText);
-            if (cmd != null)
-            {
-                string targetDevIds = cmd.GetParameterValue(TextCommand.ParameterName.MultiDeviceId);
-                if (!IsItMe(targetDevIds))
-                    return;
-            }
+            // Fuck, useless
+            //TextCommand cmd = TextCommand.Parse(commandText);
+            //if (cmd != null)
+            //{
+            //    string targetDevIds = cmd.GetParameterValue(TextCommand.ParameterName.MultiDeviceId);
+            //    if (!IsItMe(targetDevIds))
+            //        return;
+            //}
 
             foreach (IStringCommandServiceActor actor in stringCmdActors)
             {
