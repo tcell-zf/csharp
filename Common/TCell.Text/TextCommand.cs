@@ -155,6 +155,8 @@ namespace TCell.Text
             public const string PPTPrevious = "previous";
             public const string PPTNext = "next";
             public const string PPTLast = "last";
+            public const string PPTGoto = "goto";
+            public const string PPTPage = "page";
             public const string PPTClose = "close";
         }
     }
