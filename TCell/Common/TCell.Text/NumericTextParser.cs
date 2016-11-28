@@ -35,6 +35,24 @@ namespace TCell.Text
             catch { return null; }
         }
 
+        static public byte? ParseArbitaryBinary(string str)
+        {
+            if (string.IsNullOrEmpty(str))
+                return null;
+
+            try
+            {
+                byte by = 0;
+                for (int i = str.Length - 1; i >= 0; i--)
+                {
+                    by += (byte)(ParseBitValue(str.Substring(i, 1)) * Math.Pow(2, (str.Length - 1 - i)));
+                }
+
+                return by;
+            }
+            catch { return null; }
+        }
+
         static private byte ParseBitValue(string bit)
         {
             if (bit == "1")
@@ -144,5 +162,6 @@ namespace TCell.Text
             else
                 return byList.ToArray();
         }
+
     }
 }
