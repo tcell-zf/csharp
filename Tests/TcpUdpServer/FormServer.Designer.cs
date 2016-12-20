@@ -75,7 +75,7 @@
             0,
             0});
             this.numericUpDownPort.Minimum = new decimal(new int[] {
-            10000,
+            5000,
             0,
             0,
             0});
