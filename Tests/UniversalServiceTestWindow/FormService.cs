@@ -41,8 +41,8 @@ namespace UniversalServiceTestWindow
             PlayerHelper.SetLogHandler(LogException);
 
             LoadConfigurations();
-            LoadCommandReceivers();
             LoadActors();
+            LoadCommandReceivers();
 
             LogMessage(TraceEventType.Start, "Universal windows service started.");
         }
@@ -86,8 +86,8 @@ namespace UniversalServiceTestWindow
             if (cmd != null)
             {
                 string targetDevIds = cmd.GetParameterValue(TextCommand.ParameterName.MultiDeviceId);
-                if (!IsItMe(targetDevIds))
-                    return;
+                //if (!IsItMe(targetDevIds))
+                //    return;
             }
 
             foreach (IStringCommandServiceActor actor in stringCmdActors)
