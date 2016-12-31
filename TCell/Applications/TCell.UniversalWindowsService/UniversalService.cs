@@ -41,8 +41,8 @@ namespace TCell.UniversalWindowsService
             PlayerHelper.SetLogHandler(LogException);
 
             LoadConfigurations();
-            LoadCommandReceivers();
             LoadActors();
+            LoadCommandReceivers();
 
             LogMessage(TraceEventType.Start, "Universal windows service started.");
         }
