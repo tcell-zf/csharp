@@ -7,6 +7,9 @@
         xmlns:UserControls="clr-namespace:FramePlayer.UserControls" x:Class="FramePlayer.MainWindow"
         mc:Ignorable="d"
         Title="Image Frames Player" Height="350" Width="525" Background="Black" Name="Player">
+    <Window.Resources>
+        <local:NegetiveConverter x:Key="negConverter"/>
+    </Window.Resources>
     <Grid>
 
         <UserControls:SlidingPanel HorizontalAlignment="Left" VerticalAlignment="Top" Width="{Binding ElementName=Player, Path=ActualWidth}" IsExpanded="True"/>
