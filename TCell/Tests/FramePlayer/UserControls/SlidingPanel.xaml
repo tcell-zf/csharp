@@ -1,10 +1,10 @@
 ﻿<UserControl x:Class="FramePlayer.UserControls.SlidingPanel"
+             xmlns:clr="clr-namespace:System;assembly=mscorlib"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FramePlayer.UserControls"
-             xmlns:l="clr-namespace:FramePlayer"
              mc:Ignorable="d" 
              d:DesignHeight="200" d:DesignWidth="600"
              Background="Gray">
@@ -12,12 +12,12 @@
         <TranslateTransform x:Name="ttSilde"/>
     </UserControl.RenderTransform>
     <UserControl.Resources>
-        <l:NegetiveConverter x:Key="negConverter"/>
+        <clr:Double x:Key="settingsPanelHeight">-100</clr:Double>
         <Storyboard x:Key="expanding">
-            <DoubleAnimation Storyboard.TargetName="ttSilde" Storyboard.TargetProperty="Y" From="{Binding ElementName=expander, Path=Height}" To="{Binding ElementName=settings, Path=Height, Converter={StaticResource negConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Duration="0:0:0.15" />
+            <DoubleAnimation Storyboard.TargetName="ttSilde" Storyboard.TargetProperty="Y" From="{Binding ElementName=expander, Path=Height}" To="{StaticResource settingsPanelHeight}" Duration="0:0:0.15" />
         </Storyboard>
         <Storyboard x:Key="collapsing">
-            <DoubleAnimation Storyboard.TargetName="ttSilde" Storyboard.TargetProperty="Y" From="-100" To="{Binding ElementName=expander, Path=Height}" Duration="0:0:0.15" />
+            <DoubleAnimation Storyboard.TargetName="ttSilde" Storyboard.TargetProperty="Y" From="{StaticResource settingsPanelHeight}" To="{Binding ElementName=expander, Path=Height}" Duration="0:0:0.15" />
         </Storyboard>
     </UserControl.Resources>
 
