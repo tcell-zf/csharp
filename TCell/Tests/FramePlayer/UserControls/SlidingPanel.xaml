@@ -6,18 +6,27 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FramePlayer.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="200" d:DesignWidth="600"
-             Background="Gray">
+             d:DesignHeight="200" d:DesignWidth="600">
+    <UserControl.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#19343434" Offset="0.762"/>
+            <GradientStop Color="#0C000000" Offset="1"/>
+            <GradientStop Color="#996E6E6E" Offset="0.006"/>
+            <GradientStop Color="#994F4F4F" Offset="0.221"/>
+        </LinearGradientBrush>
+    </UserControl.Background>
     <UserControl.RenderTransform>
         <TranslateTransform x:Name="ttSilde"/>
     </UserControl.RenderTransform>
     <UserControl.Resources>
-        <clr:Double x:Key="settingsPanelHeight">-100</clr:Double>
+        <clr:Double x:Key="settingsPanelHeight">170</clr:Double>
+        <clr:Double x:Key="negtiveSettingsPanelHeight">-170</clr:Double>
+
         <Storyboard x:Key="expanding">
-            <DoubleAnimation Storyboard.TargetName="ttSilde" Storyboard.TargetProperty="Y" From="{Binding ElementName=expander, Path=Height}" To="{StaticResource settingsPanelHeight}" Duration="0:0:0.15" />
+            <DoubleAnimation Storyboard.TargetName="ttSilde" Storyboard.TargetProperty="Y" From="{Binding ElementName=expander, Path=Height}" To="{StaticResource negtiveSettingsPanelHeight}" Duration="0:0:0.15" />
         </Storyboard>
         <Storyboard x:Key="collapsing">
-            <DoubleAnimation Storyboard.TargetName="ttSilde" Storyboard.TargetProperty="Y" From="{StaticResource settingsPanelHeight}" To="{Binding ElementName=expander, Path=Height}" Duration="0:0:0.15" />
+            <DoubleAnimation Storyboard.TargetName="ttSilde" Storyboard.TargetProperty="Y" From="{StaticResource negtiveSettingsPanelHeight}" To="{Binding ElementName=expander, Path=Height}" Duration="0:0:0.15" />
         </Storyboard>
     </UserControl.Resources>
 
@@ -27,8 +36,9 @@
             <RowDefinition Height="{Binding ElementName=expander, Path=Height}"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Name="settings" Height="100">
-            
+        <Grid Grid.Row="0" Name="settings" Height="{StaticResource settingsPanelHeight}" VerticalAlignment="Top">
+            <local:SliderEx HorizontalAlignment="Left" Margin="39,6,0,0" VerticalAlignment="Top" Width="300" Foreground="#FF3FFF00" Minimum="0" Maximum="999" MaxLength="3" Text="Interval (ms):"/>
+
         </Grid>
 
         <Expander Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" x:Name="expander" Height="23" Width="23" Background="{x:Null}" Opacity="0.6" Collapsed="expander_Collapsed" Expanded="expander_Expanded"/>
