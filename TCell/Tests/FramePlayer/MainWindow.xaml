@@ -9,6 +9,7 @@
         Title="Image Frames Player" Height="350" Width="525" Background="Black" Name="Player">
     <Grid>
 
+        <Image Name="img" Stretch="Uniform"/>
         <UserControls:SlidingPanel HorizontalAlignment="Left" VerticalAlignment="Top" Width="{Binding ElementName=Player, Path=ActualWidth}" IsExpanded="True" ButtonClicked="SlidingPanel_ButtonClicked"/>
 
     </Grid>
