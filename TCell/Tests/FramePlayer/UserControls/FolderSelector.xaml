@@ -5,8 +5,17 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FramePlayer.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="30" d:DesignWidth="300"
+             x:Name="uc">
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="30"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Column="0" Content="Folder of Frames:" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="{Binding ElementName=uc, Path=Foreground}"/>
+        <TextBox Grid.Column="1" x:Name="textBoxFolder" HorizontalAlignment="Stretch" VerticalAlignment="Center" Foreground="{Binding ElementName=uc, Path=Foreground}" Background="{Binding ElementName=uc, Path=Background}"/>
+        <Button Grid.Column="2" x:Name="buttonSelect" Content="..." HorizontalAlignment="Center" VerticalAlignment="Center" Width="28" Foreground="{Binding ElementName=uc, Path=Foreground}" Click="buttonSelect_Click"/>
     </Grid>
 </UserControl>

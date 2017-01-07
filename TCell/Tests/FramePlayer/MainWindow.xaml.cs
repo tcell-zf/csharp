@@ -1,28 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
 
 namespace FramePlayer
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void SlidingPanel_ButtonClicked(object sender, UserControls.ButtonClickedEventArgs e)
+        {
+            switch (e.ButtonType)
+            {
+                case UserControls.ButtonTypeEnum.Action:
+                    break;
+                case UserControls.ButtonTypeEnum.View:
+                    switch (WindowState)
+                    {
+                        case WindowState.Normal:
+                            WindowState = WindowState.Maximized;
+                            WindowStyle = WindowStyle.None;
+                            break;
+                        case WindowState.Maximized:
+                            WindowState = WindowState.Normal;
+                            WindowStyle = WindowStyle.ThreeDBorderWindow;
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

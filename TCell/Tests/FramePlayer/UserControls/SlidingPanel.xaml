@@ -6,7 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FramePlayer.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="200" d:DesignWidth="600">
+             d:DesignHeight="200" d:DesignWidth="600" Loaded="UserControl_Loaded">
     <UserControl.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="#19343434" Offset="0.762"/>
@@ -19,8 +19,8 @@
         <TranslateTransform x:Name="ttSilde"/>
     </UserControl.RenderTransform>
     <UserControl.Resources>
-        <clr:Double x:Key="settingsPanelHeight">170</clr:Double>
-        <clr:Double x:Key="negtiveSettingsPanelHeight">-170</clr:Double>
+        <clr:Double x:Key="settingsPanelHeight">130</clr:Double>
+        <clr:Double x:Key="negtiveSettingsPanelHeight">-130</clr:Double>
 
         <Storyboard x:Key="expanding">
             <DoubleAnimation Storyboard.TargetName="ttSilde" Storyboard.TargetProperty="Y" From="{Binding ElementName=expander, Path=Height}" To="{StaticResource negtiveSettingsPanelHeight}" Duration="0:0:0.15" />
@@ -37,8 +37,20 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Name="settings" Height="{StaticResource settingsPanelHeight}" VerticalAlignment="Top">
-            <local:SliderEx HorizontalAlignment="Left" Margin="39,6,0,0" VerticalAlignment="Top" Width="300" Foreground="#FF3FFF00" Minimum="0" Maximum="999" MaxLength="3" Text="Interval (ms):"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="15"/>
+            </Grid.ColumnDefinitions>
 
+            <local:FolderSelector Grid.Column="0" x:Name="folderSelector" HorizontalAlignment="Stretch" VerticalAlignment="Top" Foreground="#FF3FFF00" FrameImagesSelected="folderSelector_FrameImagesSelected"/>
+
+            <StackPanel Grid.Column="1" Name="parameterPanel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <local:SliderEx HorizontalAlignment="Right" VerticalAlignment="Top" Width="{Binding ElementName=buttonAction, Path=ActualWidth}" Foreground="#FF3FFF00" Minimum="0" Maximum="500" MaxLength="3" Text="Interval (ms):"/>
+                <local:SliderEx HorizontalAlignment="Right" VerticalAlignment="Top" Width="{Binding ElementName=buttonAction, Path=ActualWidth}" Foreground="#FF3FFF00" Minimum="1" Maximum="20" MaxLength="2" Text="Step:"/>
+                <Button x:Name="buttonAction" Content="Play" Margin="0,5,0,0" Click="buttonAction_Click"/>
+                <Button x:Name="buttonView" Content="Full Screen" Click="buttonView_Click"/>
+            </StackPanel>
         </Grid>
 
         <Expander Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" x:Name="expander" Height="23" Width="23" Background="{x:Null}" Opacity="0.6" Collapsed="expander_Collapsed" Expanded="expander_Expanded"/>
