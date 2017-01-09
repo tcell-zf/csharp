@@ -1,0 +1,82 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BallRoller"
+        xmlns:UserControls="clr-namespace:BallRoller.UserControls" x:Class="BallRoller.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525" Loaded="Window_Loaded">
+    <Window.Resources>
+        <RadialGradientBrush x:Key="RedBackground">
+            <RadialGradientBrush.GradientStops>
+                <GradientStopCollection>
+                    <GradientStop Color="sc#1, 0.1, 0, 0" Offset="1"/>
+                    <GradientStop Color="sc#1, 1, 0.1, 0" Offset="0.5"/>
+                    <GradientStop Color="sc#1, 1, 1, 0.1" Offset="0"/>
+                </GradientStopCollection>
+            </RadialGradientBrush.GradientStops>
+        </RadialGradientBrush>
+
+        <RadialGradientBrush x:Key="BlueBackground">
+            <RadialGradientBrush.GradientStops>
+                <GradientStopCollection>
+                    <GradientStop Color="#FF302659" Offset="1"/>
+                    <GradientStop Color="#FF009AFF" Offset="0.5"/>
+                    <GradientStop Color="#FFAEFCFF" Offset="0"/>
+                </GradientStopCollection>
+            </RadialGradientBrush.GradientStops>
+        </RadialGradientBrush>
+
+        <RadialGradientBrush x:Key="PinkBackground">
+            <RadialGradientBrush.GradientStops>
+                <GradientStopCollection>
+                    <GradientStop Color="#FFE240A6" Offset="1"/>
+                    <GradientStop Color="#FFFFBAA8" Offset="0.5"/>
+                    <GradientStop Color="#FFD4D49E" Offset="0"/>
+                </GradientStopCollection>
+            </RadialGradientBrush.GradientStops>
+        </RadialGradientBrush>
+    </Window.Resources>
+
+    <Grid x:Name="mainGrid" Background="{StaticResource RedBackground}">
+        <UserControls:Trackball x:Name="ball" ZoomFactor="0.4"/>
+
+        <Grid Width="72" Height="24" HorizontalAlignment="Right" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Canvas Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="20" Background="{StaticResource RedBackground}" MouseUp="CanvasRed_MouseUp" TouchUp="CanvasRed_TouchUp"/>
+            <Canvas Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="20" Background="{StaticResource BlueBackground}" MouseUp="CanvasBlue_MouseUp" TouchUp="CanvasBlue_TouchUp"/>
+            <Canvas Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="20" Background="{StaticResource PinkBackground}" MouseUp="CanvasPink_MouseUp" TouchUp="CanvasPink_TouchUp"/>
+            <Button Grid.Column="3" x:Name="buttonFullScreen" Content="F" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" Click="buttonFullScreen_Click"/>
+        </Grid>
+
+        <Grid Width="{Binding ElementName=mainGrid, Path=ActualWidth}" Height="150" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#66636363">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Column="0" Content="Zoom:" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,25" Foreground="#FF3DFF16"/>
+            <Label Grid.Column="0" Content="{Binding ElementName=ball, Path=ZoomFactor}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="50,0,0,25" Foreground="#FF3DFF16"/>
+            <Slider Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Minimum="0" Maximum="4" TickPlacement="TopLeft" Margin="10,0,10,5" Value="{Binding ElementName=ball, Path=ZoomFactor}"/>
+
+            <Label Grid.Column="1" Content="X:" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,125" Foreground="#FF3DFF16"/>
+            <Label Grid.Column="1" Content="X" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="25,0,0,125" Foreground="#FF3DFF16"/>
+            <Slider Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Minimum="0" Maximum="360" TickPlacement="TopLeft" Margin="10,0,10,105"/>
+
+            <Label Grid.Column="1" Content="Y:" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,65" Foreground="#FF3DFF16"/>
+            <Label Grid.Column="1" Content="Y" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="25,0,0,65" Foreground="#FF3DFF16"/>
+            <Slider Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Minimum="0" Maximum="360" TickPlacement="TopLeft" Margin="10,0,10,45"/>
+
+            <Label Grid.Column="1" Content="Z:" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,25" Foreground="#FF3DFF16"/>
+            <Label Grid.Column="1" Content="Z" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="25,0,0,25" Foreground="#FF3DFF16"/>
+            <Slider Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Minimum="0" Maximum="360" TickPlacement="TopLeft" Margin="10,0,10,5"/>
+        </Grid>
+    </Grid>
+</Window>
