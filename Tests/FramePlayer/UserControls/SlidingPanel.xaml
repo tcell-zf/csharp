@@ -46,8 +46,8 @@
             <local:FolderSelector Grid.Column="0" x:Name="folderSelector" HorizontalAlignment="Stretch" VerticalAlignment="Top" Foreground="#FF3FFF00" FrameImagesSelected="folderSelector_FrameImagesSelected"/>
 
             <StackPanel Grid.Column="1" Name="parameterPanel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <local:SliderEx HorizontalAlignment="Right" VerticalAlignment="Top" Width="{Binding ElementName=buttonAction, Path=ActualWidth}" Foreground="#FF3FFF00" Minimum="0" Maximum="500" MaxLength="3" Text="Interval (ms):"/>
-                <local:SliderEx HorizontalAlignment="Right" VerticalAlignment="Top" Width="{Binding ElementName=buttonAction, Path=ActualWidth}" Foreground="#FF3FFF00" Minimum="1" Maximum="20" MaxLength="2" Text="Step:"/>
+                <local:SliderEx x:Name="sliderInterval" HorizontalAlignment="Right" VerticalAlignment="Top" Width="{Binding ElementName=buttonAction, Path=ActualWidth}" Foreground="#FF3FFF00" Minimum="0" Maximum="500" MaxLength="3" Text="Interval (ms):"/>
+                <local:SliderEx x:Name="sliderStep" HorizontalAlignment="Right" VerticalAlignment="Top" Width="{Binding ElementName=buttonAction, Path=ActualWidth}" Foreground="#FF3FFF00" Minimum="1" Maximum="20" MaxLength="2" Text="Step:"/>
                 <Button x:Name="buttonAction" Content="Play" Margin="0,5,0,0" Click="buttonAction_Click"/>
                 <Button x:Name="buttonView" Content="Full Screen" Click="buttonView_Click"/>
             </StackPanel>

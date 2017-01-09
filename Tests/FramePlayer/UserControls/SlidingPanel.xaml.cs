@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 
@@ -23,6 +24,26 @@ namespace FramePlayer.UserControls
 
         #region properties
         private bool isFullScreen = false;
+
+        public string ActionButonText
+        {
+            set { buttonAction.Content = value; }
+        }
+
+        public List<string> FrameImages
+        {
+            get { return folderSelector.FrameImages; }
+        }
+
+        public int Interval
+        {
+            get { return (int)sliderInterval.Value; }
+        }
+
+        public int Step
+        {
+            get { return (int)sliderStep.Value; }
+        }
 
         public static readonly DependencyProperty IsExpandedProperty = DependencyProperty.Register("IsExpanded", typeof(bool), typeof(SlidingPanel),
             new FrameworkPropertyMetadata(false, new PropertyChangedCallback(IsExpandedPropertyChangedCallback)));

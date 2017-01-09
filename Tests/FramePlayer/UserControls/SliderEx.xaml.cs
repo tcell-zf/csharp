@@ -51,7 +51,7 @@ namespace FramePlayer.UserControls
         }
         public double Value
         {
-            get { return (double)this.GetValue(ValueProperty); }
+            get { return slider.Value; }
             set { this.SetValue(ValueProperty, value); }
         }
 

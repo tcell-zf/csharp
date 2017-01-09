@@ -74,18 +74,18 @@ namespace FramePlayer.UserControls
                 if (FrameImages != null && FrameImages.Count > 0)
                 {
                     this.SelectedPath = dlg.SelectedPath;
-
-                    FrameImagesSelectedEventArgs args = new FrameImagesSelectedEventArgs()
-                    {
-                        RoutedEvent = FrameImagesSelectedEvent,
-                        FrameImages = this.FrameImages
-                    };
-                    RaiseEvent(args);
                 }
                 else
                 {
                     textBoxFolder.Text = string.Empty;
                 }
+
+                FrameImagesSelectedEventArgs args = new FrameImagesSelectedEventArgs()
+                {
+                    RoutedEvent = FrameImagesSelectedEvent,
+                    FrameImages = this.FrameImages
+                };
+                RaiseEvent(args);
             }
         }
         #endregion
