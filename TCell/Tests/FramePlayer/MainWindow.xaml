@@ -1,16 +1,17 @@
 ﻿<Window
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:FramePlayer"
-        xmlns:UserControls="clr-namespace:FramePlayer.UserControls" x:Class="FramePlayer.MainWindow"
-        mc:Ignorable="d"
-        Title="Image Frames Player" Height="350" Width="525" Background="Black" Name="Player">
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:FramePlayer"
+    xmlns:UserControls="clr-namespace:FramePlayer.UserControls" x:Class="FramePlayer.MainWindow"
+    mc:Ignorable="d"
+    Title="Image Frames Player" Height="576" Width="1024" Background="Black" Name="Player" WindowStartupLocation="CenterScreen"
+    Closed="Player_Closed" KeyUp="Player_KeyUp">
     <Grid>
 
         <Image Name="img" Stretch="Uniform"/>
-        <UserControls:SlidingPanel HorizontalAlignment="Left" VerticalAlignment="Top" Width="{Binding ElementName=Player, Path=ActualWidth}" IsExpanded="True" ButtonClicked="SlidingPanel_ButtonClicked"/>
+        <UserControls:SlidingPanel x:Name="panel" HorizontalAlignment="Left" VerticalAlignment="Top" Width="{Binding ElementName=Player, Path=ActualWidth}" IsExpanded="True" ButtonClicked="SlidingPanel_ButtonClicked"/>
 
     </Grid>
 </Window>
