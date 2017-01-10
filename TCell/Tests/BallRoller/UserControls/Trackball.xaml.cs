@@ -27,8 +27,8 @@ namespace BallRoller.UserControls
         TrackballTemplate trackball;
 
         public static readonly DependencyProperty ZoomFactorProperty = DependencyProperty.Register("ZoomFactor", typeof(double), typeof(Trackball),
-            new FrameworkPropertyMetadata(1.0, new PropertyChangedCallback(ZoomPropertyChangedCallback)));
-        private static void ZoomPropertyChangedCallback(DependencyObject sender, DependencyPropertyChangedEventArgs arg)
+            new FrameworkPropertyMetadata(1.0, new PropertyChangedCallback(ZoomFactorPropertyChangedCallback)));
+        private static void ZoomFactorPropertyChangedCallback(DependencyObject sender, DependencyPropertyChangedEventArgs arg)
         {
             Trackball ctrl = sender as Trackball;
             if (ctrl != null)
@@ -39,9 +39,6 @@ namespace BallRoller.UserControls
             get { return (double)this.GetValue(ZoomFactorProperty); }
             set { this.SetValue(ZoomFactorProperty, value); }
         }
-        #endregion
-
-        #region events
         #endregion
 
         #region public functions

@@ -15,7 +15,7 @@ namespace BallRoller
         #region events
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ball.Roll();
+            //ball.Roll();
         }
 
         private void CanvasRed_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
