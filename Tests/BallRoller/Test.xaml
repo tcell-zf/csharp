@@ -1,0 +1,17 @@
+﻿<Window x:Class="BallRoller.Test"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BallRoller"
+        mc:Ignorable="d"
+        Title="Frame Data" Height="751.567" Width="726.881">
+    <Grid>
+        <Label x:Name="displayID" Content="Label" HorizontalAlignment="Left" Margin="35,10,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="displayTimestamp" Content="Label" HorizontalAlignment="Left" Margin="107,10,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="displayFPS" Content="Label" HorizontalAlignment="Left" Margin="197,10,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="displayHandCount" Content="Label" HorizontalAlignment="Left" Margin="287,10,0,0" VerticalAlignment="Top"/>
+        <Image x:Name="displayImages" HorizontalAlignment="Left" Height="480" VerticalAlignment="Top" Width="640" Margin="10,36,0,0"/>
+        <TextBox x:Name="debugText" HorizontalAlignment="Left" Height="178" Margin="10,533,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="699"/>
+    </Grid>
+</Window>
