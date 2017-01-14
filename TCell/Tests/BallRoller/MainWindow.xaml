@@ -42,6 +42,7 @@
     <Grid x:Name="mainGrid" Background="{StaticResource RedBackground}">
         <!--<UserControls:Trackball x:Name="ball" ZoomFactor="0.4"/>-->
         <UserControls:Ball x:Name="ball" ZoomFactor="0.4"/>
+        <TextBlock x:Name="textBlockConnectionInfo" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Foreground="#FF14FF03"/>
 
         <Grid Width="72" Height="24" HorizontalAlignment="Right" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
