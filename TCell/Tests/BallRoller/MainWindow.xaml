@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BallRoller"
         xmlns:UserControls="clr-namespace:BallRoller.UserControls" x:Class="BallRoller.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" Loaded="Window_Loaded">
+        Title="MainWindow" Height="350" Width="525" Loaded="Window_Loaded" KeyUp="Window_KeyUp">
     <Window.Resources>
         <RadialGradientBrush x:Key="RedBackground">
             <RadialGradientBrush.GradientStops>

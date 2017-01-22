@@ -1,9 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Media;
 
 using Leap;
+using System.Collections.Generic;
 
 namespace BallRoller
 {
@@ -18,6 +20,8 @@ namespace BallRoller
 
         #region properties
         private Controller leapCtrl = null;
+        private DateTime? prevFrameReceived = null;
+        private float? prevDist = null;
         #endregion
 
         #region events
@@ -32,6 +36,12 @@ namespace BallRoller
             leapCtrl.DeviceLost += leapCtrl_DeviceLost;
             leapCtrl.FrameReady += leapCtrl_FrameReady;
             //ball.Roll();
+        }
+
+        private void Window_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Escape)
+                Close();
         }
 
         private void CanvasRed_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -121,47 +131,69 @@ namespace BallRoller
 
         private void leapCtrl_FrameReady(object sender, FrameEventArgs eventArgs)
         {
+            if (prevFrameReceived == null)
+            {
+                prevFrameReceived = DateTime.Now;
+                return;
+            }
+            if ((DateTime.Now - prevFrameReceived.Value).Milliseconds < 500)
+                return;
             if (eventArgs.frame.Hands == null || eventArgs.frame.Hands.Count == 0)
                 return;
 
-            Hand h = eventArgs.frame.Hands[0];
-            if (h != null)
+            if (eventArgs.frame.Hands.Count == 2)
             {
-                if (h.IsRight)
-                {
-                    if (h.PinchStrength > 0.4)
-                    {
-                        if (h.PinchDistance > 40)
-                            ball.ZoomFactor += 0.05;
-
-                        if (ball.ZoomFactor > 4)
-                            ball.ZoomFactor = 4;
-                    }
-                }
-                else
-                {
-                    if (h.PinchStrength > 0.4)
-                    {
-                        if (h.PinchDistance > 40)
-                            ball.ZoomFactor -= 0.05;
-
-                        if (ball.ZoomFactor < 0)
-                            ball.ZoomFactor = 0;
-                    }
-                }
-
-                //Finger thumb = (from f in h.Fingers
-                //                where f.Type == Finger.FingerType.TYPE_THUMB
-                //                select f).SingleOrDefault();
-                //Finger index = (from f in h.Fingers
-                //                where f.Type == Finger.FingerType.TYPE_INDEX
-                //                select f).SingleOrDefault();
-
-                //if (thumb != null && index != null)
-                //{
-
-                //}
+                HandleZooming(eventArgs.frame.Hands[0], eventArgs.frame.Hands[1]);
             }
+            else
+            {
+                prevDist = null;
+
+                if (eventArgs.frame.Hands.Count == 1)
+                {
+                    if (eventArgs.frame.Hands[0].IsLeft)
+                        HandleBackgroundChanging(eventArgs.frame.Hands[0]);
+                }
+            }
+
+            //Hand h = eventArgs.frame.Hands[0];
+            //if (h != null)
+            //{
+            //    if (h.IsRight)
+            //    {
+            //        if (h.PinchStrength > 0.4)
+            //        {
+            //            if (h.PinchDistance > 40)
+            //                ball.ZoomFactor += 0.05;
+
+            //            if (ball.ZoomFactor > 4)
+            //                ball.ZoomFactor = 4;
+            //        }
+            //    }
+            //    else
+            //    {
+            //        if (h.PinchStrength > 0.4)
+            //        {
+            //            if (h.PinchDistance > 40)
+            //                ball.ZoomFactor -= 0.05;
+
+            //            if (ball.ZoomFactor < 0)
+            //                ball.ZoomFactor = 0;
+            //        }
+            //    }
+
+            //    //Finger thumb = (from f in h.Fingers
+            //    //                where f.Type == Finger.FingerType.TYPE_THUMB
+            //    //                select f).SingleOrDefault();
+            //    //Finger index = (from f in h.Fingers
+            //    //                where f.Type == Finger.FingerType.TYPE_INDEX
+            //    //                select f).SingleOrDefault();
+
+            //    //if (thumb != null && index != null)
+            //    //{
+
+            //    //}
+            //}
         }
         #endregion
 
@@ -171,6 +203,80 @@ namespace BallRoller
             var res = this.TryFindResource(bgName) as RadialGradientBrush;
             if (res != null)
                 mainGrid.Background = res;
+        }
+
+        private void HandleZooming(Hand h1, Hand h2)
+        {
+            float distance = h1.PalmPosition.DistanceTo(h2.PalmPosition);
+
+            if (prevDist != null)
+            {
+                float diff = distance - prevDist.Value;
+
+                double factor = ball.ZoomFactor;
+                if (diff < -2.0)
+                {
+                    factor -= 0.01;
+                    if (factor < 0)
+                        factor = 0;
+                }
+                else if (diff > 2.0)
+                {
+                    factor += 0.01;
+                    if (factor > 4.0)
+                        factor = 4.0;
+                }
+                else { }
+
+                ball.ZoomFactor = factor;
+            }
+
+            prevDist = distance;
+        }
+
+        private void HandleBackgroundChanging(Hand h)
+        {
+            List<Finger> extendedFingers = new List<Finger>();
+            foreach (Finger f in h.Fingers)
+            {
+                if (f.IsExtended)
+                {
+                    if (extendedFingers == null)
+                        extendedFingers = new List<Finger>();
+                    extendedFingers.Add(f);
+                }
+            }
+
+            switch (extendedFingers.Count)
+            {
+                case 0:
+                    WindowStyle = WindowStyle.SingleBorderWindow;
+                    WindowState = WindowState.Normal;
+                    buttonFullScreen.Content = "F";
+                    break;
+                case 1:
+                    if (extendedFingers[0].Type == Finger.FingerType.TYPE_INDEX)
+                        ChangeBackground("RedBackground");
+                    break;
+                case 2:
+                    if (extendedFingers[0].Type == Finger.FingerType.TYPE_INDEX || extendedFingers[0].Type == Finger.FingerType.TYPE_MIDDLE
+                        || extendedFingers[1].Type == Finger.FingerType.TYPE_INDEX || extendedFingers[1].Type == Finger.FingerType.TYPE_MIDDLE)
+                        ChangeBackground("BlueBackground");
+                    break;
+                case 3:
+                    if (extendedFingers[0].Type == Finger.FingerType.TYPE_MIDDLE || extendedFingers[0].Type == Finger.FingerType.TYPE_RING || extendedFingers[0].Type == Finger.FingerType.TYPE_PINKY
+                        || extendedFingers[1].Type == Finger.FingerType.TYPE_MIDDLE || extendedFingers[1].Type == Finger.FingerType.TYPE_RING || extendedFingers[1].Type == Finger.FingerType.TYPE_PINKY
+                        || extendedFingers[2].Type == Finger.FingerType.TYPE_MIDDLE || extendedFingers[2].Type == Finger.FingerType.TYPE_RING || extendedFingers[2].Type == Finger.FingerType.TYPE_PINKY)
+                        ChangeBackground("PinkBackground");
+                    break;
+                case 5:
+                    WindowStyle = WindowStyle.None;
+                    WindowState = WindowState.Maximized;
+                    buttonFullScreen.Content = "N";
+                    break;
+                default:
+                    break;
+            }
         }
         #endregion
     }
